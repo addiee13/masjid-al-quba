@@ -9,7 +9,9 @@
     "lint": "eslint"
   },
   "dependencies": {
+    "adhan": "^4.4.3",
     "lucide-react": "^0.563.0",
+    "moment-hijri": "^3.0.0",
     "next": "16.1.6",
     "react": "19.2.3",
     "react-dom": "19.2.3"

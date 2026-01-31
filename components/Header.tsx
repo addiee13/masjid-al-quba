@@ -108,7 +108,7 @@ function DesktopDropdown({ item }: { item: NavItem }) {
       onMouseLeave={() => setIsOpen(false)}
     >
       <button
-        className="font-heading text-primary-dark hover:text-primary-green transition-all duration-300 px-4 py-2 flex items-center gap-1.5 text-sm xl:text-base relative group"
+        className="font-heading font-semibold text-primary-dark hover:text-primary-green transition-all duration-300 px-4 py-2 flex items-center gap-1.5 text-sm xl:text-base relative group"
         onClick={() => setIsOpen(!isOpen)}
       >
         <span className="relative">
@@ -153,7 +153,7 @@ function DesktopMegaMenu({ item }: { item: NavItem }) {
       }}
     >
       <button
-        className="font-heading text-primary-dark hover:text-primary-green transition-all duration-300 px-4 py-2 flex items-center gap-1.5 text-sm xl:text-base relative group"
+        className="font-heading font-semibold text-primary-dark hover:text-primary-green transition-all duration-300 px-4 py-2 flex items-center gap-1.5 text-sm xl:text-base relative group"
         onClick={() => setIsOpen(!isOpen)}
       >
         <span className="relative">
@@ -230,7 +230,7 @@ function DesktopNavItem({ item }: { item: NavItem }) {
     return (
       <Link
         href={item.href}
-        className="font-heading text-primary-dark hover:text-primary-green transition-all duration-300 px-4 py-2 text-sm xl:text-base relative group"
+        className="font-heading font-semibold text-primary-dark hover:text-primary-green transition-all duration-300 px-4 py-2 text-sm xl:text-base relative group"
       >
         <span className="relative">
           {item.label}
@@ -262,7 +262,7 @@ function MobileSimpleDropdown({
       <Link
         href={item.href}
         onClick={onClose}
-        className="block font-heading text-primary-dark hover:text-primary-green transition-colors px-4 py-3 text-lg border-b border-light-sage/30"
+        className="block font-heading font-semibold text-primary-dark hover:text-primary-green transition-colors px-4 py-3 text-lg border-b border-light-sage/30"
       >
         {item.label}
       </Link>
@@ -272,7 +272,7 @@ function MobileSimpleDropdown({
   return (
     <div className="border-b border-light-sage/30">
       <button
-        className="w-full font-heading text-primary-dark hover:text-primary-green transition-colors px-4 py-3 text-lg flex items-center justify-between"
+        className="w-full font-heading font-semibold text-primary-dark hover:text-primary-green transition-colors px-4 py-3 text-lg flex items-center justify-between"
         onClick={() => setIsOpen(!isOpen)}
       >
         {item.label}
@@ -314,7 +314,7 @@ function MobileMegaMenuAccordion({
     <div className="border-b border-light-sage/30">
       {/* Main toggle */}
       <button
-        className="w-full font-heading text-primary-dark hover:text-primary-green transition-colors px-4 py-3 text-lg flex items-center justify-between"
+        className="w-full font-heading font-semibold text-primary-dark hover:text-primary-green transition-colors px-4 py-3 text-lg flex items-center justify-between"
         onClick={() => {
           setIsOpen(!isOpen);
           if (isOpen) setOpenCategory(null);
@@ -521,7 +521,7 @@ export default function Header() {
           <Link
             href="/"
             onClick={() => setIsMobileMenuOpen(false)}
-            className="block font-heading text-primary-dark hover:text-primary-green transition-colors px-4 py-3 text-lg border-b border-light-sage/30"
+            className="block font-heading font-semibold text-primary-dark hover:text-primary-green transition-colors px-4 py-3 text-lg border-b border-light-sage/30"
           >
             Home
           </Link>
