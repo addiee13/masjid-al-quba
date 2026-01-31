@@ -1,0 +1,27 @@
+@import "tailwindcss";
+
+/* Brand Color Tokens */
+@theme inline {
+  /* Custom Brand Colors */
+  --color-primary-dark: #2E2E2E;
+  --color-primary-green: #6E6353;
+  --color-accent-sage: #8A887E;
+  --color-light-sage: #A2A092;
+  --color-bg-beige: #D1D0CB;
+
+  /* Font Families */
+  --font-heading: var(--font-messiri), ui-serif, Georgia, Cambria, "Times New Roman", Times, serif;
+  --font-body: var(--font-opensans), ui-sans-serif, system-ui, sans-serif;
+}
+
+/* Global Styles */
+body {
+  background-color: #D1D0CB;
+  color: #2E2E2E;
+  font-family: var(--font-body);
+}
+
+/* Heading Styles */
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-heading);
+}
