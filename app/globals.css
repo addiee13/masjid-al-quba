@@ -4,10 +4,13 @@
 @theme inline {
   /* Custom Brand Colors */
   --color-primary-dark: #2E2E2E;
-  --color-primary-green: #6E6353;
+  --color-primary-green: #3D5A45;  /* Forest green from logo */
+  --color-accent-olive: #6E6353;   /* Olive/brown accent */
   --color-accent-sage: #8A887E;
   --color-light-sage: #A2A092;
   --color-bg-beige: #D1D0CB;
+  --color-cream: #F5F5F3;
+  --color-white: #FFFFFF;
 
   /* Font Families */
   --font-heading: var(--font-messiri), ui-serif, Georgia, Cambria, "Times New Roman", Times, serif;
@@ -24,4 +27,127 @@ body {
 /* Heading Styles */
 h1, h2, h3, h4, h5, h6 {
   font-family: var(--font-heading);
+  letter-spacing: -0.02em;
+}
+
+/* Enhanced Typography */
+.text-gradient {
+  background: linear-gradient(135deg, #2E2E2E 0%, #6E6353 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* Decorative Elements */
+.decorative-line {
+  position: relative;
+}
+
+.decorative-line::after {
+  content: '';
+  position: absolute;
+  bottom: -8px;
+  left: 0;
+  width: 60px;
+  height: 3px;
+  background: linear-gradient(90deg, #6E6353 0%, #A2A092 100%);
+  border-radius: 2px;
+}
+
+.decorative-line-center::after {
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+/* Geometric Patterns */
+.pattern-bg {
+  background-image: 
+    radial-gradient(circle at 25% 25%, rgba(110, 99, 83, 0.05) 0%, transparent 50%),
+    radial-gradient(circle at 75% 75%, rgba(162, 160, 146, 0.08) 0%, transparent 50%);
+}
+
+.pattern-dots {
+  background-image: radial-gradient(circle, #A2A092 1px, transparent 1px);
+  background-size: 24px 24px;
+}
+
+/* Glass Effect */
+.glass {
+  background: rgba(255, 255, 255, 0.7);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+}
+
+/* Smooth Scrolling */
+html {
+  scroll-behavior: smooth;
+}
+
+/* Enhanced Button Styles */
+.btn-primary {
+  @apply bg-primary-green text-white font-body font-semibold rounded-full px-8 py-3;
+  @apply hover:shadow-lg hover:shadow-primary-green/30 hover:-translate-y-0.5;
+  @apply transition-all duration-300 ease-out;
+}
+
+.btn-secondary {
+  @apply border-2 border-primary-green text-primary-green font-body font-semibold rounded-full px-8 py-3;
+  @apply hover:bg-primary-green hover:text-white;
+  @apply transition-all duration-300 ease-out;
+}
+
+.btn-ghost {
+  @apply text-primary-dark font-body font-medium px-6 py-2;
+  @apply hover:text-primary-green;
+  @apply transition-colors duration-200;
+}
+
+/* Card Styles */
+.card {
+  @apply bg-white rounded-2xl shadow-sm;
+  @apply hover:shadow-xl hover:shadow-primary-dark/5;
+  @apply transition-all duration-300 ease-out;
+}
+
+.card-elevated {
+  @apply bg-white rounded-2xl shadow-lg shadow-primary-dark/5;
+  @apply hover:shadow-2xl hover:shadow-primary-dark/10 hover:-translate-y-1;
+  @apply transition-all duration-300 ease-out;
+}
+
+/* Section Dividers */
+.section-divider {
+  @apply w-full h-px bg-gradient-to-r from-transparent via-light-sage to-transparent;
+}
+
+/* Animated Underline for Links */
+.link-underline {
+  position: relative;
+}
+
+.link-underline::after {
+  content: '';
+  position: absolute;
+  bottom: -2px;
+  left: 0;
+  width: 0;
+  height: 2px;
+  background: currentColor;
+  transition: width 0.3s ease;
+}
+
+.link-underline:hover::after {
+  width: 100%;
+}
+
+/* Focus Styles */
+*:focus-visible {
+  @apply outline-none ring-2 ring-primary-green ring-offset-2;
+}
+
+/* Selection Color */
+::selection {
+  background-color: rgba(110, 99, 83, 0.2);
+  color: #2E2E2E;
 }

@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from "react";
 import Link from "next/link";
-import { Menu, X, ChevronDown, ChevronRight } from "lucide-react";
+import { Menu, X, ChevronDown, ChevronRight, Heart } from "lucide-react";
 
 // Types for navigation structure
 type NavLink = {
@@ -108,24 +108,28 @@ function DesktopDropdown({ item }: { item: NavItem }) {
       onMouseLeave={() => setIsOpen(false)}
     >
       <button
-        className="font-heading text-primary-dark hover:text-primary-green transition-colors px-3 py-2 flex items-center gap-1 text-sm xl:text-base"
+        className="font-heading text-primary-dark hover:text-primary-green transition-all duration-300 px-4 py-2 flex items-center gap-1.5 text-sm xl:text-base relative group"
         onClick={() => setIsOpen(!isOpen)}
       >
-        {item.label}
+        <span className="relative">
+          {item.label}
+          <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-primary-green group-hover:w-full transition-all duration-300" />
+        </span>
         <ChevronDown
-          className={`w-4 h-4 transition-transform ${isOpen ? "rotate-180" : ""}`}
+          className={`w-4 h-4 transition-transform duration-300 ${isOpen ? "rotate-180" : ""}`}
         />
       </button>
 
       {isOpen && item.dropdown && (
-        <div className="absolute top-full left-0 min-w-[200px] bg-white rounded-lg shadow-lg py-2 border border-light-sage">
+        <div className="absolute top-full left-0 min-w-[220px] bg-white rounded-xl shadow-xl shadow-primary-dark/10 py-3 border border-light-sage/50 mt-1 animate-in fade-in slide-in-from-top-2 duration-200">
           {item.dropdown.map((subItem) => (
             <Link
               key={subItem.href}
               href={subItem.href}
-              className="block px-4 py-2 font-body text-primary-dark hover:bg-bg-beige hover:text-primary-green transition-colors"
+              className="block px-5 py-2.5 font-body text-primary-dark hover:bg-gradient-to-r hover:from-bg-beige hover:to-transparent hover:text-primary-green transition-all duration-200 relative group"
             >
-              {subItem.label}
+              <span className="relative z-10">{subItem.label}</span>
+              <span className="absolute left-0 top-1/2 -translate-y-1/2 w-1 h-0 bg-primary-green group-hover:h-6 rounded-r transition-all duration-200" />
             </Link>
           ))}
         </div>
@@ -149,41 +153,45 @@ function DesktopMegaMenu({ item }: { item: NavItem }) {
       }}
     >
       <button
-        className="font-heading text-primary-dark hover:text-primary-green transition-colors px-3 py-2 flex items-center gap-1 text-sm xl:text-base"
+        className="font-heading text-primary-dark hover:text-primary-green transition-all duration-300 px-4 py-2 flex items-center gap-1.5 text-sm xl:text-base relative group"
         onClick={() => setIsOpen(!isOpen)}
       >
-        {item.label}
+        <span className="relative">
+          {item.label}
+          <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-primary-green group-hover:w-full transition-all duration-300" />
+        </span>
         <ChevronDown
-          className={`w-4 h-4 transition-transform ${isOpen ? "rotate-180" : ""}`}
+          className={`w-4 h-4 transition-transform duration-300 ${isOpen ? "rotate-180" : ""}`}
         />
       </button>
 
       {isOpen && item.categories && (
-        <div className="absolute top-full left-1/2 -translate-x-1/2 w-[450px] bg-white rounded-lg shadow-xl border border-light-sage overflow-hidden">
+        <div className="absolute top-full left-1/2 -translate-x-1/2 w-[480px] bg-white rounded-2xl shadow-2xl shadow-primary-dark/15 border border-light-sage/50 overflow-hidden mt-1 animate-in fade-in slide-in-from-top-2 duration-200">
           <div className="grid grid-cols-5">
             {/* Left Column - Categories */}
-            <div className="col-span-2 bg-gray-50 border-r border-light-sage/50 py-2">
+            <div className="col-span-2 bg-gradient-to-b from-bg-beige/50 to-bg-beige/30 border-r border-light-sage/30 py-3">
               {item.categories.map((category, index) => (
                 <button
                   key={category.name}
-                  className={`w-full text-left px-4 py-3 font-body text-sm transition-colors ${
+                  className={`w-full text-left px-5 py-3.5 font-body text-sm transition-all duration-200 ${
                     activeCategory === index
-                      ? "bg-primary-green text-white"
-                      : "text-primary-dark hover:bg-light-sage/30"
+                      ? "bg-primary-green text-white shadow-md shadow-primary-green/30"
+                      : "text-primary-dark hover:bg-white/50 hover:pl-6"
                   }`}
                   onMouseEnter={() => setActiveCategory(index)}
                 >
                   <span className="flex items-center justify-between">
                     {category.name}
-                    <ChevronRight className="w-4 h-4" />
+                    <ChevronRight className={`w-4 h-4 transition-transform ${activeCategory === index ? "translate-x-0.5" : ""}`} />
                   </span>
                 </button>
               ))}
             </div>
 
             {/* Right Column - Links */}
-            <div className="col-span-3 py-2 px-4">
-              <h3 className="font-heading text-primary-green font-semibold text-sm mb-3 pb-2 border-b border-light-sage/30">
+            <div className="col-span-3 py-4 px-5">
+              <h3 className="font-heading text-primary-green font-semibold text-sm mb-4 pb-2 border-b border-light-sage/30 flex items-center gap-2">
+                <span className="w-1.5 h-1.5 rounded-full bg-primary-green" />
                 {item.categories[activeCategory].name}
               </h3>
               <div className="space-y-1">
@@ -191,7 +199,7 @@ function DesktopMegaMenu({ item }: { item: NavItem }) {
                   <Link
                     key={link.href}
                     href={link.href}
-                    className="block py-2 px-2 font-body text-primary-dark hover:text-primary-green hover:bg-bg-beige/50 rounded transition-colors"
+                    className="block py-2.5 px-3 font-body text-primary-dark hover:text-primary-green hover:bg-bg-beige/50 rounded-lg transition-all duration-200 hover:translate-x-1"
                   >
                     {link.label}
                   </Link>
@@ -201,13 +209,13 @@ function DesktopMegaMenu({ item }: { item: NavItem }) {
           </div>
 
           {/* Footer - View All */}
-          <div className="border-t border-light-sage/50 px-4 py-3 bg-gray-50">
+          <div className="border-t border-light-sage/30 px-5 py-4 bg-gradient-to-r from-bg-beige/30 to-transparent">
             <Link
               href={item.href}
-              className="font-body text-sm text-primary-green hover:text-primary-dark transition-colors flex items-center gap-1"
+              className="font-body text-sm text-primary-green hover:text-primary-dark transition-all duration-200 flex items-center gap-1.5 group"
             >
               View All Services
-              <ChevronRight className="w-4 h-4" />
+              <ChevronRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
             </Link>
           </div>
         </div>
@@ -222,9 +230,12 @@ function DesktopNavItem({ item }: { item: NavItem }) {
     return (
       <Link
         href={item.href}
-        className="font-heading text-primary-dark hover:text-primary-green transition-colors px-3 py-2 text-sm xl:text-base"
+        className="font-heading text-primary-dark hover:text-primary-green transition-all duration-300 px-4 py-2 text-sm xl:text-base relative group"
       >
-        {item.label}
+        <span className="relative">
+          {item.label}
+          <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-primary-green group-hover:w-full transition-all duration-300" />
+        </span>
       </Link>
     );
   }
@@ -415,18 +426,23 @@ export default function Header() {
 
   return (
     <header
-      className={`sticky top-0 z-50 bg-bg-beige transition-shadow ${
-        hasScrolled ? "shadow-md" : ""
+      className={`sticky top-0 z-50 transition-all duration-300 ${
+        hasScrolled 
+          ? "bg-white/95 backdrop-blur-md shadow-lg shadow-primary-dark/5" 
+          : "bg-bg-beige"
       }`}
     >
       <nav className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex items-center justify-between h-16 md:h-20">
+        <div className="flex items-center justify-between h-18 md:h-22">
           {/* Logo */}
           <Link
             href="/"
-            className="font-heading text-xl md:text-2xl font-bold text-primary-dark hover:text-primary-green transition-colors"
+            className="font-heading text-xl md:text-2xl font-bold text-primary-dark hover:text-primary-green transition-all duration-300 flex items-center gap-3 group"
           >
-            Masjid Al-Quba
+            <span className="w-10 h-10 rounded-full bg-primary-green flex items-center justify-center text-white text-sm group-hover:scale-110 transition-transform duration-300">
+              Q
+            </span>
+            <span className="hidden sm:inline">Masjid Al-Quba</span>
           </Link>
 
           {/* Desktop Navigation */}
@@ -440,19 +456,21 @@ export default function Header() {
           <div className="hidden lg:block">
             <Link
               href="/donate"
-              className="bg-primary-green text-white font-body font-semibold rounded-full px-6 py-2 hover:opacity-90 transition-opacity"
+              className="bg-primary-green text-white font-body font-semibold rounded-full px-7 py-2.5 hover:shadow-lg hover:shadow-primary-green/30 hover:-translate-y-0.5 transition-all duration-300 flex items-center gap-2"
             >
+              <Heart className="w-4 h-4" />
               Donate
             </Link>
           </div>
 
           {/* Mobile: Donate Button + Hamburger Menu */}
-          <div className="flex items-center gap-2 lg:hidden">
+          <div className="flex items-center gap-3 lg:hidden">
             {/* Mobile Donate Button (visible next to hamburger) */}
             <Link
               href="/donate"
-              className="bg-primary-green text-white font-body font-semibold rounded-full px-4 py-1.5 text-sm hover:opacity-90 transition-opacity"
+              className="bg-primary-green text-white font-body font-semibold rounded-full px-4 py-2 text-sm hover:shadow-lg hover:shadow-primary-green/30 transition-all duration-300 flex items-center gap-1.5"
             >
+              <Heart className="w-3.5 h-3.5" />
               Donate
             </Link>
 
@@ -478,18 +496,19 @@ export default function Header() {
 
       {/* Mobile Slide-out Drawer */}
       <div
-        className={`fixed top-0 right-0 h-full w-[300px] max-w-[85vw] bg-bg-beige z-50 transform transition-transform duration-300 ease-in-out lg:hidden ${
+        className={`fixed top-0 right-0 h-full w-[320px] max-w-[85vw] bg-gradient-to-b from-bg-beige to-white z-50 transform transition-transform duration-300 ease-in-out lg:hidden shadow-2xl ${
           isMobileMenuOpen ? "translate-x-0" : "translate-x-full"
         }`}
       >
         {/* Drawer Header */}
-        <div className="flex items-center justify-between p-4 border-b border-light-sage">
-          <span className="font-heading text-lg font-bold text-primary-dark">
+        <div className="flex items-center justify-between p-5 border-b border-light-sage/50 bg-white/50">
+          <span className="font-heading text-xl font-bold text-primary-dark flex items-center gap-2">
+            <span className="w-8 h-8 rounded-full bg-primary-green flex items-center justify-center text-white text-xs">Q</span>
             Menu
           </span>
           <button
             onClick={() => setIsMobileMenuOpen(false)}
-            className="p-2 text-primary-dark hover:text-primary-green transition-colors"
+            className="p-2 text-primary-dark hover:text-primary-green hover:bg-bg-beige rounded-full transition-all duration-200"
             aria-label="Close menu"
           >
             <X className="w-6 h-6" />
