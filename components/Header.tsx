@@ -108,7 +108,7 @@ function DesktopDropdown({ item }: { item: NavItem }) {
       onMouseLeave={() => setIsOpen(false)}
     >
       <button
-        className="font-heading font-semibold text-primary-dark hover:text-primary-green transition-all duration-300 px-4 py-2 flex items-center gap-1.5 text-sm xl:text-base relative group"
+        className="font-heading font-semibold text-primary-dark hover:text-primary-green transition-all duration-300 px-4 py-2 flex items-center gap-1.5 text-base xl:text-lg relative group"
         onClick={() => setIsOpen(!isOpen)}
       >
         <span className="relative">
@@ -153,7 +153,7 @@ function DesktopMegaMenu({ item }: { item: NavItem }) {
       }}
     >
       <button
-        className="font-heading font-semibold text-primary-dark hover:text-primary-green transition-all duration-300 px-4 py-2 flex items-center gap-1.5 text-sm xl:text-base relative group"
+        className="font-heading font-semibold text-primary-dark hover:text-primary-green transition-all duration-300 px-4 py-2 flex items-center gap-1.5 text-base xl:text-lg relative group"
         onClick={() => setIsOpen(!isOpen)}
       >
         <span className="relative">
@@ -230,7 +230,7 @@ function DesktopNavItem({ item }: { item: NavItem }) {
     return (
       <Link
         href={item.href}
-        className="font-heading font-semibold text-primary-dark hover:text-primary-green transition-all duration-300 px-4 py-2 text-sm xl:text-base relative group"
+        className="font-heading font-semibold text-primary-dark hover:text-primary-green transition-all duration-300 px-4 py-2 text-base xl:text-lg relative group"
       >
         <span className="relative">
           {item.label}

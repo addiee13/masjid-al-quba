@@ -9,7 +9,11 @@
     "lint": "eslint"
   },
   "dependencies": {
+    "@sanity/client": "^7.14.1",
+    "@sanity/image-url": "^2.0.3",
     "adhan": "^4.4.3",
+    "embla-carousel-autoplay": "^8.6.0",
+    "embla-carousel-react": "^8.6.0",
     "lucide-react": "^0.563.0",
     "moment-hijri": "^3.0.0",
     "next": "16.1.6",

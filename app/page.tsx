@@ -1,6 +1,8 @@
 import { ArrowRight, BookOpen, Heart, Users, Calendar, Star } from "lucide-react";
 import Link from "next/link";
 import PrayerTimesWidget from "../components/PrayerTimesWidget";
+import EventHero from "../components/EventHero";
+import { getFeaturedEvents } from "../sanity/lib/queries";
 
 // Quick links data
 const quickLinks = [
@@ -49,7 +51,10 @@ const services = [
   },
 ];
 
-export default function Home() {
+export default async function Home() {
+  // Fetch featured events from Sanity
+  const featuredEvents = await getFeaturedEvents()
+  
   return (
     <div className="min-h-screen bg-bg-beige">
       {/* Hero Section */}
@@ -115,6 +120,11 @@ export default function Home() {
           </svg>
         </div>
       </section>
+
+      {/* Event Banner Section */}
+      {featuredEvents && featuredEvents.length > 0 && (
+        <EventHero events={featuredEvents} />
+      )}
 
       {/* Prayer Times Widget Section */}
       <section className="bg-white py-8 md:py-12">
