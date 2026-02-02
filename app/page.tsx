@@ -2,7 +2,8 @@ import { ArrowRight, BookOpen, Heart, Users, Calendar, Star } from "lucide-react
 import Link from "next/link";
 import PrayerTimesWidget from "../components/PrayerTimesWidget";
 import EventHero from "../components/EventHero";
-import { getFeaturedEvents } from "../sanity/lib/queries";
+import HeroCarousel from "../components/HeroCarousel";
+import { getFeaturedEvents, getHeroSlides } from "../sanity/lib/queries";
 
 // Quick links data
 const quickLinks = [
@@ -52,11 +53,17 @@ const services = [
 ];
 
 export default async function Home() {
-  // Fetch featured events from Sanity
-  const featuredEvents = await getFeaturedEvents()
+  // Fetch featured events and hero slides from Sanity
+  const [featuredEvents, heroSlides] = await Promise.all([
+    getFeaturedEvents(),
+    getHeroSlides()
+  ])
   
   return (
     <div className="min-h-screen bg-bg-beige">
+      {/* Hero Carousel */}
+      <HeroCarousel slides={heroSlides} />
+
       {/* Hero Section */}
       <section className="relative overflow-hidden">
         {/* Background Pattern */}

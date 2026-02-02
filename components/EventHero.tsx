@@ -8,7 +8,7 @@ import { urlFor } from '../sanity/lib/sanity'
 
 interface Event {
   title: string
-  slug: { current: string }
+  slug?: { current: string } | null
   mainImage: any
   description: string
   eventDate: string
@@ -28,8 +28,8 @@ export default function EventHero({ events }: { events: Event[] }) {
         
         <div className="overflow-hidden" ref={emblaRef}>
           <div className="flex">
-            {events.map((event) => (
-              <div key={event.slug.current} className="flex-[0_0_100%] min-w-0 px-4">
+            {events.map((event, index) => (
+              <div key={event.slug?.current || `event-${index}`} className="flex-[0_0_100%] min-w-0 px-4">
                 <div 
                   className="rounded-lg overflow-hidden shadow-lg bg-white"
                   style={{ borderColor: '#A2A092', borderWidth: '2px' }}
@@ -52,25 +52,28 @@ export default function EventHero({ events }: { events: Event[] }) {
                       </h3>
                       
                       <p className="text-sm mb-4 font-['Open_Sans']" style={{ color: '#A2A092' }}>
-                        {new Date(event.eventDate).toLocaleDateString('en-US', {
+                        {new Intl.DateTimeFormat('en-US', {
                           weekday: 'long',
                           year: 'numeric',
                           month: 'long',
-                          day: 'numeric'
-                        })}
+                          day: 'numeric',
+                          timeZone: 'UTC'
+                        }).format(new Date(event.eventDate))}
                       </p>
                       
                       <p className="text-gray-700 mb-6 font-['Open_Sans'] line-clamp-3">
                         {event.description}
                       </p>
                       
-                      <Link
-                        href={`/events/${event.slug.current}`}
-                        className="inline-block px-6 py-3 rounded-md text-white font-semibold font-['Open_Sans'] transition-all duration-300 hover:opacity-80 hover:scale-105 w-fit"
-                        style={{ backgroundColor: '#6E6353' }}
-                      >
-                        Learn More
-                      </Link>
+                      {event.slug?.current && (
+                        <Link
+                          href={`/events/${event.slug.current}`}
+                          className="inline-block px-6 py-3 rounded-md text-white font-semibold font-['Open_Sans'] transition-all duration-300 hover:opacity-80 hover:scale-105 w-fit"
+                          style={{ backgroundColor: '#6E6353' }}
+                        >
+                          Learn More
+                        </Link>
+                      )}
                     </div>
                   </div>
                 </div>
