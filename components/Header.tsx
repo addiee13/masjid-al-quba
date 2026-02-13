@@ -108,7 +108,7 @@ function DesktopDropdown({ item }: { item: NavItem }) {
       onMouseLeave={() => setIsOpen(false)}
     >
       <button
-        className="font-heading font-semibold text-primary-dark hover:text-primary-green transition-all duration-300 px-4 py-2 flex items-center gap-1.5 text-base xl:text-lg relative group"
+        className="font-heading font-semibold text-primary-dark hover:text-primary-green transition-all duration-300 px-4 py-2 flex items-center gap-1.5 text-lg xl:text-xl relative group"
         onClick={() => setIsOpen(!isOpen)}
       >
         <span className="relative">
@@ -116,17 +116,17 @@ function DesktopDropdown({ item }: { item: NavItem }) {
           <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-primary-green group-hover:w-full transition-all duration-300" />
         </span>
         <ChevronDown
-          className={`w-4 h-4 transition-transform duration-300 ${isOpen ? "rotate-180" : ""}`}
+          className={`w-5 h-5 transition-transform duration-300 ${isOpen ? "rotate-180" : ""}`}
         />
       </button>
 
       {isOpen && item.dropdown && (
-        <div className="absolute top-full left-0 min-w-[220px] bg-white rounded-xl shadow-xl shadow-primary-dark/10 py-3 border border-light-sage/50 mt-1 animate-in fade-in slide-in-from-top-2 duration-200">
+        <div className="absolute top-full left-0 min-w-[240px] bg-white rounded-xl shadow-xl shadow-primary-dark/10 py-3 border border-light-sage/50 mt-1 animate-in fade-in slide-in-from-top-2 duration-200">
           {item.dropdown.map((subItem) => (
             <Link
               key={subItem.href}
               href={subItem.href}
-              className="block px-5 py-2.5 font-body text-primary-dark hover:bg-gradient-to-r hover:from-bg-beige hover:to-transparent hover:text-primary-green transition-all duration-200 relative group"
+              className="block px-5 py-3 font-body text-base text-primary-dark hover:bg-gradient-to-r hover:from-bg-beige hover:to-transparent hover:text-primary-green transition-all duration-200 relative group"
             >
               <span className="relative z-10">{subItem.label}</span>
               <span className="absolute left-0 top-1/2 -translate-y-1/2 w-1 h-0 bg-primary-green group-hover:h-6 rounded-r transition-all duration-200" />
@@ -153,7 +153,7 @@ function DesktopMegaMenu({ item }: { item: NavItem }) {
       }}
     >
       <button
-        className="font-heading font-semibold text-primary-dark hover:text-primary-green transition-all duration-300 px-4 py-2 flex items-center gap-1.5 text-base xl:text-lg relative group"
+        className="font-heading font-semibold text-primary-dark hover:text-primary-green transition-all duration-300 px-4 py-2 flex items-center gap-1.5 text-lg xl:text-xl relative group"
         onClick={() => setIsOpen(!isOpen)}
       >
         <span className="relative">
@@ -161,19 +161,19 @@ function DesktopMegaMenu({ item }: { item: NavItem }) {
           <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-primary-green group-hover:w-full transition-all duration-300" />
         </span>
         <ChevronDown
-          className={`w-4 h-4 transition-transform duration-300 ${isOpen ? "rotate-180" : ""}`}
+          className={`w-5 h-5 transition-transform duration-300 ${isOpen ? "rotate-180" : ""}`}
         />
       </button>
 
       {isOpen && item.categories && (
-        <div className="absolute top-full left-1/2 -translate-x-1/2 w-[480px] bg-white rounded-2xl shadow-2xl shadow-primary-dark/15 border border-light-sage/50 overflow-hidden mt-1 animate-in fade-in slide-in-from-top-2 duration-200">
+        <div className="absolute top-full left-1/2 -translate-x-1/2 w-[520px] bg-white rounded-2xl shadow-2xl shadow-primary-dark/15 border border-light-sage/50 overflow-hidden mt-1 animate-in fade-in slide-in-from-top-2 duration-200">
           <div className="grid grid-cols-5">
             {/* Left Column - Categories */}
             <div className="col-span-2 bg-gradient-to-b from-bg-beige/50 to-bg-beige/30 border-r border-light-sage/30 py-3">
               {item.categories.map((category, index) => (
                 <button
                   key={category.name}
-                  className={`w-full text-left px-5 py-3.5 font-body text-sm transition-all duration-200 ${
+                  className={`w-full text-left px-5 py-3.5 font-body text-base transition-all duration-200 ${
                     activeCategory === index
                       ? "bg-primary-green text-white shadow-md shadow-primary-green/30"
                       : "text-primary-dark hover:bg-white/50 hover:pl-6"
@@ -182,7 +182,7 @@ function DesktopMegaMenu({ item }: { item: NavItem }) {
                 >
                   <span className="flex items-center justify-between">
                     {category.name}
-                    <ChevronRight className={`w-4 h-4 transition-transform ${activeCategory === index ? "translate-x-0.5" : ""}`} />
+                    <ChevronRight className={`w-5 h-5 transition-transform ${activeCategory === index ? "translate-x-0.5" : ""}`} />
                   </span>
                 </button>
               ))}
@@ -190,7 +190,7 @@ function DesktopMegaMenu({ item }: { item: NavItem }) {
 
             {/* Right Column - Links */}
             <div className="col-span-3 py-4 px-5">
-              <h3 className="font-heading text-primary-green font-semibold text-sm mb-4 pb-2 border-b border-light-sage/30 flex items-center gap-2">
+              <h3 className="font-heading text-primary-green font-semibold text-base mb-4 pb-2 border-b border-light-sage/30 flex items-center gap-2">
                 <span className="w-1.5 h-1.5 rounded-full bg-primary-green" />
                 {item.categories[activeCategory].name}
               </h3>
@@ -199,7 +199,7 @@ function DesktopMegaMenu({ item }: { item: NavItem }) {
                   <Link
                     key={link.href}
                     href={link.href}
-                    className="block py-2.5 px-3 font-body text-primary-dark hover:text-primary-green hover:bg-bg-beige/50 rounded-lg transition-all duration-200 hover:translate-x-1"
+                    className="block py-3 px-3 font-body text-base text-primary-dark hover:text-primary-green hover:bg-bg-beige/50 rounded-lg transition-all duration-200 hover:translate-x-1"
                   >
                     {link.label}
                   </Link>
@@ -212,10 +212,10 @@ function DesktopMegaMenu({ item }: { item: NavItem }) {
           <div className="border-t border-light-sage/30 px-5 py-4 bg-gradient-to-r from-bg-beige/30 to-transparent">
             <Link
               href={item.href}
-              className="font-body text-sm text-primary-green hover:text-primary-dark transition-all duration-200 flex items-center gap-1.5 group"
+              className="font-body text-base text-primary-green hover:text-primary-dark transition-all duration-200 flex items-center gap-1.5 group"
             >
               View All Services
-              <ChevronRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+              <ChevronRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
             </Link>
           </div>
         </div>
@@ -230,7 +230,7 @@ function DesktopNavItem({ item }: { item: NavItem }) {
     return (
       <Link
         href={item.href}
-        className="font-heading font-semibold text-primary-dark hover:text-primary-green transition-all duration-300 px-4 py-2 text-base xl:text-lg relative group"
+        className="font-heading font-semibold text-primary-dark hover:text-primary-green transition-all duration-300 px-4 py-2 text-lg xl:text-xl relative group"
       >
         <span className="relative">
           {item.label}
@@ -433,13 +433,13 @@ export default function Header() {
       }`}
     >
       <nav className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex items-center justify-between h-18 md:h-22">
+        <div className="flex items-center justify-between h-20 md:h-24">
           {/* Logo */}
           <Link
             href="/"
-            className="font-heading text-xl md:text-2xl font-bold text-primary-dark hover:text-primary-green transition-all duration-300 flex items-center gap-3 group"
+            className="font-heading text-3xl md:text-5xl font-black text-primary-dark hover:text-primary-green transition-all duration-300 flex items-center gap-3 group"
           >
-            <span className="w-10 h-10 rounded-full bg-primary-green flex items-center justify-center text-white text-sm group-hover:scale-110 transition-transform duration-300">
+            <span className="w-14 h-14 md:w-16 md:h-16 rounded-full bg-primary-green flex items-center justify-center text-white text-lg md:text-xl font-black group-hover:scale-110 transition-transform duration-300">
               Q
             </span>
             <span className="hidden sm:inline">Masjid Al-Quba</span>
@@ -456,9 +456,9 @@ export default function Header() {
           <div className="hidden lg:block">
             <Link
               href="/donate"
-              className="bg-primary-green text-white font-body font-semibold rounded-full px-7 py-2.5 hover:shadow-lg hover:shadow-primary-green/30 hover:-translate-y-0.5 transition-all duration-300 flex items-center gap-2"
+              className="bg-primary-green text-white font-body font-semibold rounded-full px-8 py-3 text-lg hover:shadow-lg hover:shadow-primary-green/30 hover:-translate-y-0.5 transition-all duration-300 flex items-center gap-2"
             >
-              <Heart className="w-4 h-4" />
+              <Heart className="w-5 h-5" />
               Donate
             </Link>
           </div>
@@ -468,9 +468,9 @@ export default function Header() {
             {/* Mobile Donate Button (visible next to hamburger) */}
             <Link
               href="/donate"
-              className="bg-primary-green text-white font-body font-semibold rounded-full px-4 py-2 text-sm hover:shadow-lg hover:shadow-primary-green/30 transition-all duration-300 flex items-center gap-1.5"
+              className="bg-primary-green text-white font-body font-semibold rounded-full px-5 py-2.5 text-base hover:shadow-lg hover:shadow-primary-green/30 transition-all duration-300 flex items-center gap-1.5"
             >
-              <Heart className="w-3.5 h-3.5" />
+              <Heart className="w-4 h-4" />
               Donate
             </Link>
 
@@ -480,7 +480,7 @@ export default function Header() {
               onClick={() => setIsMobileMenuOpen(true)}
               aria-label="Open menu"
             >
-              <Menu className="w-6 h-6" />
+              <Menu className="w-7 h-7" />
             </button>
           </div>
         </div>
