@@ -1,19 +1,20 @@
 import type { Metadata } from "next";
-import { El_Messiri, Open_Sans } from "next/font/google";
+import { Playfair_Display, Inter } from "next/font/google";
 import "./globals.css";
 import Header from "../components/Header";
 
-const elMessiri = El_Messiri({
-  variable: "--font-messiri",
+const playfairDisplay = Playfair_Display({
+  variable: "--font-playfair",
   subsets: ["latin"],
-  weight: ["400", "500", "600", "700"],
+  weight: ["400", "500", "600", "700", "800", "900"],
+  style: ["normal", "italic"],
   display: "swap",
 });
 
-const openSans = Open_Sans({
-  variable: "--font-opensans",
+const inter = Inter({
+  variable: "--font-inter",
   subsets: ["latin"],
-  weight: ["300", "400", "500", "600", "700"],
+  weight: ["300", "400", "500", "600", "700", "800", "900"],
   display: "swap",
 });
 
@@ -30,7 +31,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        className={`${elMessiri.variable} ${openSans.variable} antialiased`}
+        className={`${playfairDisplay.variable} ${inter.variable} antialiased`}
       >
         <Header />
         <main>{children}</main>

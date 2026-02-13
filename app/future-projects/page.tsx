@@ -201,7 +201,7 @@ export default function FutureProjectsPage() {
                 </p>
               </div>
               <Link
-                href="/donate"
+                href="https://square.link/u/9S5UK6T3"
                 className="btn-primary inline-flex items-center justify-center gap-2 whitespace-nowrap"
               >
                 Donate to Project
@@ -277,7 +277,7 @@ export default function FutureProjectsPage() {
               </p>
               <div className="flex flex-col sm:flex-row gap-4 justify-center">
                 <Link
-                  href="/donate"
+                  href="https://square.link/u/9S5UK6T3"
                   className="inline-flex items-center justify-center gap-2 bg-white text-primary-green font-body font-semibold rounded-full px-8 py-4 hover:bg-bg-beige hover:shadow-lg transition-all duration-300"
                 >
                   Donate Now

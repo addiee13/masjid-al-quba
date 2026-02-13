@@ -13,8 +13,8 @@
   --color-white: #FFFFFF;
 
   /* Font Families */
-  --font-heading: var(--font-messiri), ui-serif, Georgia, Cambria, "Times New Roman", Times, serif;
-  --font-body: var(--font-opensans), ui-sans-serif, system-ui, sans-serif;
+  --font-heading: var(--font-playfair), ui-serif, Georgia, Cambria, "Times New Roman", Times, serif;
+  --font-body: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
 }
 
 /* Global Styles */
