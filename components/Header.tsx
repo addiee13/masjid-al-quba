@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from "react";
 import Link from "next/link";
+import Image from "next/image";
 import { Menu, X, ChevronDown, ChevronRight, Heart } from "lucide-react";
 
 // Types for navigation structure
@@ -437,12 +438,16 @@ export default function Header() {
           {/* Logo */}
           <Link
             href="/"
-            className="font-heading text-3xl md:text-5xl font-black text-primary-dark hover:text-primary-green transition-all duration-300 flex items-center gap-3 group"
+            className="flex items-center transition-opacity duration-300 hover:opacity-80"
           >
-            <span className="w-14 h-14 md:w-16 md:h-16 rounded-full bg-primary-green flex items-center justify-center text-white text-lg md:text-xl font-black group-hover:scale-110 transition-transform duration-300">
-              Q
-            </span>
-            <span className="hidden sm:inline">Masjid Al-Quba</span>
+            <Image
+              src="/masjid_logo.png"
+              alt="Masjid Al-Quba Logo"
+              width={128}
+              height={128}
+              className="w-20 h-20 md:w-32 md:h-32 object-contain"
+              priority
+            />
           </Link>
 
           {/* Desktop Navigation */}
