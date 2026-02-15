@@ -1,4 +1,5 @@
 import { Metadata } from 'next';
+import Link from 'next/link';
 import { Church, Users, BookOpen } from 'lucide-react';
 import HighlightChip from '@/components/about/HighlightChip';
 import StatsCard from '@/components/about/StatsCard';
@@ -27,6 +28,16 @@ export default function AboutPage() {
             <HighlightChip icon={Church} label="Prayer" />
             <HighlightChip icon={Users} label="Community" />
             <HighlightChip icon={BookOpen} label="Education" />
+          </div>
+
+          {/* CTA Buttons */}
+          <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
+            <Link href="/contact" className="btn-primary">
+              Visit Us
+            </Link>
+            <Link href="/donate" className="btn-secondary">
+              Support the Masjid
+            </Link>
           </div>
         </div>
       </section>
@@ -74,6 +85,17 @@ export default function AboutPage() {
               description="Serving Buford & surrounding areas"
             />
           </div>
+          
+          {/* Services Link */}
+          <div className="mt-8 text-center">
+            <Link 
+              href="/services" 
+              className="inline-flex items-center text-primary-green font-body font-semibold hover:underline focus:outline-none focus:ring-2 focus:ring-primary-green focus:ring-offset-2 rounded-sm px-2 py-1"
+              aria-label="View all services and programs"
+            >
+              Explore all our services →
+            </Link>
+          </div>
         </div>
       </section>
 
@@ -84,6 +106,32 @@ export default function AboutPage() {
             mission="To establish salah, spread authentic knowledge, and serve our community with excellence."
             vision="To build a thriving, welcoming masjid that nurtures faith, character, and community for generations."
           />
+        </div>
+      </section>
+
+      {/* Final CTA Section */}
+      <section className="py-16 md:py-24 bg-primary-green text-white">
+        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+          <h2 className="text-3xl md:text-4xl font-heading font-bold mb-6">
+            Be part of the community
+          </h2>
+          <p className="text-lg md:text-xl mb-8 leading-relaxed opacity-95">
+            Whether you want to pray, learn, volunteer, or support the masjid's growth—there's a place for you at Masjid Al-Quba.
+          </p>
+          <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
+            <Link 
+              href="/volunteer" 
+              className="bg-white text-primary-green font-body font-semibold rounded-full px-8 py-3 hover:shadow-lg hover:-translate-y-0.5 transition-all duration-300 ease-out"
+            >
+              Get Involved
+            </Link>
+            <Link 
+              href="/donate" 
+              className="border-2 border-white text-white font-body font-semibold rounded-full px-8 py-3 hover:bg-white hover:text-primary-green transition-all duration-300"
+            >
+              Donate
+            </Link>
+          </div>
         </div>
       </section>
     </div>

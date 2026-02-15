@@ -65,11 +65,11 @@
 
 ### Implementation for User Story 2
 
-- [ ] T014 [US2] Add two CTA buttons to hero section in app/about/page.tsx: "Visit Us" (btn-primary → /contact) and "Support the Masjid" (btn-secondary → /donate)
-- [ ] T015 [US2] Implement final CTA section in app/about/page.tsx: heading "Be part of the community", description text from CR-007
-- [ ] T016 [US2] Add two CTA buttons to final section: "Get Involved" (btn-primary → /volunteer) and "Donate" (btn-secondary → /donate)
-- [ ] T017 [US2] Verify all CTA buttons are keyboard accessible (Tab navigation, Enter activation) and use Link component from next/link
-- [ ] T018 [US2] Test navigation: verify /contact, /donate, /volunteer routes exist or create placeholder pages if needed
+- [x] T014 [US2] Add two CTA buttons to hero section in app/about/page.tsx: "Visit Us" (btn-primary → /contact) and "Support the Masjid" (btn-secondary → /donate)
+- [x] T015 [US2] Implement final CTA section in app/about/page.tsx: heading "Be part of the community", description text from CR-007
+- [x] T016 [US2] Add two CTA buttons to final section: "Get Involved" (btn-primary → /volunteer) and "Donate" (btn-secondary → /donate)
+- [x] T017 [US2] Verify all CTA buttons are keyboard accessible (Tab navigation, Enter activation) and use Link component from next/link
+- [x] T018 [US2] Test navigation: verify /contact, /donate, /volunteer routes exist or create placeholder pages if needed
 
 **Checkpoint**: At this point, User Stories 1 AND 2 should both work - visitors can learn and take action
 
@@ -83,9 +83,9 @@
 
 ### Implementation for User Story 3
 
-- [ ] T019 [US3] Add services link to stats section in app/about/page.tsx (styled as text link, positioned near or within stats cards)
-- [ ] T020 [US3] Verify link navigates to /services route or appropriate services destination
-- [ ] T021 [US3] Ensure link has accessible label and visible focus state
+- [x] T019 [US3] Add services link to stats section in app/about/page.tsx (styled as text link, positioned near or within stats cards)
+- [x] T020 [US3] Verify link navigates to /services route or appropriate services destination
+- [x] T021 [US3] Ensure link has accessible label and visible focus state
 
 **Checkpoint**: All user stories should now be independently functional
 
