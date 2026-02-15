@@ -92,7 +92,7 @@ export default async function Home() {
                 <h3 className="font-heading text-lg font-semibold text-primary-dark mb-2">
                   {link.title}
                 </h3>
-                <p className="font-body text-sm text-accent-sage">
+                <p className="font-body text-sm text-muted-foreground">
                   {link.description}
                 </p>
               </Link>
@@ -169,7 +169,7 @@ export default async function Home() {
             <h2 className="font-heading text-3xl md:text-4xl font-bold text-primary-dark mb-4 decorative-line decorative-line-center inline-block">
               Our Services
             </h2>
-            <p className="font-body text-accent-sage max-w-2xl mx-auto mt-8">
+            <p className="font-body text-muted-foreground max-w-2xl mx-auto mt-8">
               We offer various services to support our community members in their spiritual journey.
             </p>
           </div>
@@ -188,7 +188,7 @@ export default async function Home() {
                   <h3 className="font-heading text-xl font-semibold text-primary-dark mb-3 relative">
                     {service.title}
                   </h3>
-                  <p className="font-body text-accent-sage mb-4 relative">
+                  <p className="font-body text-muted-foreground mb-4 relative">
                     {service.description}
                   </p>
                   <span className="font-body text-primary-green font-medium inline-flex items-center gap-1 group-hover:gap-2 transition-all">
@@ -222,7 +222,7 @@ export default async function Home() {
               <h2 className="font-heading text-3xl md:text-4xl font-bold text-primary-dark mb-6">
                 Join Our Community
               </h2>
-              <p className="font-body text-lg text-accent-sage max-w-xl mx-auto mb-8">
+              <p className="font-body text-lg text-muted-foreground max-w-xl mx-auto mb-8">
                 Whether you want to volunteer, attend events, or simply learn more about Islam, 
                 there's a place for you at Masjid Al-Quba.
               </p>

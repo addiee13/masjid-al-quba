@@ -254,7 +254,7 @@ export default function PrayerTimesWidget() {
           </h2>
           
           {/* Hijri Date */}
-          <p className="font-body text-sm text-accent-sage mb-4">
+          <p className="font-body text-sm text-muted-foreground mb-4">
             {hijriDate || "Loading..."}
           </p>
           
@@ -271,8 +271,8 @@ export default function PrayerTimesWidget() {
           {/* Column Headers */}
           <div className="w-full grid grid-cols-[auto_1fr_1fr_1fr] gap-2 mb-3 px-2">
             <div className="w-8" /> {/* Icon space */}
-            <div className="font-body text-xs text-accent-sage font-medium" />
-            <div className="font-body text-xs text-accent-sage font-medium text-center">Athan</div>
+            <div className="font-body text-xs text-muted-foreground font-medium" />
+            <div className="font-body text-xs text-muted-foreground font-medium text-center">Athan</div>
             <div className="font-body text-xs text-primary-green font-medium text-center">Iqama</div>
           </div>
           
@@ -296,19 +296,19 @@ export default function PrayerTimesWidget() {
                   {/* Icon */}
                   <PrayerIcon 
                     prayer={prayer.key} 
-                    className={isNext ? "text-primary-green" : isPassed ? "text-accent-sage" : "text-primary-dark"}
+                    className={isNext ? "text-primary-green" : isPassed ? "text-muted-foreground" : "text-primary-dark"}
                   />
                   
                   {/* Prayer Name */}
                   <span className={`font-heading text-lg font-semibold ${
-                    isNext ? "text-primary-green" : isPassed ? "text-accent-sage" : "text-primary-dark"
+                    isNext ? "text-primary-green" : isPassed ? "text-muted-foreground" : "text-primary-dark"
                   }`}>
                     {prayer.name}
                   </span>
                   
                   {/* Athan Time */}
                   <span className={`font-body text-sm text-center ${
-                    isPassed ? "text-accent-sage" : "text-primary-dark"
+                    isPassed ? "text-muted-foreground" : "text-primary-dark"
                   }`}>
                     {mounted ? formatTime(prayer.athan) : "--:--"}
                   </span>
@@ -326,7 +326,7 @@ export default function PrayerTimesWidget() {
 
           {/* Footer */}
           <div className="mt-4 pt-3 border-t border-light-sage/30 w-full">
-            <p className="font-body text-[10px] text-accent-sage text-center">
+            <p className="font-body text-[10px] text-muted-foreground text-center">
               Masjid Al-Quba • Buford, GA • ISNA Calculation
             </p>
           </div>

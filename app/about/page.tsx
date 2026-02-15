@@ -1,5 +1,4 @@
 import { Metadata } from 'next';
-
 import Link from 'next/link';
 import { Church, Users, BookOpen } from 'lucide-react';
 import HighlightChip from '@/components/about/HighlightChip';

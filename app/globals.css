@@ -12,6 +12,10 @@
   --color-cream: #F5F5F3;
   --color-white: #FFFFFF;
 
+  /* Semantic Text Colors (Accessibility-first) */
+  --color-foreground: #2E2E2E;           /* Headings and primary text */
+  --color-muted-foreground: #5A5850;     /* Body text and subtext - WCAG AA compliant */
+
   /* Font Families */
   --font-heading: var(--font-playfair), ui-serif, Georgia, Cambria, "Times New Roman", Times, serif;
   --font-body: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
