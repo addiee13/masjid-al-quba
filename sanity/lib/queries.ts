@@ -37,3 +37,16 @@ export async function getAllEvents() {
   
   return await client.fetch(query)
 }
+
+export async function getBoardMembers() {
+  const query = `*[_type == "boardMember"] | order(order asc) {
+    _id,
+    name,
+    role,
+    order,
+    image,
+    bio
+  }`
+  
+  return await client.fetch(query)
+}

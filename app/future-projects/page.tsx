@@ -57,13 +57,13 @@ function StatCard({
 }) {
   return (
     <div className="card-elevated border-l-4 border-primary-green p-6 group">
-      <h3 className="font-body text-xs text-accent-sage uppercase tracking-widest mb-3">
+      <h3 className="font-body text-xs text-muted-foreground uppercase tracking-widest mb-3">
         {title}
       </h3>
       <p className="font-heading text-3xl md:text-4xl font-bold text-primary-dark mb-2 group-hover:text-primary-green transition-colors">
         {value}
       </p>
-      <p className="font-body text-sm text-accent-sage">{subtext}</p>
+      <p className="font-body text-sm text-muted-foreground">{subtext}</p>
     </div>
   );
 }
@@ -96,13 +96,13 @@ function ProgressBar({
       {/* Labels below the bar */}
       <div className="flex justify-between mt-6">
         <div>
-          <p className="font-body text-xs text-accent-sage uppercase tracking-wider">Collected</p>
+          <p className="font-body text-xs text-muted-foreground uppercase tracking-wider">Collected</p>
           <p className="font-heading text-2xl font-bold text-primary-green">
             ${collected.toLocaleString()}
           </p>
         </div>
         <div className="text-right">
-          <p className="font-body text-sm text-accent-sage">Goal (Phase 1)</p>
+          <p className="font-body text-sm text-muted-foreground">Goal (Phase 1)</p>
           <p className="font-heading text-xl font-bold text-primary-dark">
             ${goal.toLocaleString()}
           </p>
@@ -129,7 +129,7 @@ function ActionItem({
       )}
       <p
         className={`font-body text-base leading-relaxed ${
-          completed ? "text-accent-sage line-through" : "text-primary-dark"
+          completed ? "text-muted-foreground line-through" : "text-primary-dark"
         }`}
       >
         {text}
@@ -196,7 +196,7 @@ export default function FutureProjectsPage() {
                 <h2 className="font-heading text-2xl md:text-3xl font-semibold text-primary-dark mb-3">
                   Phase 1 Funding Progress
                 </h2>
-                <p className="font-body text-accent-sage">
+                <p className="font-body text-muted-foreground">
                   Help us reach our Phase 1 goal to begin construction.
                 </p>
               </div>
@@ -217,7 +217,7 @@ export default function FutureProjectsPage() {
             {/* Remaining amount highlight */}
             <div className="mt-8 p-5 bg-gradient-to-r from-bg-beige via-bg-beige to-light-sage/30 rounded-xl border border-light-sage/30">
               <p className="font-body text-center">
-                <span className="text-accent-sage">Remaining to reach goal: </span>
+                <span className="text-muted-foreground">Remaining to reach goal: </span>
                 <span className="font-heading font-bold text-2xl text-primary-dark">
                   ${fundingData.remaining.toLocaleString()}
                 </span>
@@ -244,7 +244,7 @@ export default function FutureProjectsPage() {
 
             {/* Progress summary */}
             <div className="mt-8 pt-6 border-t border-light-sage/30 flex items-center justify-between">
-              <p className="font-body text-sm text-accent-sage">
+              <p className="font-body text-sm text-muted-foreground">
                 {actionItems.filter((item) => item.completed).length} of{" "}
                 {actionItems.length} items completed
               </p>

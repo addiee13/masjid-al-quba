@@ -31,7 +31,7 @@ const navLinks: NavItem[] = [
     type: "dropdown",
     dropdown: [
       { label: "About Us", href: "/about" },
-      { label: "Board Members", href: "/about/board-members" },
+      { label: "Board Members", href: "/masjid-info/board-members" },
     ],
   },
   {
@@ -288,7 +288,7 @@ function MobileSimpleDropdown({
               key={subItem.href}
               href={subItem.href}
               onClick={onClose}
-              className="block px-8 py-2 font-body text-accent-sage hover:text-primary-green transition-colors"
+              className="block px-8 py-2 font-body text-muted-foreground hover:text-primary-green transition-colors"
             >
               {subItem.label}
             </Link>
@@ -358,7 +358,7 @@ function MobileMegaMenuAccordion({
                       key={link.href}
                       href={link.href}
                       onClick={onClose}
-                      className="block px-10 py-2 font-body text-sm text-accent-sage hover:text-primary-green transition-colors"
+                      className="block px-10 py-2 font-body text-sm text-muted-foreground hover:text-primary-green transition-colors"
                     >
                       {link.label}
                     </Link>

@@ -44,7 +44,7 @@ This is a Next.js App Router project:
 - [X] T005 [US1] Run `npm run lint` and fix any ESLint errors in app/page.tsx
 - [X] T006 [US1] Run `tsc --noEmit` and fix any TypeScript errors in app/page.tsx
 - [X] T007 [US1] Run `npm run build` and confirm Next.js build succeeds without errors
-- [ ] T008 [US1] Start dev server with `npm run dev` and visually inspect homepage at http://localhost:3000
+- [X] T008 [US1] Start dev server with `npm run dev` and visually inspect homepage at http://localhost:3000
 
 ---
 
