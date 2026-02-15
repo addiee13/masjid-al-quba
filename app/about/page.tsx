@@ -54,7 +54,7 @@ export default function AboutPage() {
               and a caring community. We welcome families, youth, and newcomers seeking a spiritual home in the Sugar Hill area.
             </p>
             <p>
-              Our mission is to serve as a spiritual home: establishing the prayer, teaching the Qur'an and Sunnah, 
+              Our mission is to serve as a spiritual home: establishing the prayer, teaching the Qur&apos;an and Sunnah, 
               supporting families, and building strong bonds among neighbors through compassion and service.
             </p>
           </div>
@@ -116,7 +116,7 @@ export default function AboutPage() {
             Be part of the community
           </h2>
           <p className="text-lg md:text-xl mb-8 leading-relaxed opacity-95">
-            Whether you want to pray, learn, volunteer, or support the masjid's growth—there's a place for you at Masjid Al-Quba.
+            Whether you want to pray, learn, volunteer, or support the masjid&apos;s growth—there&apos;s a place for you at Masjid Al-Quba.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
             <Link 
