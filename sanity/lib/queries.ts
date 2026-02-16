@@ -3,7 +3,7 @@ import {
   expandEventOccurrences,
   getDefaultEventWindow,
 } from '../../lib/events'
-import type { EventOccurrence, EventTemplate } from '@/types/events'
+import type { EventOccurrence, EventTemplate } from '../../types/events'
 
 export async function getHeroSlides() {
   const query = `*[_type == "heroSlide" && active == true] | order(order asc) {
