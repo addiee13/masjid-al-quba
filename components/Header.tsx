@@ -53,7 +53,7 @@ const navLinks: NavItem[] = [
         links: [
           { label: "Juma Dua Request", href: "/services/juma-dua-request" },
           { label: "Ask Imam", href: "/services/ask-imam" },
-          { label: "Religious Counseling", href: "/services/counseling" },
+          { label: "Religious Counselling", href: "/services/religious-counselling" },
         ],
       },
     ],

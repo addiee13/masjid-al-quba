@@ -37,7 +37,7 @@ export default function ContactInfo() {
             <h3 className="font-heading text-lg font-semibold text-primary-dark mb-1">
               Address
             </h3>
-            <p className="font-body text-muted-foreground">
+            <p className="font-body text-gray-900 text-base font-medium">
               {contactInfo.address}
             </p>
           </div>
@@ -54,7 +54,7 @@ export default function ContactInfo() {
             </h3>
             <a
               href={`tel:${contactInfo.phone.replace(/\D/g, '')}`}
-              className="font-body text-muted-foreground hover:text-primary-green transition-colors"
+              className="font-body text-gray-900 text-base font-medium hover:text-primary-green transition-colors"
             >
               {contactInfo.phone}
             </a>
@@ -72,7 +72,7 @@ export default function ContactInfo() {
             </h3>
             <a
               href={`mailto:${contactInfo.email}`}
-              className="font-body text-muted-foreground hover:text-primary-green transition-colors break-all"
+              className="font-body text-gray-900 text-base font-medium hover:text-primary-green transition-colors break-all"
             >
               {contactInfo.email}
             </a>
@@ -90,7 +90,7 @@ export default function ContactInfo() {
             </h3>
             <div className="space-y-1">
               {contactInfo.hours.map((hour, idx) => (
-                <p key={idx} className="font-body text-muted-foreground text-sm">
+                <p key={idx} className="font-body text-gray-900 text-base">
                   <span className="font-medium">{hour.label}:</span> {hour.value}
                 </p>
               ))}
