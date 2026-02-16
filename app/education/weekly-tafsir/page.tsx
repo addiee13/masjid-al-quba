@@ -11,20 +11,20 @@ export const metadata: Metadata = {
 export default function WeeklyTafsirPage() {
   return (
     <div className="min-h-screen bg-bg-beige">
-      <section className="relative overflow-hidden py-16 md:py-24 bg-gradient-to-br from-primary-dark via-[#37493f] to-primary-green">
-        <div className="absolute inset-0 pattern-bg opacity-25" />
-        <div className="absolute top-0 left-0 w-72 h-72 bg-white/10 rounded-full blur-3xl" />
+      <section className="relative overflow-hidden py-16 md:py-24 bg-gradient-to-br from-cream via-bg-beige to-[#C8C6C0]">
+        <div className="absolute inset-0 pattern-bg opacity-60" />
+        <div className="absolute top-0 right-0 w-64 h-64 bg-primary-green/10 rounded-full blur-3xl" />
         <div className="relative max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <div className="inline-flex items-center gap-2 rounded-full px-4 py-2 bg-white/15 border border-white/20 mb-6">
-            <BookOpenCheck className="w-4 h-4 text-white" />
-            <span className="font-body text-sm text-white">
+          <div className="inline-flex items-center gap-2 rounded-full px-4 py-2 bg-white/70 border border-black/5 mb-6">
+            <BookOpenCheck className="w-4 h-4 text-primary-green" />
+            <span className="font-body text-sm text-primary-dark">
               Reflecting on the Quran With Purpose
             </span>
           </div>
-          <h1 className="text-4xl md:text-5xl lg:text-6xl font-heading font-bold text-white mb-6">
+          <h1 className="text-4xl md:text-5xl lg:text-6xl font-heading font-bold text-primary-dark mb-6">
             Weekly Tafsir
           </h1>
-          <p className="text-lg md:text-xl text-white/85 font-body max-w-3xl mx-auto leading-relaxed">
+          <p className="text-lg md:text-xl text-muted-foreground font-body max-w-3xl mx-auto leading-relaxed">
             A regular opportunity to deepen your relationship with the Quran
             through understanding, reflection, and sincere application.
           </p>

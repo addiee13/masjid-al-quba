@@ -32,17 +32,17 @@ const programPillars = [
 export default function WeeklyTafsirEventPage() {
   return (
     <div className="min-h-screen bg-bg-beige">
-      <section className="relative overflow-hidden py-16 md:py-24 bg-gradient-to-br from-primary-dark via-[#37493f] to-primary-green">
-        <div className="absolute inset-0 pattern-bg opacity-25" />
-        <div className="absolute top-0 left-0 w-72 h-72 bg-white/10 rounded-full blur-3xl" />
+      <section className="relative overflow-hidden py-16 md:py-24 bg-gradient-to-br from-cream via-bg-beige to-[#C8C6C0]">
+        <div className="absolute inset-0 pattern-bg opacity-60" />
+        <div className="absolute top-0 right-0 w-64 h-64 bg-primary-green/10 rounded-full blur-3xl" />
         <div className="relative max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <span className="inline-flex items-center gap-2 rounded-full px-4 py-2 bg-white/15 border border-white/20 mb-6 text-sm font-body text-white">
+          <span className="inline-flex items-center gap-2 rounded-full px-4 py-2 bg-white/70 border border-black/5 mb-6 text-sm font-body text-primary-dark">
             Weekly Program
           </span>
-          <h1 className="text-4xl md:text-5xl lg:text-6xl font-heading font-bold text-white mb-6">
+          <h1 className="text-4xl md:text-5xl lg:text-6xl font-heading font-bold text-primary-dark mb-6">
             Weekly Tafsir
           </h1>
-          <p className="text-lg md:text-xl text-white/85 font-body max-w-3xl mx-auto leading-relaxed">
+          <p className="text-lg md:text-xl text-muted-foreground font-body max-w-3xl mx-auto leading-relaxed">
             A recurring program dedicated to understanding the Quran and
             applying its guidance with sincerity and purpose.
           </p>
@@ -83,8 +83,8 @@ export default function WeeklyTafsirEventPage() {
                 daily living.
               </p>
             </div>
-            <div className="card p-8">
-              <h3 className="font-heading text-2xl font-semibold text-primary-dark mb-4">
+            <div className="card-elevated p-8 border-l-4 border-primary-green">
+              <h3 className="font-heading text-2xl md:text-4xl font-bold text-primary-dark mb-4 decorative-line">
                 Who This Is For
               </h3>
               <p className="font-body text-muted-foreground leading-relaxed mb-3">
