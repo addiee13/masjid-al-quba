@@ -1,4 +1,5 @@
 import { Metadata } from "next";
+import { Suspense } from "react";
 import ContactForm from "@/components/contact/ContactForm";
 import ContactInfo from "@/components/contact/ContactInfo";
 
@@ -34,7 +35,9 @@ export default function ContactPage() {
 
             {/* Right Column: Contact Form */}
             <div className="order-1 lg:order-2 lg:sticky lg:top-24">
-              <ContactForm />
+              <Suspense fallback={<div className="animate-pulse bg-white rounded-xl p-8 h-96" />}>
+                <ContactForm />
+              </Suspense>
             </div>
           </div>
         </div>

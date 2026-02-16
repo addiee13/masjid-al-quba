@@ -1,8 +1,9 @@
 "use client";
 
-import { useState, FormEvent, ChangeEvent } from "react";
+import { useState, useEffect, FormEvent, ChangeEvent } from "react";
 import { Send, AlertCircle } from "lucide-react";
-import type { ContactFormData, ContactTopic, PreferredContact } from "@/types/contact";
+import { useSearchParams } from "next/navigation";
+import type { ContactFormData, ContactTopic } from "@/types/contact";
 
 const MAX_MESSAGE_LENGTH = 3000;
 
@@ -16,6 +17,7 @@ const topicOptions: { value: ContactTopic; label: string }[] = [
 ];
 
 export default function ContactForm() {
+  const searchParams = useSearchParams();
   const [isLoading, setIsLoading] = useState(false);
   const [isSuccess, setIsSuccess] = useState(false);
   const [error, setError] = useState<string | null>(null);
@@ -31,6 +33,16 @@ export default function ContactForm() {
     consent: false,
     company: "", // Honeypot field
   });
+
+  useEffect(() => {
+    const topic = searchParams.get("topic");
+    if (!topic) return;
+
+    const validTopic = topicOptions.find((option) => option.value === topic);
+    if (!validTopic) return;
+
+    setFormData((prev) => ({ ...prev, topic: validTopic.value }));
+  }, [searchParams]);
 
   const validateForm = (): boolean => {
     const newErrors: Record<string, string> = {};
@@ -108,7 +120,7 @@ export default function ContactForm() {
       } else {
         setError(data.error || "Failed to submit. Please try again.");
       }
-    } catch (err) {
+    } catch {
       setError("Network error. Please check your connection and try again.");
     } finally {
       setIsLoading(false);

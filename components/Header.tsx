@@ -109,18 +109,21 @@ function DesktopDropdown({ item }: { item: NavItem }) {
       onMouseEnter={() => setIsOpen(true)}
       onMouseLeave={() => setIsOpen(false)}
     >
-      <button
-        className="font-heading font-semibold text-primary-dark hover:text-primary-green transition-all duration-300 px-4 py-2 flex items-center gap-1.5 text-lg xl:text-xl relative group"
-        onClick={() => setIsOpen(!isOpen)}
-      >
-        <span className="relative">
+      <div className="font-heading font-semibold text-primary-dark hover:text-primary-green transition-all duration-300 px-4 py-2 flex items-center gap-1.5 text-lg xl:text-xl relative group">
+        <Link href={item.href} className="relative">
           {item.label}
           <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-primary-green group-hover:w-full transition-all duration-300" />
-        </span>
-        <ChevronDown
-          className={`w-5 h-5 transition-transform duration-300 ${isOpen ? "rotate-180" : ""}`}
-        />
-      </button>
+        </Link>
+        <button
+          onClick={() => setIsOpen(!isOpen)}
+          className="p-1"
+          aria-label={`Toggle ${item.label} menu`}
+        >
+          <ChevronDown
+            className={`w-5 h-5 transition-transform duration-300 ${isOpen ? "rotate-180" : ""}`}
+          />
+        </button>
+      </div>
 
       {isOpen && item.dropdown && (
         <div className="absolute top-full left-0 min-w-[240px] bg-white rounded-xl shadow-xl shadow-primary-dark/10 py-3 border border-light-sage/50 mt-1 animate-in fade-in slide-in-from-top-2 duration-200">
@@ -154,18 +157,21 @@ function DesktopMegaMenu({ item }: { item: NavItem }) {
         setActiveCategory(0);
       }}
     >
-      <button
-        className="font-heading font-semibold text-primary-dark hover:text-primary-green transition-all duration-300 px-4 py-2 flex items-center gap-1.5 text-lg xl:text-xl relative group"
-        onClick={() => setIsOpen(!isOpen)}
-      >
-        <span className="relative">
+      <div className="font-heading font-semibold text-primary-dark hover:text-primary-green transition-all duration-300 px-4 py-2 flex items-center gap-1.5 text-lg xl:text-xl relative group">
+        <Link href={item.href} className="relative">
           {item.label}
           <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-primary-green group-hover:w-full transition-all duration-300" />
-        </span>
-        <ChevronDown
-          className={`w-5 h-5 transition-transform duration-300 ${isOpen ? "rotate-180" : ""}`}
-        />
-      </button>
+        </Link>
+        <button
+          onClick={() => setIsOpen(!isOpen)}
+          className="p-1"
+          aria-label={`Toggle ${item.label} menu`}
+        >
+          <ChevronDown
+            className={`w-5 h-5 transition-transform duration-300 ${isOpen ? "rotate-180" : ""}`}
+          />
+        </button>
+      </div>
 
       {isOpen && item.categories && (
         <div className="absolute top-full left-1/2 -translate-x-1/2 w-[520px] bg-white rounded-2xl shadow-2xl shadow-primary-dark/15 border border-light-sage/50 overflow-hidden mt-1 animate-in fade-in slide-in-from-top-2 duration-200">
