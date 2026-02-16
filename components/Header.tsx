@@ -43,7 +43,8 @@ const navLinks: NavItem[] = [
       {
         name: "Community Services",
         links: [
-          { label: "Zakat/Sadaqah", href: "/services/zakat-sadaqah" },
+          { label: "Zakat", href: "/services/zakat" },
+          { label: "Sadaqah", href: "/services/sadaqah" },
           { label: "Outreach/Dawa", href: "/services/outreach-dawa" },
         ],
       },

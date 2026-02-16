@@ -50,3 +50,32 @@ export async function getBoardMembers() {
   
   return await client.fetch(query)
 }
+
+export async function getActivePrayerSchedule() {
+  const today = new Date().toISOString().split('T')[0] // YYYY-MM-DD format
+  
+  const query = `*[
+    _type == "prayerSchedule" && 
+    effectiveFrom <= $today &&
+    (effectiveTo == null || effectiveTo >= $today)
+  ] | order(effectiveFrom desc) [0] {
+    _id,
+    title,
+    effectiveFrom,
+    effectiveTo,
+    fajrAthan,
+    fajrIqamah,
+    dhuhrAthan,
+    dhuhrIqamah,
+    asrAthan,
+    asrIqamah,
+    maghribAthan,
+    maghribIqamah,
+    ishaAthan,
+    ishaIqamah,
+    jummahKhutbah,
+    jummahIqamah
+  }`
+  
+  return await client.fetch(query, { today })
+}
