@@ -123,22 +123,15 @@ interface PrayerTimesClientProps {
 
 export default function PrayerTimesClient({ schedule }: PrayerTimesClientProps) {
   const [currentTime, setCurrentTime] = useState<Date>(getNowInMasjidTZ());
-  const [hijriDate, setHijriDate] = useState("");
-  const [mounted, setMounted] = useState(false);
+  const hijriDate = useMemo(() => getHijriDate(), []);
 
   // Update current time every second
   useEffect(() => {
-    setMounted(true);
     const timer = setInterval(() => {
       setCurrentTime(getNowInMasjidTZ());
     }, 1000);
 
     return () => clearInterval(timer);
-  }, []);
-
-  // Set Hijri date on mount (client-side only)
-  useEffect(() => {
-    setHijriDate(getHijriDate());
   }, []);
 
   // Parse prayer times from schedule
@@ -209,7 +202,7 @@ export default function PrayerTimesClient({ schedule }: PrayerTimesClientProps) 
                 {nextPrayer.name} is in
               </p>
               <p className="font-heading text-2xl md:text-3xl font-bold text-white text-center tracking-wider">
-                {mounted ? formatCountdown(countdown) : "--:--:--"}
+                {formatCountdown(countdown)}
               </p>
             </div>
           )}

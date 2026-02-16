@@ -12,6 +12,8 @@ const eslintConfig = defineConfig([
     "out/**",
     "build/**",
     "next-env.d.ts",
+    // Generated studio bundles should not be linted in the web app repo.
+    "sanity/dist/**",
   ]),
 ]);
 

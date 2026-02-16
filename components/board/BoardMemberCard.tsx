@@ -9,7 +9,12 @@ export type BoardMember = {
   name: string
   role: string
   order: number
-  image?: any
+  image?: {
+    asset?: {
+      _ref?: string
+    }
+    [key: string]: unknown
+  }
   bio?: string
 }
 
