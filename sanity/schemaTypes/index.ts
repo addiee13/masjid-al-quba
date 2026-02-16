@@ -5,6 +5,7 @@ import prayerSchedule from './prayerSchedule'
 import duaRequest from './duaRequest'
 import imamQuestion from './imamQuestion'
 import contactSubmission from './contactSubmission'
+import religiousCounsellingRequest from './religiousCounsellingRequest'
 
 export const schemaTypes = [
   event,
@@ -14,4 +15,5 @@ export const schemaTypes = [
   duaRequest,
   imamQuestion,
   contactSubmission,
+  religiousCounsellingRequest,
 ]

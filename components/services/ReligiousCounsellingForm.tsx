@@ -16,6 +16,7 @@ interface FormData {
 export default function ReligiousCounsellingForm() {
   const [isLoading, setIsLoading] = useState(false);
   const [isSuccess, setIsSuccess] = useState(false);
+  const [error, setError] = useState<string | null>(null);
   const [errors, setErrors] = useState<Record<string, string>>({});
   
   const [formData, setFormData] = useState<FormData>({
@@ -48,12 +49,17 @@ export default function ReligiousCounsellingForm() {
       newErrors.message = "Message is required";
     }
 
+    if (formData.contactMethod === "phone" && !formData.phone.trim()) {
+      newErrors.phone = "Phone is required when preferred contact method is phone";
+    }
+
     setErrors(newErrors);
     return Object.keys(newErrors).length === 0;
   };
 
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    setError(null);
     
     if (!validateForm()) {
       return;
@@ -61,11 +67,36 @@ export default function ReligiousCounsellingForm() {
 
     setIsLoading(true);
 
-    // Simulate API call
-    await new Promise((resolve) => setTimeout(resolve, 1000));
+    try {
+      const response = await fetch("/api/religious-counselling", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(formData),
+      });
 
-    setIsLoading(false);
-    setIsSuccess(true);
+      const data = await response.json();
+
+      if (data.ok) {
+        setIsSuccess(true);
+        setFormData({
+          name: "",
+          email: "",
+          phone: "",
+          contactMethod: "email",
+          topic: "",
+          message: "",
+        });
+        setErrors({});
+      } else {
+        setError(data.error || "Failed to submit request. Please try again.");
+      }
+    } catch {
+      setError("Network error. Please check your connection and try again.");
+    } finally {
+      setIsLoading(false);
+    }
   };
 
   const handleChange = (
@@ -84,6 +115,10 @@ export default function ReligiousCounsellingForm() {
         delete newErrors[name];
         return newErrors;
       });
+    }
+
+    if (error) {
+      setError(null);
     }
   };
 
@@ -123,6 +158,14 @@ export default function ReligiousCounsellingForm() {
       <p className="font-body text-muted-foreground mb-6">
         Submit the form below and we will contact you to arrange a private session.
       </p>
+
+      {error && (
+        <div className="mb-6 p-4 rounded-xl bg-red-50 border border-red-200 animate-in fade-in slide-in-from-top-2 duration-300">
+          <p className="font-body text-sm text-red-700 font-medium text-center">
+            {error}
+          </p>
+        </div>
+      )}
 
       <form onSubmit={handleSubmit} className="space-y-5" noValidate>
         {/* Full Name */}
@@ -194,9 +237,13 @@ export default function ReligiousCounsellingForm() {
             value={formData.phone}
             onChange={handleChange}
             disabled={isLoading}
+            aria-invalid={!!errors.phone}
             className="w-full h-12 rounded-xl border border-black/10 px-4 font-body text-primary-dark focus:ring-2 focus:ring-emerald-600/30 focus:border-emerald-600 focus:outline-none transition-all disabled:bg-gray-50 disabled:cursor-not-allowed"
             placeholder="(555) 123-4567"
           />
+          {errors.phone && (
+            <p className="mt-1 text-sm text-red-600">{errors.phone}</p>
+          )}
         </div>
 
         {/* Preferred Contact Method */}
