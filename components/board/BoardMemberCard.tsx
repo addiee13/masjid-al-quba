@@ -62,7 +62,9 @@ function getInitials(name: string): string {
 
 export default function BoardMemberCard({ member }: BoardMemberCardProps) {
   const initials = getInitials(member.name)
-  const hasImage = member.image?.asset?._ref
+  const imageUrl = member.image?.asset?._ref
+    ? urlFor(member.image).width(96).height(96).fit('crop').url()
+    : null
 
   return (
     <div
@@ -71,9 +73,9 @@ export default function BoardMemberCard({ member }: BoardMemberCardProps) {
       {/* Avatar */}
       <div className="flex justify-center mb-4">
         <div className="relative w-24 h-24 rounded-full overflow-hidden bg-gradient-to-br from-primary-green to-accent-olive">
-          {hasImage ? (
+          {imageUrl ? (
             <Image
-              src={urlFor(member.image).width(96).height(96).fit('crop').url() || ''}
+              src={imageUrl}
               alt={`${member.name} - ${member.role}`}
               fill
               className="object-cover"
