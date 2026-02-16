@@ -43,7 +43,7 @@ export default function SadaqahPage() {
 
               <div className="mt-8 flex flex-col sm:flex-row gap-4 justify-center">
                 <Link 
-                  href="https://square.link/u/9S5UK6T3" 
+                  href="https://square.link/u/MlGg2gg5" 
                   target="_blank"
                   className="btn-primary inline-block text-center"
                 >

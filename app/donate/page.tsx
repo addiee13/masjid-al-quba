@@ -19,12 +19,12 @@ export const metadata: Metadata = {
 
 // Square donation links - Replace these with actual URLs
 const DONATION_LINKS = {
-  ramadan: "https://square.link/u/REPLACE_RAMADAN",
-  construction: "https://square.link/u/REPLACE_CONSTRUCTION",
+  ramadan: "https://square.link/u/uaQVezWs",
+  construction: "https://square.link/u/y45ivtFR",
   operations: "https://square.link/u/REPLACE_OPERATIONS",
-  zakat: "https://square.link/u/REPLACE_ZAKAT",
-  sadaqah: "https://square.link/u/REPLACE_SADAQAH",
-};
+  zakat: "https://square.link/u/RveBuPCI",
+  sadaqah: "https://square.link/u/MlGg2gg5",
+};;
 
 type DonationOption = {
   id: string;
@@ -284,4 +284,3 @@ export default function DonatePage() {
     </div>
   );
 }
-
