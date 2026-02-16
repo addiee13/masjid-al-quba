@@ -8,10 +8,7 @@ import type { EventOccurrence, EventTemplate } from '../../types/events'
 export async function getHeroSlides() {
   const query = `*[_type == "heroSlide" && active == true] | order(order asc) {
     _id,
-    title,
     image,
-    buttonText,
-    link,
     active,
     order
   }`

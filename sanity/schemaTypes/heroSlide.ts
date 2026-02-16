@@ -9,8 +9,8 @@ export default defineType({
       name: 'title',
       title: 'Title',
       type: 'string',
-      description: 'The main headline displayed on the slide',
-      validation: (Rule) => Rule.required(),
+      description: 'Deprecated: no longer shown in the website hero',
+      hidden: true,
     }),
     defineField({
       name: 'image',
@@ -26,13 +26,15 @@ export default defineType({
       name: 'buttonText',
       title: 'Button Text',
       type: 'string',
-      description: 'Text for the action button (e.g., "Donate", "Learn More")',
+      description: 'Deprecated: hero CTAs are now fixed globally',
+      hidden: true,
     }),
     defineField({
       name: 'link',
       title: 'Button Link',
       type: 'url',
-      description: 'Where the button leads',
+      description: 'Deprecated: hero CTAs are now fixed globally',
+      hidden: true,
       validation: (Rule) =>
         Rule.uri({
           allowRelative: true,
@@ -59,12 +61,13 @@ export default defineType({
       title: 'title',
       media: 'image',
       active: 'active',
+      order: 'order',
     },
     prepare(selection) {
-      const { title, media, active } = selection
+      const { title, media, active, order } = selection
       return {
-        title: title,
-        subtitle: active ? 'Active' : 'Inactive',
+        title: title || `Hero Slide ${typeof order === 'number' ? `#${order}` : ''}`.trim(),
+        subtitle: `${active ? 'Active' : 'Inactive'}${typeof order === 'number' ? ` • Order ${order}` : ''}`,
         media,
       }
     },

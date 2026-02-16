@@ -15,9 +15,9 @@ const quickLinks = [
   },
   {
     icon: Heart,
-    title: "Zakat & Sadaqah",
-    description: "Give back to the community",
-    href: "/services/zakat-sadaqah",
+    title: "Zakat",
+    description: "Fulfill your obligation and support those in need",
+    href: "/services/zakat",
   },
   {
     icon: Users,
@@ -70,7 +70,7 @@ export default async function Home() {
       )}
 
       {/* Prayer Times Widget Section */}
-      <section className="bg-white py-8 md:py-12">
+      <section id="prayer-times" className="bg-white py-8 md:py-12">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
           <PrayerTimesWidget />
         </div>
@@ -224,7 +224,7 @@ export default async function Home() {
               </h2>
               <p className="font-body text-lg text-muted-foreground max-w-xl mx-auto mb-8">
                 Whether you want to volunteer, attend events, or simply learn more about Islam, 
-                there's a place for you at Masjid Al-Quba.
+                there&apos;s a place for you at Masjid Al-Quba.
               </p>
               <div className="flex flex-col sm:flex-row gap-4 justify-center">
                 <Link

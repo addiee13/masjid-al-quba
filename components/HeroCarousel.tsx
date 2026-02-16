@@ -5,12 +5,12 @@ import useEmblaCarousel from 'embla-carousel-react'
 import Autoplay from 'embla-carousel-autoplay'
 import Image from 'next/image'
 import { ChevronLeft, ChevronRight } from 'lucide-react'
+import Link from 'next/link'
 import { urlFor } from '@/sanity/lib/sanity'
 import '../app/carousel.css'
 
 interface HeroSlide {
   _id: string
-  title: string
   image: {
     _type: 'image'
     asset: {
@@ -18,8 +18,6 @@ interface HeroSlide {
       _type: 'reference'
     }
   }
-  buttonText?: string
-  link?: string
   active: boolean
   order: number
 }
@@ -53,16 +51,15 @@ export default function HeroCarousel({ slides }: HeroCarouselProps) {
   }
 
   return (
-    <div className="relative w-full h-[70vh] min-h-[600px] overflow-hidden">
+    <section className="relative w-full h-[calc(75vh-5rem)] md:h-[calc(100vh-6rem)] min-h-[460px] md:min-h-[620px] overflow-hidden">
       <div className="embla h-full" ref={emblaRef}>
         <div className="embla__container h-full flex">
           {activeSlides.map((slide) => (
             <div key={slide._id} className="embla__slide flex-[0_0_100%] min-w-0 relative h-full">
-              {/* Background Image */}
               <div className="absolute inset-0">
                 <Image
                   src={urlFor(slide.image).width(1920).height(1080).url()}
-                  alt={slide.title}
+                  alt="Hero banner image"
                   fill
                   className="object-cover"
                   priority
@@ -70,60 +67,58 @@ export default function HeroCarousel({ slides }: HeroCarouselProps) {
                 />
               </div>
 
-              {/* Bottom Gradient Overlay */}
-              <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/50 to-transparent" />
-
-              {/* Content at Bottom Center */}
-              <div className="absolute bottom-0 left-0 right-0 pb-12 flex flex-col items-center justify-end text-center px-4">
-                {/* Title */}
-                <h1 
-                  className="text-5xl md:text-6xl lg:text-7xl font-bold text-white mb-8 max-w-5xl"
-                  style={{ fontFamily: "'El Messiri', sans-serif" }}
-                >
-                  {slide.title}
-                </h1>
-
-                {/* Button */}
-                {slide.buttonText && slide.link && (
-                  <a
-                    href={slide.link}
-                    className="px-8 py-4 text-lg font-semibold text-white rounded-full transition-all duration-300 hover:scale-105 hover:shadow-xl"
-                    style={{ 
-                      backgroundColor: '#6E6353',
-                      fontFamily: "'Open Sans', sans-serif"
-                    }}
-                  >
-                    {slide.buttonText}
-                  </a>
-                )}
-              </div>
+              {/* Image protection overlay for controls and CTA dock */}
+              <div className="absolute inset-0 bg-black/30" />
+              <div className="absolute inset-0 bg-gradient-to-t from-black/65 via-black/25 to-transparent" />
             </div>
           ))}
         </div>
       </div>
 
-      {/* Navigation Arrows */}
       {activeSlides.length > 1 && (
         <>
-          {/* Previous Button */}
           <button
             onClick={scrollPrev}
-            className="absolute left-4 top-1/2 -translate-y-1/2 z-10 p-3 rounded-full bg-white/10 backdrop-blur-sm text-white opacity-50 hover:opacity-100 transition-opacity duration-300"
+            className="absolute left-4 top-1/2 -translate-y-1/2 z-20 p-3 rounded-full bg-black/45 border border-white/30 backdrop-blur-sm text-white opacity-85 hover:opacity-100 transition-all duration-300"
             aria-label="Previous slide"
           >
             <ChevronLeft size={32} />
           </button>
 
-          {/* Next Button */}
           <button
             onClick={scrollNext}
-            className="absolute right-4 top-1/2 -translate-y-1/2 z-10 p-3 rounded-full bg-white/10 backdrop-blur-sm text-white opacity-50 hover:opacity-100 transition-opacity duration-300"
+            className="absolute right-4 top-1/2 -translate-y-1/2 z-20 p-3 rounded-full bg-black/45 border border-white/30 backdrop-blur-sm text-white opacity-85 hover:opacity-100 transition-all duration-300"
             aria-label="Next slide"
           >
             <ChevronRight size={32} />
           </button>
         </>
       )}
-    </div>
+
+      <div className="absolute bottom-4 md:bottom-6 left-1/2 -translate-x-1/2 z-20 w-[94%] max-w-3xl">
+        <div className="rounded-2xl bg-white/18 border border-white/35 backdrop-blur-lg p-2.5 md:p-3 shadow-2xl">
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-2.5">
+            <Link
+              href="/donate"
+              className="h-10 md:h-11 rounded-xl bg-white text-primary-dark font-body font-semibold flex items-center justify-center hover:bg-bg-beige transition-colors"
+            >
+              Donate
+            </Link>
+            <Link
+              href="/#prayer-times"
+              className="h-10 md:h-11 rounded-xl bg-primary-green text-white font-body font-semibold flex items-center justify-center hover:bg-primary-dark transition-colors"
+            >
+              Prayer Times
+            </Link>
+            <Link
+              href="/contact"
+              className="h-10 md:h-11 rounded-xl bg-[#2f4f3e] text-white border border-white/30 font-body font-semibold flex items-center justify-center hover:bg-[#284436] transition-colors"
+            >
+              Contact
+            </Link>
+          </div>
+        </div>
+      </div>
+    </section>
   )
 }
