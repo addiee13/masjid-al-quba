@@ -267,7 +267,7 @@ export default function PrayerTimesClient({ schedule }: PrayerTimesClientProps) 
                       isPassed ? "text-muted-foreground" : "text-primary-dark"
                     }`}
                   >
-                    {mounted ? formatTime12Hour(prayer.athan) : "--:--"}
+                    {formatTime12Hour(prayer.athan)}
                   </span>
 
                   {/* Iqama Time */}
@@ -276,7 +276,7 @@ export default function PrayerTimesClient({ schedule }: PrayerTimesClientProps) 
                       isNext ? "text-primary-green" : "text-primary-green/70"
                     }`}
                   >
-                    {mounted ? formatTime12Hour(prayer.iqamah) : "--:--"}
+                    {formatTime12Hour(prayer.iqamah)}
                   </span>
                 </div>
               );
@@ -291,16 +291,12 @@ export default function PrayerTimesClient({ schedule }: PrayerTimesClientProps) 
                 </span>
                 <span className="font-body text-sm text-center text-primary-dark">
                   {schedule.jummahKhutbah
-                    ? mounted
-                      ? formatTime12Hour(parseTimeInMasjidTZ(schedule.jummahKhutbah))
-                      : "--:--"
+                    ? formatTime12Hour(parseTimeInMasjidTZ(schedule.jummahKhutbah))
                     : "—"}
                 </span>
                 <span className="font-body text-sm font-medium text-center text-primary-green/70">
                   {schedule.jummahIqamah
-                    ? mounted
-                      ? formatTime12Hour(parseTimeInMasjidTZ(schedule.jummahIqamah))
-                      : "--:--"
+                    ? formatTime12Hour(parseTimeInMasjidTZ(schedule.jummahIqamah))
                     : "—"}
                 </span>
               </div>
