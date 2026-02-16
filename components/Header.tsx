@@ -89,7 +89,7 @@ const navLinks: NavItem[] = [
     type: "dropdown",
     dropdown: [
       { label: "Volunteer", href: "/get-involved/volunteer" },
-      { label: "Donate", href: "https://square.link/u/9S5UK6T3" },
+      { label: "Donate", href: "/donate" },
     ],
   },
   {
@@ -461,7 +461,7 @@ export default function Header() {
           {/* Desktop CTA */}
           <div className="hidden lg:block">
             <Link
-              href="https://square.link/u/9S5UK6T3"
+              href="/donate"
               className="bg-primary-green text-white font-body font-semibold rounded-full px-8 py-3 text-lg hover:shadow-lg hover:shadow-primary-green/30 hover:-translate-y-0.5 transition-all duration-300 flex items-center gap-2"
             >
               <Heart className="w-5 h-5" />
@@ -473,7 +473,7 @@ export default function Header() {
           <div className="flex items-center gap-3 lg:hidden">
             {/* Mobile Donate Button (visible next to hamburger) */}
             <Link
-              href="https://square.link/u/9S5UK6T3"
+              href="/donate"
               className="bg-primary-green text-white font-body font-semibold rounded-full px-5 py-2.5 text-base hover:shadow-lg hover:shadow-primary-green/30 transition-all duration-300 flex items-center gap-1.5"
             >
               <Heart className="w-4 h-4" />
