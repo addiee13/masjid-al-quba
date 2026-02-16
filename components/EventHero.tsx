@@ -9,7 +9,7 @@ import { urlFor } from '../sanity/lib/sanity'
 interface Event {
   title: string
   slug?: { current: string } | null
-  mainImage: any
+  mainImage: unknown
   description: string
   eventDate: string
 }
@@ -29,7 +29,10 @@ export default function EventHero({ events }: { events: Event[] }) {
         <div className="overflow-hidden" ref={emblaRef}>
           <div className="flex">
             {events.map((event, index) => (
-              <div key={event.slug?.current || `event-${index}`} className="flex-[0_0_100%] min-w-0 px-4">
+              <div
+                key={`${event.slug?.current || "event"}-${event.eventDate || "no-date"}-${index}`}
+                className="flex-[0_0_100%] min-w-0 px-4"
+              >
                 <div 
                   className="rounded-lg overflow-hidden shadow-lg bg-white"
                   style={{ borderColor: '#A2A092', borderWidth: '2px' }}

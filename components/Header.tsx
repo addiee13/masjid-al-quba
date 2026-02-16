@@ -79,7 +79,7 @@ const navLinks: NavItem[] = [
     type: "dropdown",
     dropdown: [
       { label: "Calendar", href: "/events/calendar" },
-      { label: "Weekly Breakfast", href: "/events/weekly-breakfast" },
+      { label: "Weekly Tafsir", href: "/events/weekly-tafsir" },
       { label: "Monthly Halaqa", href: "/events/monthly-halaqa" },
     ],
   },
