@@ -5,7 +5,7 @@ import { notFound } from "next/navigation";
 import { CalendarDays, Clock3, MapPin, Tag } from "lucide-react";
 import { getEventBySlug, getNextOccurrenceForEvent } from "@/sanity/lib/queries";
 import { MASJID_TIME_ZONE } from "@/lib/events";
-import { urlFor } from "@/sanity/lib/sanity";
+import { urlForOptional } from "@/sanity/lib/sanity";
 
 type EventDetailProps = {
   params: Promise<{ slug: string }>;
@@ -48,6 +48,7 @@ export default async function EventDetailPage({ params }: EventDetailProps) {
   }
 
   const nextOccurrence = getNextOccurrenceForEvent(event);
+  const imageUrl = urlForOptional(event.mainImage)?.url() ?? null;
 
   return (
     <div className="min-h-screen bg-bg-beige">
@@ -55,9 +56,9 @@ export default async function EventDetailPage({ params }: EventDetailProps) {
         <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="card-elevated overflow-hidden">
             <div className="relative w-full h-72 md:h-96 bg-white">
-              {event.mainImage ? (
+              {imageUrl ? (
                 <Image
-                  src={urlFor(event.mainImage).url()}
+                  src={imageUrl}
                   alt={event.title}
                   fill
                   className="object-cover"

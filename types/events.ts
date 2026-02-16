@@ -1,3 +1,5 @@
+import type { ImageSource } from "@/sanity/lib/sanity";
+
 export type EventCategory =
   | "education"
   | "community"
@@ -12,7 +14,7 @@ export interface EventTemplate {
   _id: string;
   title: string;
   slug?: { current: string } | null;
-  mainImage?: unknown;
+  mainImage?: ImageSource | null;
   summary: string;
   category: EventCategory;
   location: string;
@@ -32,7 +34,7 @@ export interface EventOccurrence {
   category: EventCategory;
   recurrenceType: RecurrenceType;
   location: string;
-  mainImage?: unknown;
+  mainImage?: ImageSource | null;
   startsAt: string;
   endsAt?: string | null;
   isFeatured: boolean;

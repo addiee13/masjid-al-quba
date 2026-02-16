@@ -2,19 +2,14 @@
 
 import React from 'react'
 import Image from 'next/image'
-import { urlFor } from '@/sanity/lib/sanity'
+import { urlForOptional, type ImageSource } from '@/sanity/lib/sanity'
 
 export type BoardMember = {
   _id: string
   name: string
   role: string
   order: number
-  image?: {
-    asset?: {
-      _ref?: string
-    }
-    [key: string]: unknown
-  }
+  image?: ImageSource | null
   bio?: string
 }
 
@@ -62,9 +57,8 @@ function getInitials(name: string): string {
 
 export default function BoardMemberCard({ member }: BoardMemberCardProps) {
   const initials = getInitials(member.name)
-  const imageUrl = member.image?.asset?._ref
-    ? urlFor(member.image).width(96).height(96).fit('crop').url()
-    : null
+  const imageBuilder = urlForOptional(member.image)
+  const imageUrl = imageBuilder?.width(96).height(96).fit('crop').url() ?? null
 
   return (
     <div
