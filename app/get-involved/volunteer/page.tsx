@@ -7,6 +7,6 @@ export const metadata: Metadata = {
     "Volunteer with Masjid Al-Quba and support outreach and community initiatives.",
 };
 
-export default function VolunteerPage() {
+export default function GetInvolvedVolunteerPage() {
   return <VolunteerPageContent />;
 }
