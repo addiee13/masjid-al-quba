@@ -27,6 +27,11 @@ type NavItem = {
 // Navigation data structure - Strict compliance with sitemap
 const navLinks: NavItem[] = [
   {
+    label: "Home",
+    href: "/",
+    type: "link",
+  },
+  {
     label: "Masjid Info",
     href: "/about",
     type: "dropdown",
@@ -441,18 +446,18 @@ export default function Header() {
       }`}
     >
       <nav className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex items-center justify-between h-20 md:h-24">
+        <div className="flex items-center justify-between h-24 md:h-28">
           {/* Logo */}
           <Link
             href="/"
-            className="flex items-center transition-opacity duration-300 hover:opacity-80"
+            className="flex shrink-0 items-center transition-opacity duration-300 hover:opacity-80"
           >
             <Image
               src="/masjid_logo.png"
               alt="Masjid Al-Quba Logo"
               width={128}
               height={128}
-              className="w-20 h-20 md:w-32 md:h-32 object-contain"
+              className="h-24 w-24 object-contain md:h-36 md:w-36"
               priority
             />
           </Link>
@@ -465,7 +470,7 @@ export default function Header() {
           </div>
 
           {/* Desktop CTA */}
-          <div className="hidden lg:block">
+          <div className="hidden shrink-0 lg:block">
             <Link
               href="/donate"
               className="bg-primary-green text-white font-body font-semibold rounded-full px-8 py-3 text-lg hover:shadow-lg hover:shadow-primary-green/30 hover:-translate-y-0.5 transition-all duration-300 flex items-center gap-2"
@@ -529,15 +534,6 @@ export default function Header() {
 
         {/* Drawer Content */}
         <div className="overflow-y-auto h-[calc(100%-80px)]">
-          {/* Home Link */}
-          <Link
-            href="/"
-            onClick={() => setIsMobileMenuOpen(false)}
-            className="block font-heading font-semibold text-primary-dark hover:text-primary-green transition-colors px-4 py-3 text-lg border-b border-light-sage/30"
-          >
-            Home
-          </Link>
-
           {/* Navigation Links */}
           {navLinks.map((item) => (
             <MobileNavItem
