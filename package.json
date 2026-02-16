@@ -6,7 +6,9 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "eslint"
+    "lint": "eslint",
+    "preflight": "npx tsc --noEmit && npm run lint",
+    "prebuild": "npm run preflight"
   },
   "dependencies": {
     "@sanity/client": "^7.14.1",
