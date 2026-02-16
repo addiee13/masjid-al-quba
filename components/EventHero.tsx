@@ -38,7 +38,7 @@ export default function EventHero({ events }: { events: Event[] }) {
                   style={{ borderColor: '#A2A092', borderWidth: '2px' }}
                 >
                   <div className="md:flex">
-                    {event.mainImage && (
+                    {event.mainImage ? (
                       <div className="md:w-1/2 relative h-64 md:h-80">
                         <Image
                           src={urlFor(event.mainImage).url()}
@@ -47,7 +47,7 @@ export default function EventHero({ events }: { events: Event[] }) {
                           className="object-cover"
                         />
                       </div>
-                    )}
+                    ) : null}
                     
                     <div className="p-6 md:w-1/2 flex flex-col justify-center">
                       <h3 className="text-2xl md:text-3xl font-bold mb-3 font-['El_Messiri']" style={{ color: '#6E6353' }}>
