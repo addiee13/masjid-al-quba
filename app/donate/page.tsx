@@ -21,7 +21,7 @@ export const metadata: Metadata = {
 const DONATION_LINKS = {
   ramadan: "https://square.link/u/uaQVezWs",
   construction: "https://square.link/u/y45ivtFR",
-  operations: "https://square.link/u/REPLACE_OPERATIONS",
+  operations: "https://square.link/u/9S5UK6T3",
   zakat: "https://square.link/u/RveBuPCI",
   sadaqah: "https://square.link/u/MlGg2gg5",
 };;
