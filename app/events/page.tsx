@@ -25,7 +25,7 @@ function formatDateTime(value: string) {
 }
 
 function getEventDateLabel(value?: string | null) {
-  if (!value) return "Date & time to be announced";
+  if (!value) return "";
   return formatDateTime(value);
 }
 

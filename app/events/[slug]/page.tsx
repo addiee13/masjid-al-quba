@@ -25,7 +25,7 @@ function formatDateTime(value: string) {
 
 function getEventDateLabel(startDateTime?: string | null, nextOccurrenceStart?: string | null) {
   const dateValue = nextOccurrenceStart ?? startDateTime;
-  if (!dateValue) return "Date & time to be announced";
+  if (!dateValue) return "";
   return formatDateTime(dateValue);
 }
 
