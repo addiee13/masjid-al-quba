@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
 import { CalendarDays, Clock3, MapPin, Tag } from "lucide-react";
-import { getUpcomingEventOccurrences } from "@/sanity/lib/queries";
+import { getUpcomingEventsForListing } from "@/sanity/lib/queries";
 import { MASJID_TIME_ZONE } from "@/lib/events";
 import { urlForOptional } from "@/sanity/lib/sanity";
 
@@ -24,16 +24,13 @@ function formatDateTime(value: string) {
   }).format(new Date(value));
 }
 
+function getEventDateLabel(value?: string | null) {
+  if (!value) return "Date & time to be announced";
+  return formatDateTime(value);
+}
+
 export default async function EventsPage() {
-  const rawEvents = await getUpcomingEventOccurrences();
-  const events = Array.from(
-    rawEvents.reduce((map, occurrence) => {
-      if (!map.has(occurrence.eventId)) {
-        map.set(occurrence.eventId, occurrence);
-      }
-      return map;
-    }, new Map<string, (typeof rawEvents)[number]>()).values()
-  );
+  const events = await getUpcomingEventsForListing();
 
   return (
     <div className="min-h-screen bg-bg-beige">
@@ -74,7 +71,7 @@ export default async function EventsPage() {
 
                 return (
                   <article
-                    key={`${event.eventId}-${event.startsAt}`}
+                    key={`${event.eventId}-${event.startsAt || "tba"}`}
                     className="card-elevated overflow-hidden"
                   >
                     <div className="grid grid-cols-1 md:grid-cols-3">
@@ -118,7 +115,7 @@ export default async function EventsPage() {
                         <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 mb-6">
                           <p className="font-body text-sm text-primary-dark inline-flex items-center gap-2">
                             <Clock3 className="w-4 h-4 text-primary-green" />
-                            {formatDateTime(event.startsAt)}
+                            {getEventDateLabel(event.startsAt)}
                           </p>
                           <p className="font-body text-sm text-primary-dark inline-flex items-center gap-2">
                             <MapPin className="w-4 h-4 text-primary-green" />
