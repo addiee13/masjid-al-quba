@@ -3,7 +3,7 @@
 import { Phone, Mail, MapPin, Clock } from "lucide-react";
 
 const contactInfo = {
-  address: "1400 Buford Hwy NE, Sugar Hill, GA 30518",
+  address: "1400 Buford Hwy, Sugar Hill, GA 30518",
   phone: "(404) 933-2943",
   email: "masjidalquba@gmail.com",
   hours: [
