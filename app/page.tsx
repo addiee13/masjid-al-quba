@@ -1,37 +1,10 @@
-import { ArrowRight, BookOpen, Heart, Users, Calendar, Star } from "lucide-react";
+import { ArrowRight, Star } from "lucide-react";
 import Link from "next/link";
 import PrayerTimesWidget from "../components/PrayerTimesWidget";
 import EventHero from "../components/EventHero";
 import HeroCarousel from "../components/HeroCarousel";
+import QuickActionsPanel from "../components/QuickActionsPanel";
 import { getFeaturedEvents, getHeroSlides } from "../sanity/lib/queries";
-
-// Quick links data
-const quickLinks = [
-  {
-    icon: BookOpen,
-    title: "Quran School",
-    description: "Islamic education for all ages",
-    href: "/education/quran-school",
-  },
-  {
-    icon: Heart,
-    title: "Zakat",
-    description: "Fulfill your obligation and support those in need",
-    href: "/services/zakat",
-  },
-  {
-    icon: Users,
-    title: "Community Events",
-    description: "Join our gatherings",
-    href: "/events",
-  },
-  {
-    icon: Calendar,
-    title: "Weekly Tafsir",
-    description: "Learn the meanings of the Quran",
-    href: "/education/weekly-tafsir",
-  },
-];
 
 // Featured services
 const services = [
@@ -69,34 +42,15 @@ export default async function Home() {
         <EventHero events={featuredEvents} />
       )}
 
-      {/* Prayer Times Widget Section */}
-      <section id="prayer-times" className="bg-white py-8 md:py-12">
-        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
-          <PrayerTimesWidget />
-        </div>
-      </section>
-
-      {/* Quick Links Section */}
-      <section className="bg-white py-16 md:py-24">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-            {quickLinks.map((link) => (
-              <Link
-                key={link.title}
-                href={link.href}
-                className="group card-elevated p-6 text-center"
-              >
-                <div className="w-14 h-14 mx-auto mb-4 rounded-full bg-bg-beige flex items-center justify-center group-hover:bg-primary-green group-hover:text-white transition-all duration-300">
-                  <link.icon className="w-6 h-6 text-primary-green group-hover:text-white transition-colors" />
-                </div>
-                <h3 className="font-heading text-lg font-semibold text-primary-dark mb-2">
-                  {link.title}
-                </h3>
-                <p className="font-body text-sm text-muted-foreground">
-                  {link.description}
-                </p>
-              </Link>
-            ))}
+      <section id="prayer-times" className="bg-white">
+        <div className="max-w-7xl mx-auto px-4 py-10">
+          <div className="grid grid-cols-12 gap-7">
+            <div className="col-span-12 lg:col-span-8 h-full">
+              <PrayerTimesWidget />
+            </div>
+            <div className="col-span-12 lg:col-span-4 lg:sticky lg:top-24 h-full">
+              <QuickActionsPanel />
+            </div>
           </div>
         </div>
       </section>

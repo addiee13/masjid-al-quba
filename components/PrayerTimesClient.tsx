@@ -2,6 +2,14 @@
 
 import { useState, useEffect, useMemo } from "react";
 import moment from "moment-hijri";
+import {
+  Clock3,
+  MoonStar,
+  Sun,
+  Sunrise,
+  Sunset,
+  type LucideIcon,
+} from "lucide-react";
 import type { PrayerSchedule } from "@/types/prayer";
 import {
   parseTimeInMasjidTZ,
@@ -15,101 +23,13 @@ import {
 } from "@/lib/prayer-utils";
 
 // Prayer configuration
-const PRAYERS_CONFIG: Array<{ key: PrayerName; name: string }> = [
-  { key: "fajr", name: "Fajr" },
-  { key: "dhuhr", name: "Dhuhr" },
-  { key: "asr", name: "Asr" },
-  { key: "maghrib", name: "Maghrib" },
-  { key: "isha", name: "Isha" },
+const PRAYERS_CONFIG: Array<{ key: PrayerName; name: string; icon: LucideIcon }> = [
+  { key: "fajr", name: "Fajr", icon: Sunrise },
+  { key: "dhuhr", name: "Dhuhr", icon: Sun },
+  { key: "asr", name: "Asr", icon: Clock3 },
+  { key: "maghrib", name: "Maghrib", icon: Sunset },
+  { key: "isha", name: "Isha", icon: MoonStar },
 ];
-
-// Prayer Icons Component
-function PrayerIcon({
-  prayer,
-  className,
-}: {
-  prayer: string;
-  className?: string;
-}) {
-  const iconClass = `w-8 h-8 ${className || "text-primary-green"}`;
-
-  switch (prayer) {
-    case "fajr":
-      return (
-        <svg
-          className={iconClass}
-          viewBox="0 0 24 24"
-          fill="none"
-          stroke="currentColor"
-          strokeWidth="1.5"
-        >
-          <path d="M12 3v1m0 16v1m-9-9h1m16 0h1m-2.636-6.364l-.707.707M6.343 17.657l-.707.707m12.728 0l-.707-.707M6.343 6.343l-.707-.707" />
-          <path d="M17 12a5 5 0 11-10 0" />
-          <path d="M3 18h18" strokeLinecap="round" />
-        </svg>
-      );
-    case "dhuhr":
-      return (
-        <svg
-          className={iconClass}
-          viewBox="0 0 24 24"
-          fill="none"
-          stroke="currentColor"
-          strokeWidth="1.5"
-        >
-          <circle cx="12" cy="12" r="4" />
-          <path d="M12 2v2m0 16v2M4 12H2m20 0h-2m-2.93-7.07l-1.41 1.41m-9.32 9.32l-1.41 1.41m0-12.14l1.41 1.41m9.32 9.32l1.41 1.41" />
-        </svg>
-      );
-    case "asr":
-      return (
-        <svg
-          className={iconClass}
-          viewBox="0 0 24 24"
-          fill="none"
-          stroke="currentColor"
-          strokeWidth="1.5"
-        >
-          <circle cx="12" cy="10" r="4" />
-          <path d="M12 2v2m8 6h2M2 10h2m2.93-5.07l-1.41-1.41m12.02 0l1.41-1.41" />
-          <path d="M6 19a6 6 0 0112 0" strokeLinecap="round" />
-          <path d="M12 14v5" />
-        </svg>
-      );
-    case "maghrib":
-      return (
-        <svg
-          className={iconClass}
-          viewBox="0 0 24 24"
-          fill="none"
-          stroke="currentColor"
-          strokeWidth="1.5"
-        >
-          <path d="M17 12a5 5 0 01-10 0" />
-          <path d="M12 17v1m-4-2.5l-.5.87m9 0l-.5-.87" />
-          <path d="M3 17h18" strokeLinecap="round" />
-          <path d="M5 21h14" strokeLinecap="round" />
-        </svg>
-      );
-    case "isha":
-      return (
-        <svg
-          className={iconClass}
-          viewBox="0 0 24 24"
-          fill="none"
-          stroke="currentColor"
-          strokeWidth="1.5"
-        >
-          <path d="M12 3a6 6 0 00-5.78 7.5A6 6 0 1012 21a6 6 0 000-18z" />
-          <circle cx="16" cy="6" r="1" fill="currentColor" />
-          <circle cx="19" cy="9" r="0.5" fill="currentColor" />
-          <circle cx="18" cy="13" r="0.75" fill="currentColor" />
-        </svg>
-      );
-    default:
-      return null;
-  }
-}
 
 // Get Hijri date
 function getHijriDate(): string {
@@ -119,6 +39,10 @@ function getHijriDate(): string {
 
 interface PrayerTimesClientProps {
   schedule: PrayerSchedule | null;
+}
+
+interface PrayerRow extends PrayerTime {
+  icon: LucideIcon;
 }
 
 export default function PrayerTimesClient({ schedule }: PrayerTimesClientProps) {
@@ -135,18 +59,14 @@ export default function PrayerTimesClient({ schedule }: PrayerTimesClientProps) 
   }, []);
 
   // Parse prayer times from schedule
-  const prayers = useMemo<PrayerTime[]>(() => {
+  const prayers = useMemo<PrayerRow[]>(() => {
     if (!schedule) return [];
 
     return PRAYERS_CONFIG.map((config) => ({
       key: config.key,
       name: config.name,
-      athan: parseTimeInMasjidTZ(
-        schedule[`${config.key}Athan` as keyof PrayerSchedule] as string
-      ),
-      iqamah: parseTimeInMasjidTZ(
-        schedule[`${config.key}Iqamah` as keyof PrayerSchedule] as string
-      ),
+      icon: config.icon,
+      time: parseTimeInMasjidTZ(schedule[config.key]),
     }));
   }, [schedule]);
 
@@ -159,16 +79,16 @@ export default function PrayerTimesClient({ schedule }: PrayerTimesClientProps) 
   // Calculate countdown to next prayer
   const countdown = useMemo(() => {
     if (!nextPrayer) return 0;
-    return getCountdownMs(nextPrayer.athan, currentTime);
+    return getCountdownMs(nextPrayer.time, currentTime);
   }, [nextPrayer, currentTime]);
 
   // Empty state
   if (!schedule) {
     return (
-      <div className="max-w-md mx-auto">
-        <div className="bg-white rounded-2xl border-2 border-primary-dark shadow-lg overflow-hidden">
-          <div className="flex flex-col items-center p-8">
-            <h2 className="font-heading text-3xl font-bold text-primary-dark mb-4">
+      <div className="w-full h-full">
+        <div className="h-full overflow-hidden rounded-2xl border border-emerald-900/10 bg-gradient-to-br from-white to-emerald-50/40 shadow-lg shadow-emerald-900/5">
+          <div className="h-full p-6 md:p-8">
+            <h2 className="font-heading text-2xl font-bold text-primary-dark mb-2">
               Prayer Times
             </h2>
             <p className="font-body text-muted-foreground text-center">
@@ -181,79 +101,61 @@ export default function PrayerTimesClient({ schedule }: PrayerTimesClientProps) 
   }
 
   return (
-    <div className="max-w-md mx-auto">
-      {/* Clean Rectangle Card */}
-      <div className="bg-white rounded-2xl border-2 border-primary-dark shadow-lg overflow-hidden">
-        <div className="flex flex-col items-center p-8">
-          {/* Title */}
-          <h2 className="font-heading text-3xl font-bold text-primary-dark mb-1">
-            Prayer Times
-          </h2>
+    <div className="w-full h-full">
+      <div className="h-full overflow-hidden rounded-2xl border border-emerald-900/10 bg-gradient-to-br from-white to-emerald-50/40 shadow-lg shadow-emerald-900/5">
+        <div className="h-full p-6 md:p-8">
+          <div className="mb-4 flex items-center justify-between gap-5">
+            <h2 className="font-heading text-2xl font-bold text-primary-dark">
+              Prayer Times
+            </h2>
+            <p className="font-body text-xs text-muted-foreground">
+              {hijriDate || "Loading..."}
+            </p>
+          </div>
 
-          {/* Hijri Date */}
-          <p className="font-body text-sm text-muted-foreground mb-6">
-            {hijriDate || "Loading..."}
-          </p>
-
-          {/* Countdown Banner */}
           {nextPrayer && (
-            <div className="w-full bg-primary-dark rounded-xl py-3 px-4 mb-6">
-              <p className="font-body text-light-sage text-xs text-center mb-1">
+            <div className="mb-4 w-full rounded-2xl bg-gradient-to-r from-emerald-800 to-emerald-700 px-5 py-4 shadow-md shadow-emerald-900/20">
+              <p className="mx-auto mb-1 w-fit rounded-full bg-black/20 px-3 py-1 text-xs font-medium tracking-wide text-white/90">
                 {nextPrayer.name} is in
               </p>
-              <p className="font-heading text-2xl md:text-3xl font-bold text-white text-center tracking-wider">
+              <p className="font-heading text-2xl font-bold text-white text-center tracking-wider leading-none">
                 {formatCountdown(countdown)}
               </p>
             </div>
           )}
 
-          {/* Column Headers */}
-          <div className="w-full grid grid-cols-[auto_1fr_1fr_1fr] gap-2 mb-3 px-2">
-            <div className="w-8" /> {/* Icon space */}
-            <div className="font-body text-xs text-muted-foreground font-medium" />
-            <div className="font-body text-xs text-muted-foreground font-medium text-center">
-              Athan
-            </div>
-            <div className="font-body text-xs text-primary-green font-medium text-center">
-              Iqama
-            </div>
-          </div>
-
-          {/* Prayer Times List */}
-          <div className="w-full space-y-2">
+          <div className="w-full space-y-4">
             {prayers.map((prayer) => {
               const isNext = nextPrayer?.key === prayer.key;
-              const isPassed = prayer.athan.getTime() < currentTime.getTime();
+              const isPast = prayer.time.getTime() < currentTime.getTime();
+              const Icon = prayer.icon;
 
               return (
                 <div
                   key={prayer.key}
-                  className={`grid grid-cols-[auto_1fr_1fr_1fr] gap-2 items-center py-3 px-3 rounded-xl transition-all duration-300 ${
+                  className={`grid h-12 grid-cols-[auto_1fr_auto] items-center gap-3 rounded-xl border px-4 transition-all duration-300 ${
                     isNext
-                      ? "bg-primary-green/10 border-2 border-primary-green"
-                      : isPassed
-                      ? "opacity-50"
-                      : "hover:bg-bg-beige/50"
+                      ? "bg-emerald-50/70 border-emerald-700 text-emerald-800 shadow-sm"
+                      : isPast
+                      ? "border-primary-dark/10 bg-bg-beige/30 opacity-50"
+                      : "border-primary-dark/10 bg-white hover:bg-bg-beige/40 hover:translate-y-0.5 hover:shadow-md"
                   }`}
                 >
-                  {/* Icon */}
-                  <PrayerIcon
-                    prayer={prayer.key}
-                    className={
+                  <Icon
+                    className={`h-5 w-5 ${
                       isNext
-                        ? "text-primary-green"
-                        : isPassed
+                        ? "text-emerald-800"
+                        : isPast
                         ? "text-muted-foreground"
                         : "text-primary-dark"
-                    }
+                    }`}
                   />
 
-                  {/* Prayer Name */}
                   <span
-                    className={`font-heading text-lg font-semibold ${
+                    className={`font-heading text-lg ${
                       isNext
-                        ? "text-primary-green"
-                        : isPassed
+                        ? "font-semibold text-emerald-800"
+                        : isPast
                         ? "text-muted-foreground"
                         : "text-primary-dark"
                     }`}
@@ -261,50 +163,35 @@ export default function PrayerTimesClient({ schedule }: PrayerTimesClientProps) 
                     {prayer.name}
                   </span>
 
-                  {/* Athan Time */}
                   <span
-                    className={`font-body text-sm text-center ${
-                      isPassed ? "text-muted-foreground" : "text-primary-dark"
+                    className={`font-body text-sm font-semibold text-right ${
+                      isNext
+                        ? "text-emerald-800"
+                        : isPast
+                        ? "text-muted-foreground"
+                        : "text-primary-dark"
                     }`}
                   >
-                    {formatTime12Hour(prayer.athan)}
-                  </span>
-
-                  {/* Iqama Time */}
-                  <span
-                    className={`font-body text-sm font-medium text-center ${
-                      isNext ? "text-primary-green" : "text-primary-green/70"
-                    }`}
-                  >
-                    {formatTime12Hour(prayer.iqamah)}
+                    {formatTime12Hour(prayer.time)}
                   </span>
                 </div>
               );
             })}
 
-            {/* Jummah Row (conditional) */}
-            {(schedule.jummahKhutbah || schedule.jummahIqamah) && (
-              <div className="grid grid-cols-[auto_1fr_1fr_1fr] gap-2 items-center py-3 px-3 rounded-xl hover:bg-bg-beige/50 border-t-2 border-light-sage/20 mt-4">
-                <PrayerIcon prayer="dhuhr" className="text-primary-dark" />
+            {schedule.jummah && (
+              <div className="mt-1 grid h-12 grid-cols-[auto_1fr_auto] items-center gap-3 rounded-xl border border-primary-dark/10 bg-white px-4 transition-all duration-300 hover:translate-y-0.5 hover:bg-bg-beige/40 hover:shadow-md">
+                <Sun className="h-5 w-5 text-primary-dark" />
                 <span className="font-heading text-lg font-semibold text-primary-dark">
                   Jummah
                 </span>
-                <span className="font-body text-sm text-center text-primary-dark">
-                  {schedule.jummahKhutbah
-                    ? formatTime12Hour(parseTimeInMasjidTZ(schedule.jummahKhutbah))
-                    : "—"}
-                </span>
-                <span className="font-body text-sm font-medium text-center text-primary-green/70">
-                  {schedule.jummahIqamah
-                    ? formatTime12Hour(parseTimeInMasjidTZ(schedule.jummahIqamah))
-                    : "—"}
+                <span className="font-body text-sm font-semibold text-right text-primary-dark">
+                  {formatTime12Hour(parseTimeInMasjidTZ(schedule.jummah))}
                 </span>
               </div>
             )}
           </div>
 
-          {/* Footer */}
-          <div className="mt-6 pt-4 border-t border-light-sage/30 w-full">
+          <div className="mt-4 w-full border-t border-light-sage/30 pt-3">
             <p className="font-body text-xs text-muted-foreground text-center">
               Masjid Al-Quba • Buford, GA
             </p>

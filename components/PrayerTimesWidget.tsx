@@ -1,5 +1,5 @@
 import { getActivePrayerSchedule } from "@/sanity/lib/queries";
-import PrayerTimesClient from "./PrayerTimesClient";
+import PrayerTimesClientShell from "./PrayerTimesClientShell";
 
 /**
  * Server component wrapper for prayer times
@@ -8,5 +8,5 @@ import PrayerTimesClient from "./PrayerTimesClient";
 export default async function PrayerTimesWidget() {
   const schedule = await getActivePrayerSchedule();
   
-  return <PrayerTimesClient schedule={schedule} />;
+  return <PrayerTimesClientShell schedule={schedule} />;
 }

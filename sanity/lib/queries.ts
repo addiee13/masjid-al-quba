@@ -187,18 +187,12 @@ export async function getActivePrayerSchedule() {
   const query = `*[_type == "prayerSchedule"] | order(_createdAt desc) [0] {
     _id,
     title,
-    fajrAthan,
-    fajrIqamah,
-    dhuhrAthan,
-    dhuhrIqamah,
-    asrAthan,
-    asrIqamah,
-    maghribAthan,
-    maghribIqamah,
-    ishaAthan,
-    ishaIqamah,
-    jummahKhutbah,
-    jummahIqamah
+    "fajr": coalesce(fajr, fajrAthan, fajrIqamah),
+    "dhuhr": coalesce(dhuhr, dhuhrAthan, dhuhrIqamah),
+    "asr": coalesce(asr, asrAthan, asrIqamah),
+    "maghrib": coalesce(maghrib, maghribAthan, maghribIqamah),
+    "isha": coalesce(isha, ishaAthan, ishaIqamah),
+    "jummah": coalesce(jummah, jummahIqamah, jummahKhutbah)
   }`
   
   return await client.fetch(query)

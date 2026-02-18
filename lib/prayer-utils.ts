@@ -10,8 +10,7 @@ export type PrayerName = "fajr" | "dhuhr" | "asr" | "maghrib" | "isha";
 export interface PrayerTime {
   key: PrayerName;
   name: string;
-  athan: Date;
-  iqamah: Date;
+  time: Date;
 }
 
 /**
@@ -72,23 +71,22 @@ export function formatCountdown(ms: number): string {
 }
 
 /**
- * Find the next prayer based on Athan time
+ * Find the next prayer based on prayer time
  * If all prayers have passed, returns tomorrow's Fajr
  */
 export function findNextPrayer(prayers: PrayerTime[], currentTime: Date): PrayerTime {
   const nowMs = currentTime.getTime();
   
-  // Find first prayer whose athan hasn't occurred yet
+  // Find first prayer whose time hasn't occurred yet
   for (const prayer of prayers) {
-    if (prayer.athan.getTime() > nowMs) {
+    if (prayer.time.getTime() > nowMs) {
       return prayer;
     }
   }
   
   // All prayers passed - return tomorrow's Fajr
   const tomorrowFajr = { ...prayers[0] };
-  tomorrowFajr.athan = new Date(prayers[0].athan.getTime() + 24 * 60 * 60 * 1000);
-  tomorrowFajr.iqamah = new Date(prayers[0].iqamah.getTime() + 24 * 60 * 60 * 1000);
+  tomorrowFajr.time = new Date(prayers[0].time.getTime() + 24 * 60 * 60 * 1000);
   
   return tomorrowFajr;
 }
