@@ -23,6 +23,12 @@ function formatDateTime(value: string) {
   }).format(new Date(value));
 }
 
+function getEventDateLabel(startDateTime?: string | null, nextOccurrenceStart?: string | null) {
+  const dateValue = nextOccurrenceStart ?? startDateTime;
+  if (!dateValue) return "";
+  return formatDateTime(dateValue);
+}
+
 export async function generateMetadata({ params }: EventDetailProps): Promise<Metadata> {
   const { slug } = await params;
   const event = await getEventBySlug(slug);
@@ -92,9 +98,7 @@ export default async function EventDetailPage({ params }: EventDetailProps) {
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-8">
                 <p className="font-body text-primary-dark inline-flex items-center gap-2">
                   <Clock3 className="w-4 h-4 text-primary-green" />
-                  {nextOccurrence
-                    ? formatDateTime(nextOccurrence.startsAt)
-                    : formatDateTime(event.startDateTime)}
+                  {getEventDateLabel(event.startDateTime, nextOccurrence?.startsAt)}
                 </p>
                 <p className="font-body text-primary-dark inline-flex items-center gap-2">
                   <MapPin className="w-4 h-4 text-primary-green" />

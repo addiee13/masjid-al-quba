@@ -60,8 +60,7 @@ export default defineType({
       name: 'startDateTime',
       title: 'Start Date & Time',
       type: 'datetime',
-      description: 'Use local masjid time (America/New_York).',
-      validation: (Rule) => Rule.required(),
+      description: 'Optional. Use local masjid time (America/New_York) when available.',
     }),
     defineField({
       name: 'endDateTime',

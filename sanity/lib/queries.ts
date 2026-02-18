@@ -3,7 +3,7 @@ import {
   expandEventOccurrences,
   getDefaultEventWindow,
 } from '../../lib/events'
-import type { EventOccurrence, EventTemplate } from '../../types/events'
+import type { EventListItem, EventOccurrence, EventTemplate } from '../../types/events'
 
 export async function getHeroSlides() {
   const query = `*[_type == "heroSlide" && active == true] | order(order asc) {
@@ -102,6 +102,42 @@ export async function getUpcomingEventOccurrences() {
   const templates = await getEventTemplates()
   const { from, to } = getDefaultEventWindow()
   return expandEventOccurrences(templates, from, to)
+}
+
+function toEventListItemFromTemplate(template: EventTemplate): EventListItem {
+  return {
+    eventId: template._id,
+    slug: template.slug,
+    title: template.title,
+    summary: template.summary,
+    category: template.category || "general",
+    recurrenceType: template.recurrenceType || "none",
+    location: template.location || "Masjid Al-Quba",
+    mainImage: template.mainImage,
+    startsAt: null,
+    endsAt: null,
+    isFeatured: Boolean(template.isFeatured),
+    isRecurringOccurrence: false,
+  }
+}
+
+export async function getUpcomingEventsForListing(): Promise<EventListItem[]> {
+  const templates = await getEventTemplates()
+  const { from, to } = getDefaultEventWindow()
+  const occurrences = expandEventOccurrences(templates, from, to)
+
+  const uniqueUpcomingByEvent = new Map<string, EventListItem>()
+  for (const occurrence of occurrences) {
+    if (!uniqueUpcomingByEvent.has(occurrence.eventId)) {
+      uniqueUpcomingByEvent.set(occurrence.eventId, occurrence)
+    }
+  }
+
+  const undatedEvents = templates
+    .filter((template) => !template.startDateTime && !uniqueUpcomingByEvent.has(template._id))
+    .map(toEventListItemFromTemplate)
+
+  return [...uniqueUpcomingByEvent.values(), ...undatedEvents]
 }
 
 export async function getEventBySlug(slug: string) {
