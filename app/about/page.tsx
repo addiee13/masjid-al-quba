@@ -1,6 +1,6 @@
 import { Metadata } from 'next';
 import Link from 'next/link';
-import { Church, Users, BookOpen } from 'lucide-react';
+import { HandHeart, Users, BookOpen } from 'lucide-react';
 import HighlightChip from '@/components/about/HighlightChip';
 import StatsCard from '@/components/about/StatsCard';
 import MissionVisionSection from '@/components/about/MissionVisionSection';
@@ -25,7 +25,7 @@ export default function AboutPage() {
           
           {/* Highlight Chips */}
           <div className="flex flex-wrap justify-center gap-3 md:gap-4 mb-8">
-            <HighlightChip icon={Church} label="Prayer" />
+            <HighlightChip icon={HandHeart} label="Prayer" />
             <HighlightChip icon={Users} label="Community" />
             <HighlightChip icon={BookOpen} label="Education" />
           </div>
