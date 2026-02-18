@@ -3,6 +3,7 @@
 import { useState, useEffect } from "react";
 import Link from "next/link";
 import Image from "next/image";
+import { usePathname } from "next/navigation";
 import { Menu, X, ChevronDown, ChevronRight, Heart } from "lucide-react";
 
 // Types for navigation structure
@@ -64,6 +65,11 @@ const navLinks: NavItem[] = [
     ],
   },
   {
+    label: "Ramadan",
+    href: "/ramadan",
+    type: "link",
+  },
+  {
     label: "Education",
     href: "/education",
     type: "dropdown",
@@ -114,14 +120,14 @@ function DesktopDropdown({ item }: { item: NavItem }) {
       onMouseEnter={() => setIsOpen(true)}
       onMouseLeave={() => setIsOpen(false)}
     >
-      <div className="font-heading font-semibold text-primary-dark hover:text-primary-green transition-all duration-300 px-4 py-2 flex items-center gap-1.5 text-lg xl:text-xl relative group">
-        <Link href={item.href} className="relative">
+      <div className="font-heading font-semibold text-primary-dark hover:text-primary-green transition-all duration-300 px-4 h-11 flex items-center gap-1.5 text-lg xl:text-xl relative group">
+        <Link href={item.href} className="relative inline-flex items-center h-full">
           {item.label}
           <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-primary-green group-hover:w-full transition-all duration-300" />
         </Link>
         <button
           onClick={() => setIsOpen(!isOpen)}
-          className="p-1"
+          className="inline-flex items-center h-full px-1"
           aria-label={`Toggle ${item.label} menu`}
         >
           <ChevronDown
@@ -162,14 +168,14 @@ function DesktopMegaMenu({ item }: { item: NavItem }) {
         setActiveCategory(0);
       }}
     >
-      <div className="font-heading font-semibold text-primary-dark hover:text-primary-green transition-all duration-300 px-4 py-2 flex items-center gap-1.5 text-lg xl:text-xl relative group">
-        <Link href={item.href} className="relative">
+      <div className="font-heading font-semibold text-primary-dark hover:text-primary-green transition-all duration-300 px-4 h-11 flex items-center gap-1.5 text-lg xl:text-xl relative group">
+        <Link href={item.href} className="relative inline-flex items-center h-full">
           {item.label}
           <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-primary-green group-hover:w-full transition-all duration-300" />
         </Link>
         <button
           onClick={() => setIsOpen(!isOpen)}
-          className="p-1"
+          className="inline-flex items-center h-full px-1"
           aria-label={`Toggle ${item.label} menu`}
         >
           <ChevronDown
@@ -238,16 +244,46 @@ function DesktopMegaMenu({ item }: { item: NavItem }) {
 }
 
 // Desktop nav item renderer
-function DesktopNavItem({ item }: { item: NavItem }) {
+function DesktopNavItem({
+  item,
+  isLightHeader,
+  isRamadanActive,
+}: {
+  item: NavItem;
+  isLightHeader: boolean;
+  isRamadanActive: boolean;
+}) {
   if (item.type === "link") {
+    const isRamadan = item.label === "Ramadan";
+    const ramadanTextClass = isLightHeader
+      ? "text-amber-500 group-hover:text-amber-600"
+      : "bg-gradient-to-r from-emerald-600 to-green-700 bg-clip-text text-transparent group-hover:from-emerald-700 group-hover:to-green-800";
+    const ramadanActiveClass = isRamadanActive
+      ? `font-semibold underline underline-offset-4 decoration-2 ${
+          isLightHeader ? "decoration-amber-600" : "decoration-emerald-700"
+        }`
+      : "font-semibold";
+
     return (
       <Link
         href={item.href}
-        className="font-heading font-semibold text-primary-dark hover:text-primary-green transition-all duration-300 px-4 py-2 text-lg xl:text-xl relative group"
+        className={`font-heading transition-all duration-300 px-4 h-11 text-lg xl:text-xl relative group inline-flex items-center ${
+          isRamadan
+            ? `${ramadanActiveClass}`
+            : "font-semibold text-primary-dark hover:text-primary-green"
+        }`}
       >
-        <span className="relative">
+        <span className={`relative ${isRamadan ? ramadanTextClass : ""}`}>
           {item.label}
-          <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-primary-green group-hover:w-full transition-all duration-300" />
+          <span
+            className={`absolute -bottom-1 left-0 w-0 h-0.5 group-hover:w-full transition-all duration-300 ${
+              isRamadan
+                ? isLightHeader
+                  ? "bg-amber-500"
+                  : "bg-emerald-700"
+                : "bg-primary-green"
+            }`}
+          />
         </span>
       </Link>
     );
@@ -271,11 +307,17 @@ function MobileSimpleDropdown({
   const [isOpen, setIsOpen] = useState(false);
 
   if (item.type === "link") {
+    const isRamadan = item.label === "Ramadan";
+
     return (
       <Link
         href={item.href}
         onClick={onClose}
-        className="block font-heading font-semibold text-primary-dark hover:text-primary-green transition-colors px-4 py-3 text-lg border-b border-light-sage/30"
+        className={`px-4 py-3 text-lg border-b border-light-sage/30 transition-colors flex items-center ${
+          isRamadan
+            ? "font-medium text-amber-500 hover:text-amber-600"
+            : "font-heading font-semibold text-primary-dark hover:text-primary-green"
+        }`}
       >
         {item.label}
       </Link>
@@ -413,6 +455,9 @@ function MobileNavItem({
 export default function Header() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [hasScrolled, setHasScrolled] = useState(false);
+  const pathname = usePathname();
+  const isLightHeader = hasScrolled;
+  const isRamadanActive = pathname === "/ramadan";
 
   // Handle scroll effect for shadow
   useEffect(() => {
@@ -446,7 +491,7 @@ export default function Header() {
       }`}
     >
       <nav className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex items-center justify-between h-24 md:h-28">
+        <div className="flex items-center justify-between h-20 lg:h-24">
           {/* Logo */}
           <Link
             href="/"
@@ -457,15 +502,20 @@ export default function Header() {
               alt="Masjid Al-Quba Logo"
               width={128}
               height={128}
-              className="h-24 w-24 object-contain md:h-36 md:w-36"
+              className="h-16 w-16 object-contain lg:h-20 lg:w-20"
               priority
             />
           </Link>
 
           {/* Desktop Navigation */}
-          <div className="hidden lg:flex items-center gap-0.5">
+          <div className="hidden lg:flex items-center gap-0.5 h-full">
             {navLinks.map((item) => (
-              <DesktopNavItem key={item.label} item={item} />
+              <DesktopNavItem
+                key={item.label}
+                item={item}
+                isLightHeader={isLightHeader}
+                isRamadanActive={isRamadanActive}
+              />
             ))}
           </div>
 
