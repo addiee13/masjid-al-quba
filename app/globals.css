@@ -26,6 +26,8 @@ body {
   background-color: #D1D0CB;
   color: #2E2E2E;
   font-family: var(--font-body);
+  overflow-x: hidden;
+  width: 100%;
 }
 
 /* Heading Styles */
@@ -86,6 +88,8 @@ h1, h2, h3, h4, h5, h6 {
 /* Smooth Scrolling */
 html {
   scroll-behavior: smooth;
+  overflow-x: hidden;
+  width: 100%;
 }
 
 /* Enhanced Button Styles */
