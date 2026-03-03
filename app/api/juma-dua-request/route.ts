@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { writeClient } from '@/sanity/lib/writeClient'
+import { sendFormNotification } from '@/lib/email'
 
 export async function POST(request: NextRequest) {
   try {
@@ -48,6 +49,19 @@ export async function POST(request: NextRequest) {
     }
 
     await writeClient.create(document)
+
+    try {
+      await sendFormNotification({
+        formKind: 'juma_dua',
+        submittedAt: document.createdAt,
+        name: name.trim(),
+        phone: phone.trim(),
+        email: email.trim(),
+        message: message.trim(),
+      })
+    } catch (emailError) {
+      console.error('Failed to send juma-dua notification email:', emailError)
+    }
 
     return NextResponse.json({ ok: true })
   } catch (error) {

@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { writeClient } from '@/sanity/lib/writeClient'
 import type { ContactFormData } from '@/types/contact'
+import { sendFormNotification } from '@/lib/email'
 
 export async function POST(request: NextRequest) {
   try {
@@ -79,8 +80,20 @@ export async function POST(request: NextRequest) {
       await writeClient.create(document)
       console.log('Contact submission created:', { name, email, topic })
 
-      // TODO: Send email notification via Resend/SendGrid
-      // TODO: Consider rate limiting per IP/email
+      try {
+        await sendFormNotification({
+          formKind: 'contact',
+          submittedAt: document.createdAt,
+          name: name.trim(),
+          email: email.trim(),
+          phone: body.phone ? body.phone.trim() : undefined,
+          topic,
+          message: message.trim(),
+          preferredContact: body.preferredContact || undefined,
+        })
+      } catch (emailError) {
+        console.error('Failed to send contact notification email:', emailError)
+      }
 
       return NextResponse.json({ ok: true })
     } catch (sanityError) {

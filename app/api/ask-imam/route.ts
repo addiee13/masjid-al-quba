@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { writeClient } from '@/sanity/lib/writeClient'
+import { sendFormNotification } from '@/lib/email'
 
 export async function POST(request: NextRequest) {
   try {
@@ -41,6 +42,19 @@ export async function POST(request: NextRequest) {
     }
 
     await writeClient.create(document)
+
+    try {
+      await sendFormNotification({
+        formKind: 'ask_imam',
+        submittedAt: document.createdAt,
+        name: name ? name.trim() : undefined,
+        email: email.trim(),
+        subject: subject.trim(),
+        question: question.trim(),
+      })
+    } catch (emailError) {
+      console.error('Failed to send ask-imam notification email:', emailError)
+    }
 
     return NextResponse.json({ ok: true })
   } catch (error) {

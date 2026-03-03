@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { writeClient } from '@/sanity/lib/writeClient'
+import { sendFormNotification } from '@/lib/email'
 
 type ReligiousCounsellingPayload = {
   name?: string
@@ -83,6 +84,24 @@ export async function POST(request: NextRequest) {
     }
 
     await writeClient.create(document)
+
+    try {
+      await sendFormNotification({
+        formKind: 'religious_counselling',
+        submittedAt: document.createdAt,
+        name: name.trim(),
+        email: email.trim(),
+        phone: phone ? phone.trim() : undefined,
+        contactMethod,
+        topic: topic.trim(),
+        message: message.trim(),
+      })
+    } catch (emailError) {
+      console.error(
+        'Failed to send religious-counselling notification email:',
+        emailError
+      )
+    }
 
     return NextResponse.json({ ok: true })
   } catch (error) {
