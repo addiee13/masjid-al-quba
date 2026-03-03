@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback, useRef } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { usePathname } from "next/navigation";
@@ -120,7 +120,7 @@ function DesktopDropdown({ item }: { item: NavItem }) {
       onMouseEnter={() => setIsOpen(true)}
       onMouseLeave={() => setIsOpen(false)}
     >
-      <div className="font-heading font-semibold text-primary-dark hover:text-primary-green transition-all duration-300 px-4 h-11 flex items-center gap-1.5 text-lg xl:text-xl relative group">
+      <div className="font-heading font-semibold text-primary-dark hover:text-primary-green transition-all duration-300 px-2 xl:px-3 h-10 flex items-center gap-1 text-base xl:text-lg relative group">
         <Link href={item.href} className="relative inline-flex items-center h-full">
           {item.label}
           <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-primary-green group-hover:w-full transition-all duration-300" />
@@ -168,7 +168,7 @@ function DesktopMegaMenu({ item }: { item: NavItem }) {
         setActiveCategory(0);
       }}
     >
-      <div className="font-heading font-semibold text-primary-dark hover:text-primary-green transition-all duration-300 px-4 h-11 flex items-center gap-1.5 text-lg xl:text-xl relative group">
+      <div className="font-heading font-semibold text-primary-dark hover:text-primary-green transition-all duration-300 px-2 xl:px-3 h-10 flex items-center gap-1 text-base xl:text-lg relative group">
         <Link href={item.href} className="relative inline-flex items-center h-full">
           {item.label}
           <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-primary-green group-hover:w-full transition-all duration-300" />
@@ -267,7 +267,7 @@ function DesktopNavItem({
     return (
       <Link
         href={item.href}
-        className={`font-heading transition-all duration-300 px-4 h-11 text-lg xl:text-xl relative group inline-flex items-center ${
+          className={`font-heading transition-all duration-300 px-2 xl:px-3 h-10 text-base xl:text-lg relative group inline-flex items-center ${
           isRamadan
             ? `${ramadanActiveClass}`
             : "font-semibold text-primary-dark hover:text-primary-green"
@@ -455,6 +455,11 @@ function MobileNavItem({
 export default function Header() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [hasScrolled, setHasScrolled] = useState(false);
+  const [isCompactHeader, setIsCompactHeader] = useState(true);
+  const headerRowRef = useRef<HTMLDivElement>(null);
+  const logoRef = useRef<HTMLDivElement>(null);
+  const desktopClusterRef = useRef<HTMLDivElement>(null);
+  const previousCompactHeaderRef = useRef(true);
   const pathname = usePathname();
   const isLightHeader = hasScrolled;
   const isRamadanActive = pathname === "/ramadan";
@@ -482,6 +487,66 @@ export default function Header() {
     };
   }, [isMobileMenuOpen]);
 
+  const updateHeaderMode = useCallback(() => {
+    const headerRow = headerRowRef.current;
+    const logo = logoRef.current;
+    const desktopCluster = desktopClusterRef.current;
+
+    if (!headerRow || !logo || !desktopCluster) {
+      return;
+    }
+
+    const availableWidth = headerRow.clientWidth;
+    const logoWidth = logo.offsetWidth;
+    const desktopWidth = desktopCluster.scrollWidth;
+    const safetyBuffer = 16;
+    const shouldUseCompactHeader =
+      window.innerWidth < 1024 ||
+      (window.innerWidth < 1280 &&
+        logoWidth + desktopWidth + safetyBuffer > availableWidth);
+
+    if (previousCompactHeaderRef.current && !shouldUseCompactHeader) {
+      setIsMobileMenuOpen(false);
+    }
+
+    previousCompactHeaderRef.current = shouldUseCompactHeader;
+
+    setIsCompactHeader((prev) =>
+      prev === shouldUseCompactHeader ? prev : shouldUseCompactHeader
+    );
+  }, []);
+
+  useEffect(() => {
+    let frameId = 0;
+    const queueMeasurement = () => {
+      cancelAnimationFrame(frameId);
+      frameId = window.requestAnimationFrame(updateHeaderMode);
+    };
+
+    queueMeasurement();
+    window.addEventListener("resize", queueMeasurement);
+
+    const resizeObserver = new ResizeObserver(queueMeasurement);
+
+    if (headerRowRef.current) {
+      resizeObserver.observe(headerRowRef.current);
+    }
+
+    if (logoRef.current) {
+      resizeObserver.observe(logoRef.current);
+    }
+
+    if (desktopClusterRef.current) {
+      resizeObserver.observe(desktopClusterRef.current);
+    }
+
+    return () => {
+      cancelAnimationFrame(frameId);
+      window.removeEventListener("resize", queueMeasurement);
+      resizeObserver.disconnect();
+    };
+  }, [updateHeaderMode]);
+
   return (
     <header
       className={`sticky top-0 z-50 transition-all duration-300 ${
@@ -490,48 +555,64 @@ export default function Header() {
           : "bg-bg-beige"
       }`}
     >
-      <nav className="max-w-7xl mx-auto px-3 sm:px-6 lg:px-8">
-        <div className="flex items-center justify-between h-20 lg:h-24">
+      <nav className="max-w-[90rem] mx-auto px-3 sm:px-6 lg:px-8">
+        <div ref={headerRowRef} className="relative flex items-center justify-between h-20 lg:h-24">
           {/* Logo */}
-          <Link
-            href="/"
-            className="flex shrink-0 items-center transition-opacity duration-300 hover:opacity-80"
-          >
-            <Image
-              src="/masjid_logo.png"
-              alt="Masjid Al-Quba Logo"
-              width={128}
-              height={128}
-              className="h-14 w-14 object-contain sm:h-16 sm:w-16 lg:h-20 lg:w-20"
-              priority
-            />
-          </Link>
-
-          {/* Desktop Navigation */}
-          <div className="hidden lg:flex items-center gap-0.5 h-full">
-            {navLinks.map((item) => (
-              <DesktopNavItem
-                key={item.label}
-                item={item}
-                isLightHeader={isLightHeader}
-                isRamadanActive={isRamadanActive}
-              />
-            ))}
-          </div>
-
-          {/* Desktop CTA */}
-          <div className="hidden shrink-0 lg:block">
+          <div ref={logoRef} className="shrink-0">
             <Link
-              href="/donate"
-              className="bg-primary-green text-white font-body font-semibold rounded-full px-8 py-3 text-lg hover:shadow-lg hover:shadow-primary-green/30 hover:-translate-y-0.5 transition-all duration-300 flex items-center gap-2 whitespace-nowrap"
+              href="/"
+              className="flex items-center transition-opacity duration-300 hover:opacity-80"
             >
-              <Heart className="w-5 h-5" />
-              Donate
+              <Image
+                src="/masjid_logo.png"
+                alt="Masjid Al-Quba Logo"
+                width={128}
+                height={128}
+              className="h-14 w-14 object-contain sm:h-16 sm:w-16 lg:h-[4.5rem] lg:w-[4.5rem]"
+                priority
+              />
             </Link>
           </div>
 
+          {/* Desktop Navigation + CTA (kept measurable even when compact mode is active) */}
+          <div
+            ref={desktopClusterRef}
+            className={`items-center gap-2 xl:gap-3 h-full ${
+              isCompactHeader
+                ? "absolute right-0 top-1/2 -translate-y-1/2 invisible pointer-events-none flex"
+                : "relative flex"
+            }`}
+            aria-hidden={isCompactHeader}
+          >
+            <div className="flex items-center gap-0 h-full">
+              {navLinks.map((item) => (
+                <DesktopNavItem
+                  key={item.label}
+                  item={item}
+                  isLightHeader={isLightHeader}
+                  isRamadanActive={isRamadanActive}
+                />
+              ))}
+            </div>
+
+            <div className="shrink-0">
+              <Link
+                href="/donate"
+                className="bg-primary-green text-white font-body font-semibold rounded-full px-5 xl:px-6 py-2.5 text-base xl:text-lg hover:shadow-lg hover:shadow-primary-green/30 hover:-translate-y-0.5 transition-all duration-300 flex items-center gap-2 whitespace-nowrap"
+              >
+                <Heart className="w-5 h-5" />
+                Donate
+              </Link>
+            </div>
+          </div>
+
           {/* Mobile: Donate Button + Hamburger Menu */}
-          <div className="flex items-center gap-3 lg:hidden">
+          <div
+            className={`items-center gap-3 ${
+              isCompactHeader ? "flex" : "hidden"
+            }`}
+            aria-hidden={!isCompactHeader}
+          >
             {/* Mobile Donate Button (visible next to hamburger) */}
             <Link
               href="/donate"
@@ -554,17 +635,17 @@ export default function Header() {
       </nav>
 
       {/* Mobile Menu Overlay */}
-      {isMobileMenuOpen && (
+      {isCompactHeader && isMobileMenuOpen && (
         <div
-          className="fixed inset-0 bg-black/50 z-40 lg:hidden"
+          className="fixed inset-0 bg-black/50 z-40"
           onClick={() => setIsMobileMenuOpen(false)}
         />
       )}
 
       {/* Mobile Slide-out Drawer */}
       <div
-        className={`fixed top-0 right-0 h-full w-[320px] max-w-[85vw] bg-gradient-to-b from-bg-beige to-white z-50 transform transition-transform duration-300 ease-in-out lg:hidden shadow-2xl ${
-          isMobileMenuOpen ? "translate-x-0" : "translate-x-full"
+        className={`fixed top-0 right-0 h-full w-[320px] max-w-[85vw] bg-gradient-to-b from-bg-beige to-white z-50 transform transition-transform duration-300 ease-in-out shadow-2xl ${
+          isCompactHeader && isMobileMenuOpen ? "translate-x-0" : "translate-x-full"
         }`}
       >
         {/* Drawer Header */}
