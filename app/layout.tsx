@@ -16,7 +16,7 @@ export default function RootLayout({
     <html lang="en">
       <body className="antialiased">
         <Header />
-        <main>{children}</main>
+        <main className="w-full max-w-full overflow-x-clip">{children}</main>
       </body>
     </html>
   );

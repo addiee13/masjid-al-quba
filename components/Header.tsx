@@ -490,7 +490,7 @@ export default function Header() {
           : "bg-bg-beige"
       }`}
     >
-      <nav className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <nav className="max-w-7xl mx-auto px-3 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-20 lg:h-24">
           {/* Logo */}
           <Link
@@ -502,7 +502,7 @@ export default function Header() {
               alt="Masjid Al-Quba Logo"
               width={128}
               height={128}
-              className="h-16 w-16 object-contain lg:h-20 lg:w-20"
+              className="h-14 w-14 object-contain sm:h-16 sm:w-16 lg:h-20 lg:w-20"
               priority
             />
           </Link>
@@ -523,7 +523,7 @@ export default function Header() {
           <div className="hidden shrink-0 lg:block">
             <Link
               href="/donate"
-              className="bg-primary-green text-white font-body font-semibold rounded-full px-8 py-3 text-lg hover:shadow-lg hover:shadow-primary-green/30 hover:-translate-y-0.5 transition-all duration-300 flex items-center gap-2"
+              className="bg-primary-green text-white font-body font-semibold rounded-full px-8 py-3 text-lg hover:shadow-lg hover:shadow-primary-green/30 hover:-translate-y-0.5 transition-all duration-300 flex items-center gap-2 whitespace-nowrap"
             >
               <Heart className="w-5 h-5" />
               Donate
@@ -535,7 +535,7 @@ export default function Header() {
             {/* Mobile Donate Button (visible next to hamburger) */}
             <Link
               href="/donate"
-              className="bg-primary-green text-white font-body font-semibold rounded-full px-5 py-2.5 text-base hover:shadow-lg hover:shadow-primary-green/30 transition-all duration-300 flex items-center gap-1.5"
+              className="bg-primary-green text-white font-body font-semibold rounded-full px-3.5 sm:px-5 py-2 text-sm sm:text-base hover:shadow-lg hover:shadow-primary-green/30 transition-all duration-300 flex items-center gap-1.5 whitespace-nowrap shrink-0"
             >
               <Heart className="w-4 h-4" />
               Donate

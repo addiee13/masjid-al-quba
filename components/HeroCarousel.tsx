@@ -51,17 +51,20 @@ export default function HeroCarousel({ slides }: HeroCarouselProps) {
   }
 
   return (
-    <section className="relative w-full h-[calc(75vh-5rem)] md:h-[calc(100vh-6rem)] min-h-[460px] md:min-h-[620px] overflow-hidden">
-      <div className="embla h-full" ref={emblaRef}>
-        <div className="embla__container h-full flex">
+    <section className="relative w-full max-w-full h-[calc(75vh-5rem)] md:h-[calc(100vh-6rem)] min-h-[460px] md:min-h-[620px] overflow-hidden">
+      <div className="embla h-full w-full overflow-hidden" ref={emblaRef}>
+        <div className="embla__container h-full flex w-full max-w-full">
           {activeSlides.map((slide) => (
-            <div key={slide._id} className="embla__slide flex-[0_0_100%] min-w-0 relative h-full">
+            <div
+              key={slide._id}
+              className="embla__slide relative h-full w-full max-w-full min-w-0 shrink-0 overflow-hidden"
+            >
               <div className="absolute inset-0">
                 <Image
                   src={urlFor(slide.image).width(1920).height(1080).url()}
                   alt="Hero banner image"
                   fill
-                  className="object-cover"
+                  className="h-full w-full object-cover"
                   priority
                   quality={90}
                 />

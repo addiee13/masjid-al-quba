@@ -187,7 +187,7 @@ export default function ContactForm() {
           onChange={handleChange}
           tabIndex={-1}
           autoComplete="off"
-          className="absolute left-[-9999px] w-1 h-1 opacity-0"
+          className="sr-only"
           aria-hidden="true"
         />
 

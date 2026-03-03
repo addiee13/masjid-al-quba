@@ -20,21 +20,21 @@ export default function EventHero({ events }: { events: Event[] }) {
   if (!events || events.length === 0) return null
 
   return (
-    <section className="py-12 px-4" style={{ backgroundColor: '#D1D0CB' }}>
-      <div className="max-w-6xl mx-auto">
+    <section className="relative w-full max-w-full overflow-hidden py-12" style={{ backgroundColor: '#D1D0CB' }}>
+      <div className="max-w-6xl mx-auto px-4">
         <h2 className="text-3xl md:text-4xl font-bold text-center mb-8 font-['El_Messiri']" style={{ color: '#6E6353' }}>
           Upcoming Events
         </h2>
         
-        <div className="overflow-hidden" ref={emblaRef}>
-          <div className="flex">
+        <div className="w-full overflow-hidden" ref={emblaRef}>
+          <div className="flex w-full max-w-full">
             {events.map((event, index) => {
               const imageUrl = urlForOptional(event.mainImage)?.url() ?? null
 
               return (
                 <div
                   key={`${event.slug?.current || "event"}-${event.eventDate || "no-date"}-${index}`}
-                  className="flex-[0_0_100%] min-w-0 px-4"
+                  className="flex-[0_0_100%] w-full max-w-full min-w-0"
                 >
                   <div 
                     className="rounded-lg overflow-hidden shadow-lg bg-white"

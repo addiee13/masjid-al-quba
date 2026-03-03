@@ -27,7 +27,9 @@ body {
   color: #2E2E2E;
   font-family: var(--font-body);
   overflow-x: hidden;
+  overflow-x: clip;
   width: 100%;
+  max-width: 100%;
 }
 
 /* Heading Styles */
@@ -89,7 +91,16 @@ h1, h2, h3, h4, h5, h6 {
 html {
   scroll-behavior: smooth;
   overflow-x: hidden;
+  overflow-x: clip;
   width: 100%;
+  max-width: 100%;
+}
+
+main {
+  width: 100%;
+  max-width: 100%;
+  overflow-x: hidden;
+  overflow-x: clip;
 }
 
 /* Enhanced Button Styles */
