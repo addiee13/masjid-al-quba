@@ -60,7 +60,6 @@ export default async function Home() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="bg-primary-dark rounded-3xl overflow-hidden">
             <div className="grid lg:grid-cols-2 gap-8 lg:gap-0">
-              {/* Content Side */}
               <div className="p-8 md:p-12 lg:p-16 flex flex-col justify-center">
                 <span className="font-body text-light-sage uppercase tracking-widest text-sm mb-4">
                   Building Our Future
@@ -69,12 +68,11 @@ export default async function Home() {
                   New Masjid Construction Project
                 </h2>
                 <p className="font-body text-light-sage mb-8 leading-relaxed">
-                  We have purchased 3 acres of land and are working towards building 
-                  a new, larger home for our growing community. Your support makes 
+                  We have purchased 3 acres of land and are working towards building
+                  a new, larger home for our growing community. Your support makes
                   this dream a reality.
                 </p>
-                
-                {/* Progress Stats */}
+
                 <div className="grid grid-cols-2 gap-6 mb-8">
                   <div>
                     <p className="font-heading text-3xl font-bold text-white mb-1">$65K</p>
@@ -85,7 +83,7 @@ export default async function Home() {
                     <p className="font-body text-sm text-light-sage">Phase 1 Goal</p>
                   </div>
                 </div>
-                
+
                 <Link
                   href="/future-projects"
                   className="inline-flex items-center gap-2 bg-white text-primary-dark font-body font-semibold rounded-full px-8 py-3 hover:bg-bg-beige transition-colors self-start"
@@ -94,8 +92,7 @@ export default async function Home() {
                   <ArrowRight className="w-5 h-5" />
                 </Link>
               </div>
-              
-              {/* Visual Side */}
+
               <div className="relative bg-primary-green/20 min-h-[300px] lg:min-h-full flex items-center justify-center p-8">
                 <div className="text-center">
                   <div className="w-32 h-32 mx-auto mb-6 rounded-full bg-white/10 flex items-center justify-center">
@@ -106,8 +103,7 @@ export default async function Home() {
                   <p className="font-heading text-2xl text-white/90">3 Acres</p>
                   <p className="font-body text-white/60">Land Secured</p>
                 </div>
-                
-                {/* Decorative circles */}
+
                 <div className="absolute top-10 right-10 w-20 h-20 border border-white/10 rounded-full" />
                 <div className="absolute bottom-10 left-10 w-32 h-32 border border-white/10 rounded-full" />
               </div>
