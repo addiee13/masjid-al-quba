@@ -1,15 +1,8 @@
 "use client";
 
 import { useState, useEffect, useMemo } from "react";
+import type { ComponentType, SVGProps } from "react";
 import moment from "moment-hijri";
-import {
-  Clock3,
-  MoonStar,
-  Sun,
-  Sunrise,
-  Sunset,
-  type LucideIcon,
-} from "lucide-react";
 import type { PrayerSchedule } from "@/types/prayer";
 import {
   parseTimeInMasjidTZ,
@@ -21,15 +14,27 @@ import {
   type PrayerTime,
   type PrayerName,
 } from "@/lib/prayer-utils";
+import {
+  AsrIcon,
+  DhuhrIcon,
+  FajrIcon,
+  IshaIcon,
+  JummahIcon,
+  MaghribIcon,
+} from "./icons/PrayerIcons";
+
+type PrayerIcon = ComponentType<SVGProps<SVGSVGElement>>;
 
 // Prayer configuration
-const PRAYERS_CONFIG: Array<{ key: PrayerName; name: string; icon: LucideIcon }> = [
-  { key: "fajr", name: "Fajr", icon: Sunrise },
-  { key: "dhuhr", name: "Dhuhr", icon: Sun },
-  { key: "asr", name: "Asr", icon: Clock3 },
-  { key: "maghrib", name: "Maghrib", icon: Sunset },
-  { key: "isha", name: "Isha", icon: MoonStar },
+const PRAYERS_CONFIG: Array<{ key: PrayerName; name: string; icon: PrayerIcon }> = [
+  { key: "fajr", name: "Fajr", icon: FajrIcon },
+  { key: "dhuhr", name: "Dhuhr", icon: DhuhrIcon },
+  { key: "asr", name: "Asr", icon: AsrIcon },
+  { key: "maghrib", name: "Maghrib", icon: MaghribIcon },
+  { key: "isha", name: "Isha", icon: IshaIcon },
 ];
+
+const JUMMAH_TIMES = ["1:30 PM", "2:30 PM"] as const;
 
 // Get Hijri date
 function getHijriDate(): string {
@@ -42,7 +47,7 @@ interface PrayerTimesClientProps {
 }
 
 interface PrayerRow extends PrayerTime {
-  icon: LucideIcon;
+  icon: PrayerIcon;
 }
 
 export default function PrayerTimesClient({ schedule }: PrayerTimesClientProps) {
@@ -178,17 +183,27 @@ export default function PrayerTimesClient({ schedule }: PrayerTimesClientProps) 
               );
             })}
 
-            {schedule.jummah && (
-              <div className="mt-1 grid h-12 grid-cols-[auto_1fr_auto] items-center gap-3 rounded-xl border border-primary-dark/10 bg-white px-4 transition-all duration-300 hover:translate-y-0.5 hover:bg-bg-beige/40 hover:shadow-md">
-                <Sun className="h-5 w-5 text-primary-dark" />
+            <div className="mt-1 grid min-h-16 grid-cols-[auto_1fr_auto] items-center gap-3 rounded-xl border border-primary-dark/10 bg-white px-4 py-3 transition-all duration-300 hover:translate-y-0.5 hover:bg-bg-beige/40 hover:shadow-md">
+              <JummahIcon className="h-5 w-5 text-primary-dark" />
+              <div className="min-w-0">
                 <span className="font-heading text-lg font-semibold text-primary-dark">
                   Jummah
                 </span>
-                <span className="font-body text-sm font-semibold text-right text-primary-dark">
-                  {formatTime12Hour(parseTimeInMasjidTZ(schedule.jummah))}
-                </span>
+                <p className="font-body text-xs text-muted-foreground">
+                  Two congregations every Friday
+                </p>
               </div>
-            )}
+              <div className="flex flex-wrap justify-end gap-2">
+                {JUMMAH_TIMES.map((time) => (
+                  <span
+                    key={time}
+                    className="rounded-full bg-emerald-50 px-3 py-1 text-xs font-semibold text-emerald-800 ring-1 ring-emerald-200"
+                  >
+                    {time}
+                  </span>
+                ))}
+              </div>
+            </div>
           </div>
 
           <div className="mt-4 w-full border-t border-light-sage/30 pt-3">
