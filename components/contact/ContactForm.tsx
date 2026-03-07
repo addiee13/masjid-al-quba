@@ -30,7 +30,6 @@ export default function ContactForm() {
     topic: "general",
     message: "",
     preferredContact: undefined,
-    consent: false,
     company: "", // Honeypot field
   });
 
@@ -69,10 +68,6 @@ export default function ContactForm() {
       newErrors.message = `Message is too long (max ${MAX_MESSAGE_LENGTH} characters)`;
     }
 
-    if (!formData.consent) {
-      newErrors.consent = "You must acknowledge this is not for emergencies";
-    }
-
     setErrors(newErrors);
     return Object.keys(newErrors).length === 0;
   };
@@ -109,7 +104,6 @@ export default function ContactForm() {
           topic: "general",
           message: "",
           preferredContact: undefined,
-          consent: false,
           company: "",
         });
 
@@ -130,12 +124,11 @@ export default function ContactForm() {
   const handleChange = (
     e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>
   ) => {
-    const { name, value, type } = e.target;
-    const checked = (e.target as HTMLInputElement).checked;
+    const { name, value } = e.target;
 
     setFormData((prev) => ({
       ...prev,
-      [name]: type === "checkbox" ? checked : value,
+      [name]: value,
     }));
 
     // Clear error for this field
@@ -378,34 +371,6 @@ export default function ContactForm() {
               </label>
             </div>
           </fieldset>
-        </div>
-
-        {/* Consent Checkbox */}
-        <div>
-          <label className="flex items-start gap-3 cursor-pointer">
-            <input
-              type="checkbox"
-              name="consent"
-              checked={formData.consent}
-              onChange={handleChange}
-              disabled={isLoading}
-              aria-invalid={!!errors.consent}
-              aria-describedby={errors.consent ? "consent-error" : undefined}
-              className={`mt-1 w-4 h-4 rounded border ${
-                errors.consent ? "border-red-500" : "border-black/20"
-              } text-primary-green focus:ring-2 focus:ring-primary-green/30 disabled:cursor-not-allowed`}
-            />
-            <span className="font-body text-sm text-slate-700">
-              I understand this form is not for emergencies. For emergencies,
-              please contact local emergency services first.{" "}
-              <span className="text-red-500">*</span>
-            </span>
-          </label>
-          {errors.consent && (
-            <p id="consent-error" className="mt-1 text-sm text-red-600">
-              {errors.consent}
-            </p>
-          )}
         </div>
 
         {/* Submit Button */}

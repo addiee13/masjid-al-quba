@@ -17,7 +17,6 @@ export interface ContactSubmission {
   topic: ContactTopic
   message: string
   preferredContact?: PreferredContact
-  consent: boolean
   createdAt: string
   status: 'new' | 'read' | 'responded'
 }
@@ -29,7 +28,6 @@ export interface ContactFormData {
   topic: ContactTopic
   message: string
   preferredContact?: PreferredContact
-  consent: boolean
   // Honeypot field (hidden)
   company?: string
 }

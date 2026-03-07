@@ -56,12 +56,6 @@ export default defineType({
       },
     }),
     defineField({
-      name: 'consent',
-      title: 'Consent',
-      type: 'boolean',
-      validation: (Rule) => Rule.required(),
-    }),
-    defineField({
       name: 'createdAt',
       title: 'Created At',
       type: 'datetime',

@@ -8,7 +8,7 @@ export async function POST(request: NextRequest) {
     const body: ContactFormData = await request.json()
 
     // Basic validation
-    const { name, email, topic, message, consent, company } = body
+    const { name, email, topic, message, company } = body
 
     // Honeypot spam check
     if (company) {
@@ -47,13 +47,6 @@ export async function POST(request: NextRequest) {
       )
     }
 
-    if (!consent) {
-      return NextResponse.json(
-        { ok: false, error: 'You must acknowledge this is not for emergencies' },
-        { status: 400 }
-      )
-    }
-
     // Message length check (max 3000 chars)
     if (message.trim().length > 3000) {
       return NextResponse.json(
@@ -72,7 +65,6 @@ export async function POST(request: NextRequest) {
         topic,
         message: message.trim(),
         preferredContact: body.preferredContact || undefined,
-        consent: true,
         createdAt: new Date().toISOString(),
         status: 'new',
       }
