@@ -577,10 +577,10 @@ export default function Header() {
           {/* Desktop Navigation + CTA (kept measurable even when compact mode is active) */}
           <div
             ref={desktopClusterRef}
-            className={`items-center gap-2 xl:gap-3 h-full ${
+            className={`hidden lg:flex items-center gap-2 xl:gap-3 h-full ${
               isCompactHeader
                 ? "absolute right-0 top-1/2 -translate-y-1/2 invisible pointer-events-none flex"
-                : "relative flex"
+                : "relative"
             }`}
             aria-hidden={isCompactHeader}
           >
@@ -608,7 +608,7 @@ export default function Header() {
 
           {/* Mobile: Donate Button + Hamburger Menu */}
           <div
-            className={`items-center gap-3 ${
+            className={`flex lg:hidden items-center gap-3 ${
               isCompactHeader ? "flex" : "hidden"
             }`}
             aria-hidden={!isCompactHeader}
