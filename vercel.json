@@ -1,0 +1,12 @@
+{
+  "crons": [
+    {
+      "path": "/api/cron/ramadan-prayer-sync",
+      "schedule": "5 4 * * *"
+    },
+    {
+      "path": "/api/cron/ramadan-prayer-sync",
+      "schedule": "5 5 * * *"
+    }
+  ]
+}

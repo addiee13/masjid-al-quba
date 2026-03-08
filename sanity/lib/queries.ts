@@ -195,5 +195,5 @@ export async function getActivePrayerSchedule() {
     "jummah": coalesce(jummah, jummahIqamah, jummahKhutbah)
   }`
   
-  return await client.fetch(query)
+  return await client.withConfig({ useCdn: false }).fetch(query)
 }

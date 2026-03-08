@@ -17,9 +17,42 @@ export interface PrayerTime {
  * Get current date/time in masjid timezone
  */
 export function getNowInMasjidTZ(): Date {
-  // Create a date string in masjid timezone
-  const nowStr = new Date().toLocaleString("en-US", { timeZone: MASJID_TZ });
-  return new Date(nowStr);
+  return new Date();
+}
+
+function getMasjidDateParts(date: Date): { year: number; month: number; day: number } {
+  const formatter = new Intl.DateTimeFormat("en-US", {
+    timeZone: MASJID_TZ,
+    year: "numeric",
+    month: "2-digit",
+    day: "2-digit",
+  });
+  const parts = formatter.formatToParts(date);
+  const year = Number(parts.find((part) => part.type === "year")?.value);
+  const month = Number(parts.find((part) => part.type === "month")?.value);
+  const day = Number(parts.find((part) => part.type === "day")?.value);
+
+  return { year, month, day };
+}
+
+function getTimeZoneOffsetMinutes(date: Date): number {
+  const timeZoneName = new Intl.DateTimeFormat("en-US", {
+    timeZone: MASJID_TZ,
+    timeZoneName: "shortOffset",
+    hour: "2-digit",
+  })
+    .formatToParts(date)
+    .find((part) => part.type === "timeZoneName")?.value;
+
+  const match = timeZoneName?.match(/^GMT([+-])(\d{1,2})(?::(\d{2}))?$/);
+
+  if (!match) {
+    throw new Error(`Unsupported timezone offset format: ${timeZoneName}`);
+  }
+
+  const [, sign, hours, minutes = "00"] = match;
+  const totalMinutes = Number(hours) * 60 + Number(minutes);
+  return sign === "+" ? totalMinutes : -totalMinutes;
 }
 
 /**
@@ -30,18 +63,16 @@ export function getNowInMasjidTZ(): Date {
 export function parseTimeInMasjidTZ(timeStr: string): Date {
   const now = getNowInMasjidTZ();
   const [hours, minutes] = timeStr.split(":").map(Number);
-  
-  // Create date in masjid timezone
-  const dateStr = now.toLocaleDateString("en-US", { timeZone: MASJID_TZ });
-  const [month, day, year] = dateStr.split("/").map(Number);
-  
-  // Create date string in format that Date constructor understands
-  const isoStr = `${year}-${month.toString().padStart(2, "0")}-${day.toString().padStart(2, "0")}T${hours.toString().padStart(2, "0")}:${minutes.toString().padStart(2, "0")}:00.000`;
-  
-  // Parse in local time then adjust to masjid timezone
-  const localDate = new Date(isoStr);
-  const localStr = localDate.toLocaleString("en-US", { timeZone: MASJID_TZ });
-  return new Date(localStr);
+  const { year, month, day } = getMasjidDateParts(now);
+  const baseUtcMs = Date.UTC(year, month - 1, day, hours, minutes);
+
+  // Resolve DST correctly by recalculating after the first offset adjustment.
+  const firstGuess = new Date(baseUtcMs);
+  const firstOffset = getTimeZoneOffsetMinutes(firstGuess);
+  const secondGuess = new Date(baseUtcMs - firstOffset * 60 * 1000);
+  const secondOffset = getTimeZoneOffsetMinutes(secondGuess);
+
+  return new Date(baseUtcMs - secondOffset * 60 * 1000);
 }
 
 /**

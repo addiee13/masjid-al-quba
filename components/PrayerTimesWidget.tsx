@@ -1,4 +1,5 @@
 import { getActivePrayerSchedule } from "@/sanity/lib/queries";
+import { unstable_noStore as noStore } from "next/cache";
 import PrayerTimesClientShell from "./PrayerTimesClientShell";
 
 /**
@@ -6,6 +7,7 @@ import PrayerTimesClientShell from "./PrayerTimesClientShell";
  * Fetches active schedule from Sanity and passes to client component
  */
 export default async function PrayerTimesWidget() {
+  noStore();
   const schedule = await getActivePrayerSchedule();
   
   return <PrayerTimesClientShell schedule={schedule} />;
