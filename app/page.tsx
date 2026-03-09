@@ -75,12 +75,12 @@ export default async function Home() {
 
                 <div className="grid grid-cols-2 gap-6 mb-8">
                   <div>
-                    <p className="font-heading text-3xl font-bold text-white mb-1">$65K</p>
-                    <p className="font-body text-sm text-light-sage">Raised so far</p>
+                    <p className="font-heading text-3xl font-bold text-white mb-1">$85,427</p>
+                    <p className="font-body text-sm text-light-sage">Total Collected</p>
                   </div>
                   <div>
-                    <p className="font-heading text-3xl font-bold text-white mb-1">$500K</p>
-                    <p className="font-body text-sm text-light-sage">Phase 1 Goal</p>
+                    <p className="font-heading text-3xl font-bold text-white mb-1">$79,200</p>
+                    <p className="font-body text-sm text-light-sage">Left to Raise</p>
                   </div>
                 </div>
 

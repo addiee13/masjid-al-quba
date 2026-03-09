@@ -8,29 +8,13 @@ export const metadata: Metadata = {
     "Track progress on the new Masjid construction project and support the future of Masjid Al-Quba.",
 };
 
-// Project data
-const projectStats = [
-  {
-    title: "Land Purchased",
-    value: "3 Acres",
-    subtext: "Total Area",
-  },
-  {
-    title: "Total Project Cost",
-    value: "$850,000",
-    subtext: "Land Cost",
-  },
-  {
-    title: "Kharaja-E-Hasana",
-    value: "$200,000",
-    subtext: "To be paid back in 6 months",
-  },
-];
-
 const fundingSnapshot = {
-  phaseGoal: 500000,
-  currentFocus: "Permit coordination, site preparation, and construction planning.",
-  lastUpdated: "February 16, 2026",
+  totalCollected: 85427,
+  cash: 2527,
+  check: 500,
+  zelle: 3200,
+  leftToRaise: 79200,
+  currentFocus: "Collection update across cash, check, and Zelle contributions for the construction project.",
 };
 
 const actionItems = [
@@ -74,30 +58,6 @@ const projectMilestones = [
     status: "next",
   },
 ];
-
-// Stat Card Component
-function StatCard({
-  title,
-  value,
-  subtext,
-}: {
-  title: string;
-  value: string;
-  subtext: string;
-}) {
-  return (
-    <div className="card-elevated relative overflow-hidden border border-primary-green/15 bg-gradient-to-br from-white/95 to-bg-beige/80 dark:from-white/10 dark:to-white/5 p-6 group hover:-translate-y-1 transition-all duration-300">
-      <div className="absolute inset-x-0 top-0 h-1 bg-gradient-to-r from-primary-green via-accent-olive to-primary-dark" />
-      <h3 className="font-body text-xs text-muted-foreground uppercase tracking-widest mb-3">
-        {title}
-      </h3>
-      <p className="font-heading text-3xl md:text-4xl font-bold text-primary-dark mb-2 group-hover:text-primary-green transition-colors">
-        {value}
-      </p>
-      <p className="font-body text-sm text-muted-foreground">{subtext}</p>
-    </div>
-  );
-}
 
 // Action Item Component
 function ActionItem({
@@ -179,20 +139,80 @@ export default function FutureProjectsPage() {
         <div className="pointer-events-none absolute -top-6 -left-6 h-32 w-32 rounded-full bg-primary-green/10 blur-3xl" />
         <div className="pointer-events-none absolute top-1/3 -right-8 h-40 w-40 rounded-full bg-accent-olive/20 blur-3xl" />
 
-        {/* Section 1: Project Overview Stats */}
+        {/* Section 1: Funding Snapshot */}
         <section className="mb-16 md:mb-20">
-          <h2 className="font-heading text-3xl md:text-4xl font-bold text-primary-dark mb-10 decorative-line">
-            Project Overview
-          </h2>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-            {projectStats.map((stat) => (
-              <StatCard
-                key={stat.title}
-                title={stat.title}
-                value={stat.value}
-                subtext={stat.subtext}
-              />
-            ))}
+          <div className="card-elevated p-8 md:p-10 bg-gradient-to-br from-emerald-50/70 to-white/90 dark:from-white/10 dark:to-white/5 border border-primary-green/15">
+            <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-6 mb-8">
+              <div>
+                <h2 className="font-heading text-3xl md:text-4xl font-bold text-primary-dark mb-3">
+                  Current Funding Snapshot
+                </h2>
+                <p className="font-body text-muted-foreground">
+                  A current overview of collected funds and the remaining amount to raise.
+                </p>
+              </div>
+              <Link
+                href="https://square.link/u/y45ivtFR"
+                className="btn-primary inline-flex items-center justify-center gap-2 whitespace-nowrap"
+              >
+                Donate to Project
+                <ArrowRight className="w-5 h-5" />
+              </Link>
+            </div>
+
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+              <div className="card p-6 border border-black/5 bg-white/85 dark:bg-white/5">
+                <p className="font-body text-xs uppercase tracking-wider text-muted-foreground mb-2">
+                  Total Collected
+                </p>
+                <p className="font-heading text-4xl font-bold text-primary-dark">
+                  ${fundingSnapshot.totalCollected.toLocaleString()}
+                </p>
+              </div>
+              <div className="card p-6 border border-black/5 bg-white/85 dark:bg-white/5">
+                <p className="font-body text-xs uppercase tracking-wider text-muted-foreground mb-2">
+                  Current Focus
+                </p>
+                <p className="font-body text-primary-dark leading-relaxed">
+                  {fundingSnapshot.currentFocus}
+                </p>
+              </div>
+            </div>
+
+            <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-4 mb-6">
+              <div className="card p-5 border border-black/5 bg-white/85 dark:bg-white/5">
+                <p className="font-body text-xs uppercase tracking-wider text-muted-foreground mb-2">
+                  Cash
+                </p>
+                <p className="font-heading text-2xl font-bold text-primary-dark">
+                  ${fundingSnapshot.cash.toLocaleString()}
+                </p>
+              </div>
+              <div className="card p-5 border border-black/5 bg-white/85 dark:bg-white/5">
+                <p className="font-body text-xs uppercase tracking-wider text-muted-foreground mb-2">
+                  Check
+                </p>
+                <p className="font-heading text-2xl font-bold text-primary-dark">
+                  ${fundingSnapshot.check.toLocaleString()}
+                </p>
+              </div>
+              <div className="card p-5 border border-black/5 bg-white/85 dark:bg-white/5">
+                <p className="font-body text-xs uppercase tracking-wider text-muted-foreground mb-2">
+                  Zelle
+                </p>
+                <p className="font-heading text-2xl font-bold text-primary-dark">
+                  ${fundingSnapshot.zelle.toLocaleString()}
+                </p>
+              </div>
+              <div className="card p-5 border border-primary-green/25 bg-primary-green/10 dark:bg-primary-green/10">
+                <p className="font-body text-xs uppercase tracking-wider text-primary-dark/70 mb-2">
+                  Left to Raise
+                </p>
+                <p className="font-heading text-2xl font-bold text-primary-dark">
+                  ${fundingSnapshot.leftToRaise.toLocaleString()}
+                </p>
+              </div>
+            </div>
           </div>
         </section>
 
@@ -236,55 +256,7 @@ export default function FutureProjectsPage() {
           </div>
         </section>
 
-        {/* Section 3: Funding Snapshot */}
-        <section className="mb-16 md:mb-20">
-          <div className="card-elevated p-8 md:p-10 bg-gradient-to-br from-emerald-50/70 to-white/90 dark:from-white/10 dark:to-white/5 border border-primary-green/15">
-            <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-6 mb-8">
-              <div>
-                <h2 className="font-heading text-3xl md:text-4xl font-bold text-primary-dark mb-3">
-                  Phase 1 Funding Snapshot
-                </h2>
-                <p className="font-body text-muted-foreground">
-                  A static overview of project funding direction and current focus.
-                </p>
-              </div>
-              <Link
-                href="https://square.link/u/y45ivtFR"
-                className="btn-primary inline-flex items-center justify-center gap-2 whitespace-nowrap"
-              >
-                Donate to Project
-                <ArrowRight className="w-5 h-5" />
-              </Link>
-            </div>
-
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
-              <div className="card p-6 border border-black/5 bg-white/85 dark:bg-white/5">
-                <p className="font-body text-xs uppercase tracking-wider text-muted-foreground mb-2">
-                  Phase 1 Goal
-                </p>
-                <p className="font-heading text-4xl font-bold text-primary-dark">
-                  ${fundingSnapshot.phaseGoal.toLocaleString()}
-                </p>
-              </div>
-              <div className="card p-6 border border-black/5 bg-white/85 dark:bg-white/5">
-                <p className="font-body text-xs uppercase tracking-wider text-muted-foreground mb-2">
-                  Current Focus
-                </p>
-                <p className="font-body text-primary-dark leading-relaxed">
-                  {fundingSnapshot.currentFocus}
-                </p>
-              </div>
-            </div>
-
-            <div className="rounded-xl bg-gradient-to-r from-primary-green/15 to-accent-olive/20 border border-primary-green/20 p-4">
-              <p className="font-body text-sm text-primary-dark">
-                <strong>Last updated:</strong> {fundingSnapshot.lastUpdated}
-              </p>
-            </div>
-          </div>
-        </section>
-
-        {/* Section 4: Action Items */}
+        {/* Section 3: Action Items */}
         <section className="mb-16 md:mb-20">
           <div className="card-elevated p-8 md:p-10 bg-gradient-to-br from-white/95 to-[#F0ECE1] dark:from-white/10 dark:to-white/5 border border-primary-green/15">
             <h2 className="font-heading text-3xl md:text-4xl font-bold text-primary-dark mb-8 decorative-line">
@@ -309,7 +281,7 @@ export default function FutureProjectsPage() {
           </div>
         </section>
 
-        {/* Section 5: Future Masjid Location */}
+        {/* Section 4: Future Masjid Location */}
         <section className="max-w-6xl mx-auto px-6 py-16">
           <h2 className="text-center font-heading text-3xl md:text-4xl font-bold text-primary-dark">
             Future Masjid Location
