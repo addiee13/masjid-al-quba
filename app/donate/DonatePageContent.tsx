@@ -235,8 +235,8 @@ export default function DonatePageContent() {
                   <a href="tel:404-933-2943" className="block hover:text-primary-green">
                     404-933-2943
                   </a>
-                  <a href="tel:678-524-9861" className="block hover:text-primary-green">
-                    678-524-9861
+                  <a href="tel:678-524-9841" className="block hover:text-primary-green">
+                    678-524-9841
                   </a>
                 </div>
               </div>
@@ -281,8 +281,8 @@ export default function DonatePageContent() {
                     404-933-2943
                   </a>
                   <span className="hidden sm:inline text-muted-foreground">|</span>
-                  <a href="tel:678-524-9861" className="hover:text-primary-green font-semibold">
-                    678-524-9861
+                  <a href="tel:678-524-9841" className="hover:text-primary-green font-semibold">
+                    678-524-9841
                   </a>
                   <span className="hidden sm:inline text-muted-foreground">|</span>
                   <a
