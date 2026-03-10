@@ -206,7 +206,7 @@ export default function FutureProjectsPage() {
               </div>
               <div className="card p-5 border border-primary-green/25 bg-primary-green/10 dark:bg-primary-green/10">
                 <p className="font-body text-xs uppercase tracking-wider text-primary-dark/70 mb-2">
-                  Left to Raise
+                  Pledge to Do Follow Up
                 </p>
                 <p className="font-heading text-2xl font-bold text-primary-dark">
                   ${fundingSnapshot.leftToRaise.toLocaleString()}
