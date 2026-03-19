@@ -344,8 +344,8 @@ export default function ContactForm() {
               Preferred Contact Method{" "}
               <span className="text-slate-400">(optional)</span>
             </legend>
-            <div className="flex gap-6">
-              <label className="flex items-center gap-2 cursor-pointer">
+            <div className="flex flex-col gap-3 sm:flex-row sm:gap-4">
+              <label className="flex min-h-11 items-center gap-3 rounded-xl border border-black/10 bg-white px-4 py-3 cursor-pointer transition-colors hover:border-primary-green/30 hover:bg-primary-green/5">
                 <input
                   type="radio"
                   name="preferredContact"
@@ -353,11 +353,11 @@ export default function ContactForm() {
                   checked={formData.preferredContact === "email"}
                   onChange={handleChange}
                   disabled={isLoading}
-                  className="w-4 h-4 text-primary-green focus:ring-2 focus:ring-primary-green/30 disabled:cursor-not-allowed"
+                  className="w-5 h-5 text-primary-green focus:ring-2 focus:ring-primary-green/30 disabled:cursor-not-allowed"
                 />
                 <span className="font-body text-sm text-slate-700">Email</span>
               </label>
-              <label className="flex items-center gap-2 cursor-pointer">
+              <label className="flex min-h-11 items-center gap-3 rounded-xl border border-black/10 bg-white px-4 py-3 cursor-pointer transition-colors hover:border-primary-green/30 hover:bg-primary-green/5">
                 <input
                   type="radio"
                   name="preferredContact"
@@ -365,7 +365,7 @@ export default function ContactForm() {
                   checked={formData.preferredContact === "phone"}
                   onChange={handleChange}
                   disabled={isLoading}
-                  className="w-4 h-4 text-primary-green focus:ring-2 focus:ring-primary-green/30 disabled:cursor-not-allowed"
+                  className="w-5 h-5 text-primary-green focus:ring-2 focus:ring-primary-green/30 disabled:cursor-not-allowed"
                 />
                 <span className="font-body text-sm text-slate-700">Phone</span>
               </label>

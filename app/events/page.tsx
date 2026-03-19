@@ -81,6 +81,7 @@ export default async function EventsPage() {
                             src={imageUrl}
                             alt={event.title}
                             fill
+                            sizes="(min-width: 768px) 33vw, 100vw"
                             className="object-cover"
                           />
                         ) : (

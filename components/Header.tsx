@@ -110,6 +110,24 @@ const navLinks: NavItem[] = [
   },
 ];
 
+const desktopPrimaryLabels = new Set([
+  "Home",
+  "Masjid Info",
+  "Services",
+  "Ramadan",
+  "Future Projects",
+  "Events",
+  "Contact Us",
+]);
+
+const desktopPrimaryLinks = navLinks.filter((item) =>
+  desktopPrimaryLabels.has(item.label)
+);
+
+const desktopSecondaryLinks = navLinks.filter(
+  (item) => !desktopPrimaryLabels.has(item.label)
+);
+
 // Simple dropdown component for desktop
 function DesktopDropdown({ item }: { item: NavItem }) {
   const [isOpen, setIsOpen] = useState(false);
@@ -237,6 +255,71 @@ function DesktopMegaMenu({ item }: { item: NavItem }) {
               <ChevronRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
             </Link>
           </div>
+        </div>
+      )}
+    </div>
+  );
+}
+
+function DesktopMoreMenu({ items }: { items: NavItem[] }) {
+  const [isOpen, setIsOpen] = useState(false);
+
+  return (
+    <div
+      className="relative"
+      onMouseEnter={() => setIsOpen(true)}
+      onMouseLeave={() => setIsOpen(false)}
+    >
+      <button
+        onClick={() => setIsOpen((open) => !open)}
+        className="font-heading font-semibold text-primary-dark hover:text-primary-green transition-all duration-300 px-2 xl:px-3 h-10 flex items-center gap-1 text-base xl:text-lg relative group"
+        aria-expanded={isOpen}
+        aria-haspopup="menu"
+        aria-label="Open more navigation links"
+      >
+        <span className="relative inline-flex items-center h-full">
+          More
+          <span className="absolute -bottom-1 left-0 h-0.5 w-0 bg-primary-green transition-all duration-300 group-hover:w-full" />
+        </span>
+        <ChevronDown
+          className={`w-5 h-5 transition-transform duration-300 ${isOpen ? "rotate-180" : ""}`}
+        />
+      </button>
+
+      {isOpen && (
+        <div
+          className="absolute right-0 top-full mt-1 min-w-[260px] rounded-2xl border border-light-sage/50 bg-white p-2 shadow-2xl shadow-primary-dark/10"
+          role="menu"
+          aria-label="Secondary navigation"
+        >
+          {items.map((item) => {
+            const description =
+              item.label === "Ramadan"
+                ? "Seasonal worship schedule"
+                : item.label === "Future Projects"
+                  ? "Expansion and building updates"
+                  : item.label === "Get Involved"
+                    ? "Volunteer and support opportunities"
+                    : "";
+
+            return (
+              <Link
+                key={item.href}
+                href={item.href}
+                className="block rounded-xl px-4 py-3 transition-all duration-200 hover:bg-bg-beige/70"
+                role="menuitem"
+              >
+                <span className="font-heading text-base font-semibold text-primary-dark">
+                  {item.label}
+                </span>
+                {description ? (
+                  <span className="mt-1 block font-body text-sm text-muted-foreground">
+                    {description}
+                  </span>
+                ) : null}
+              </Link>
+            );
+          })}
         </div>
       )}
     </div>
@@ -458,7 +541,8 @@ export default function Header() {
   const [isCompactHeader, setIsCompactHeader] = useState(true);
   const headerRowRef = useRef<HTMLDivElement>(null);
   const logoRef = useRef<HTMLDivElement>(null);
-  const desktopClusterRef = useRef<HTMLDivElement>(null);
+  const desktopNavRef = useRef<HTMLDivElement>(null);
+  const desktopDonateRef = useRef<HTMLDivElement>(null);
   const previousCompactHeaderRef = useRef(true);
   const pathname = usePathname();
   const isLightHeader = hasScrolled;
@@ -490,20 +574,22 @@ export default function Header() {
   const updateHeaderMode = useCallback(() => {
     const headerRow = headerRowRef.current;
     const logo = logoRef.current;
-    const desktopCluster = desktopClusterRef.current;
+    const desktopNav = desktopNavRef.current;
+    const desktopDonate = desktopDonateRef.current;
 
-    if (!headerRow || !logo || !desktopCluster) {
+    if (!headerRow || !logo || !desktopNav || !desktopDonate) {
       return;
     }
 
     const availableWidth = headerRow.clientWidth;
     const logoWidth = logo.offsetWidth;
-    const desktopWidth = desktopCluster.scrollWidth;
-    const safetyBuffer = 16;
+    const navWidth = desktopNav.scrollWidth;
+    const donateWidth = desktopDonate.offsetWidth;
+    const safetyBuffer = 48;
     const shouldUseCompactHeader =
       window.innerWidth < 1024 ||
       (window.innerWidth < 1280 &&
-        logoWidth + desktopWidth + safetyBuffer > availableWidth);
+        logoWidth + navWidth + donateWidth + safetyBuffer > availableWidth);
 
     if (previousCompactHeaderRef.current && !shouldUseCompactHeader) {
       setIsMobileMenuOpen(false);
@@ -536,8 +622,12 @@ export default function Header() {
       resizeObserver.observe(logoRef.current);
     }
 
-    if (desktopClusterRef.current) {
-      resizeObserver.observe(desktopClusterRef.current);
+    if (desktopNavRef.current) {
+      resizeObserver.observe(desktopNavRef.current);
+    }
+
+    if (desktopDonateRef.current) {
+      resizeObserver.observe(desktopDonateRef.current);
     }
 
     return () => {
@@ -548,108 +638,118 @@ export default function Header() {
   }, [updateHeaderMode]);
 
   return (
-    <header
-      className={`sticky top-0 z-50 transition-all duration-300 ${
-        hasScrolled 
-          ? "bg-white/95 backdrop-blur-md shadow-lg shadow-primary-dark/5" 
-          : "bg-bg-beige"
-      }`}
-    >
-      <nav className="max-w-[90rem] mx-auto px-3 sm:px-6 lg:px-8">
-        <div ref={headerRowRef} className="relative flex items-center justify-between h-20 lg:h-24">
-          {/* Logo */}
-          <div ref={logoRef} className="shrink-0">
-            <Link
-              href="/"
-              className="flex items-center transition-opacity duration-300 hover:opacity-80"
-            >
-              <Image
-                src="/masjid_logo.png"
-                alt="Masjid Al-Quba Logo"
-                width={128}
-                height={128}
-              className="h-14 w-14 object-contain sm:h-16 sm:w-16 lg:h-[4.5rem] lg:w-[4.5rem]"
-                priority
-              />
-            </Link>
-          </div>
-
-          {/* Desktop Navigation + CTA (kept measurable even when compact mode is active) */}
-          <div
-            ref={desktopClusterRef}
-            className={`hidden lg:flex items-center gap-2 xl:gap-3 h-full ${
-              isCompactHeader
-                ? "absolute right-0 top-1/2 -translate-y-1/2 invisible pointer-events-none flex"
-                : "relative"
-            }`}
-            aria-hidden={isCompactHeader}
-          >
-            <div className="flex items-center gap-0 h-full">
-              {navLinks.map((item) => (
-                <DesktopNavItem
-                  key={item.label}
-                  item={item}
-                  isLightHeader={isLightHeader}
-                  isRamadanActive={isRamadanActive}
-                />
-              ))}
-            </div>
-
-            <div className="shrink-0">
+    <>
+      <header
+        className={`sticky top-0 z-50 transition-all duration-300 ${
+          hasScrolled
+            ? "bg-white/95 backdrop-blur-md shadow-lg shadow-primary-dark/5"
+            : "bg-bg-beige"
+        }`}
+      >
+        <nav
+          className="max-w-[90rem] mx-auto px-3 sm:px-6 lg:px-8"
+          aria-label="Primary"
+        >
+          <div ref={headerRowRef} className="relative h-20 lg:h-24">
+            {/* Logo */}
+            <div ref={logoRef} className="absolute left-0 top-1/2 -translate-y-1/2 shrink-0">
               <Link
-                href="/donate"
-                className="bg-primary-green text-white font-body font-semibold rounded-full px-5 xl:px-6 py-2.5 text-base xl:text-lg hover:shadow-lg hover:shadow-primary-green/30 hover:-translate-y-0.5 transition-all duration-300 flex items-center gap-2 whitespace-nowrap"
+                href="/"
+                className="flex items-center transition-opacity duration-300 hover:opacity-80"
               >
-                <Heart className="w-5 h-5" />
-                Donate
+                <Image
+                  src="/masjid_logo.png"
+                  alt="Masjid Al-Quba Logo"
+                  width={128}
+                  height={128}
+                  className="h-14 w-14 object-contain sm:h-16 sm:w-16 lg:h-[4.5rem] lg:w-[4.5rem]"
+                  priority
+                />
               </Link>
             </div>
-          </div>
 
-          {/* Mobile: Donate Button + Hamburger Menu */}
-          <div
-            className={`flex lg:hidden items-center gap-3 ${
-              isCompactHeader ? "flex" : "hidden"
-            }`}
-            aria-hidden={!isCompactHeader}
-          >
-            {/* Mobile Donate Button (visible next to hamburger) */}
-            <Link
-              href="/donate"
-              className="bg-primary-green text-white font-body font-semibold rounded-full px-3.5 sm:px-5 py-2 text-sm sm:text-base hover:shadow-lg hover:shadow-primary-green/30 transition-all duration-300 flex items-center gap-1.5 whitespace-nowrap shrink-0"
+            {/* Desktop Navigation */}
+            <div
+              ref={desktopNavRef}
+              className={`hidden lg:flex absolute left-1/2 top-1/2 h-full -translate-x-1/2 -translate-y-1/2 items-center ${
+                isCompactHeader
+                  ? "invisible pointer-events-none"
+                  : ""
+              }`}
+              aria-hidden={isCompactHeader}
             >
-              <Heart className="w-4 h-4" />
-              Donate
-            </Link>
+              <div className="flex items-center justify-center gap-0 h-full rounded-full border border-primary-dark/5 bg-white/55 px-3 backdrop-blur-sm">
+                {desktopPrimaryLinks.map((item) => (
+                  <DesktopNavItem
+                    key={item.label}
+                    item={item}
+                    isLightHeader={isLightHeader}
+                    isRamadanActive={isRamadanActive}
+                  />
+                ))}
+                <DesktopMoreMenu items={desktopSecondaryLinks} />
+              </div>
+            </div>
 
-            {/* Mobile Menu Button */}
-            <button
-              className="p-2 text-primary-dark hover:text-primary-green transition-colors"
-              onClick={() => setIsMobileMenuOpen(true)}
-              aria-label="Open menu"
+            {/* Desktop CTA */}
+            <div
+              ref={desktopDonateRef}
+              className={`hidden lg:block absolute right-0 top-1/2 -translate-y-1/2 ${
+                isCompactHeader ? "invisible pointer-events-none" : ""
+              }`}
+              aria-hidden={isCompactHeader}
             >
-              <Menu className="w-7 h-7" />
-            </button>
-          </div>
-        </div>
-      </nav>
+              <div className="shrink-0">
+                <Link
+                  href="/donate"
+                  className="bg-primary-green text-white font-body font-semibold rounded-full px-5 xl:px-6 py-2.5 text-base xl:text-lg hover:shadow-lg hover:shadow-primary-green/30 hover:-translate-y-0.5 transition-all duration-300 flex items-center gap-2 whitespace-nowrap"
+                >
+                  <Heart className="w-5 h-5" />
+                  Donate
+                </Link>
+              </div>
+            </div>
 
-      {/* Mobile Menu Overlay */}
+            {/* Mobile: Donate Button + Hamburger Menu */}
+            <div
+              className={`absolute right-0 top-1/2 -translate-y-1/2 flex lg:hidden items-center gap-3 ${
+                isCompactHeader ? "flex" : "hidden"
+              }`}
+              aria-hidden={!isCompactHeader}
+            >
+              <Link
+                href="/donate"
+                className="bg-primary-green text-white font-body font-semibold rounded-full px-3.5 sm:px-5 py-2 text-sm sm:text-base hover:shadow-lg hover:shadow-primary-green/30 transition-all duration-300 flex items-center gap-1.5 whitespace-nowrap shrink-0"
+              >
+                <Heart className="w-4 h-4" />
+                Donate
+              </Link>
+
+              <button
+                className="p-2 text-primary-dark hover:text-primary-green transition-colors"
+                onClick={() => setIsMobileMenuOpen(true)}
+                aria-label="Open menu"
+              >
+                <Menu className="w-7 h-7" />
+              </button>
+            </div>
+          </div>
+        </nav>
+      </header>
+
       {isCompactHeader && isMobileMenuOpen && (
         <div
-          className="fixed inset-0 bg-black/50 z-40"
+          className="fixed inset-0 z-[60] bg-black/50"
           onClick={() => setIsMobileMenuOpen(false)}
         />
       )}
 
-      {/* Mobile Slide-out Drawer */}
       <div
-        className={`fixed top-0 right-0 h-full w-[320px] max-w-[85vw] bg-gradient-to-b from-bg-beige to-white z-50 transform transition-transform duration-300 ease-in-out shadow-2xl ${
+        className={`fixed top-0 right-0 z-[70] h-full w-[320px] max-w-[85vw] bg-gradient-to-b from-bg-beige to-white shadow-2xl transform transition-transform duration-300 ease-in-out ${
           isCompactHeader && isMobileMenuOpen ? "translate-x-0" : "translate-x-full"
         }`}
       >
-        {/* Drawer Header */}
-        <div className="flex items-center justify-between p-5 border-b border-light-sage/50 bg-white/50">
+        <div className="flex items-center justify-between border-b border-light-sage/50 bg-white/50 p-5">
           <span className="font-heading text-xl font-bold text-primary-dark flex items-center gap-2">
             <span className="w-8 h-8 rounded-full bg-primary-green flex items-center justify-center text-white text-xs">Q</span>
             Menu
@@ -663,9 +763,7 @@ export default function Header() {
           </button>
         </div>
 
-        {/* Drawer Content */}
-        <div className="overflow-y-auto h-[calc(100%-80px)]">
-          {/* Navigation Links */}
+        <div className="h-[calc(100%-80px)] overflow-y-auto overscroll-contain">
           {navLinks.map((item) => (
             <MobileNavItem
               key={item.label}
@@ -675,6 +773,6 @@ export default function Header() {
           ))}
         </div>
       </div>
-    </header>
+    </>
   );
 }

@@ -16,7 +16,7 @@ const services = [
   {
     title: "Religious Counseling",
     description: "Confidential guidance for personal and family matters.",
-    href: "/services/counseling",
+    href: "/services/religious-counselling",
   },
   {
     title: "Juma Dua Request",
@@ -37,23 +37,46 @@ export default async function Home() {
       {/* Hero Carousel */}
       <HeroCarousel slides={heroSlides} />
 
-      {/* Event Banner Section */}
-      {featuredEvents && featuredEvents.length > 0 && (
-        <EventHero events={featuredEvents} />
-      )}
+      <section id="prayer-times" className="relative overflow-hidden bg-gradient-to-br from-white via-bg-beige to-[#E8E3D8]">
+        <div className="absolute inset-0 pattern-bg opacity-40" />
+        <div className="relative max-w-7xl mx-auto px-4 py-8 md:py-10 lg:py-12">
+          <div className="mb-8 flex flex-col gap-4 lg:flex-row lg:items-end lg:justify-between">
+            <div className="max-w-2xl">
+              <span className="inline-flex items-center rounded-full border border-primary-green/15 bg-white/80 px-4 py-2 font-body text-sm font-semibold uppercase tracking-[0.18em] text-primary-green">
+                Plan Your Visit
+              </span>
+              <h1 className="mt-4 font-heading text-3xl font-bold text-primary-dark md:text-4xl lg:text-5xl">
+                Prayer times and community actions come first.
+              </h1>
+              <p className="mt-3 font-body text-base leading-relaxed text-muted-foreground md:text-lg">
+                Check the current salah schedule, then jump straight to the community tasks people use most.
+              </p>
+            </div>
+            <div className="rounded-2xl border border-primary-dark/5 bg-white/75 px-5 py-4 shadow-lg shadow-primary-dark/5 backdrop-blur-sm">
+              <p className="font-body text-sm uppercase tracking-[0.18em] text-muted-foreground">
+                Quick start
+              </p>
+              <p className="mt-1 font-heading text-xl font-semibold text-primary-dark">
+                Pray, donate, ask, connect
+              </p>
+            </div>
+          </div>
 
-      <section id="prayer-times" className="bg-white">
-        <div className="max-w-7xl mx-auto px-4 py-10">
           <div className="grid grid-cols-12 gap-7">
-            <div className="col-span-12 lg:col-span-8 h-full">
+            <div className="col-span-12 lg:col-span-8">
               <PrayerTimesWidget />
             </div>
-            <div className="col-span-12 lg:col-span-4 lg:sticky lg:top-24 h-full">
+            <div className="col-span-12 lg:col-span-4 lg:sticky lg:top-24">
               <QuickActionsPanel />
             </div>
           </div>
         </div>
       </section>
+
+      {/* Event Banner Section */}
+      {featuredEvents && featuredEvents.length > 0 && (
+        <EventHero events={featuredEvents} />
+      )}
 
       {/* Future Project Highlight */}
       <section className="py-16 md:py-24 pattern-bg">

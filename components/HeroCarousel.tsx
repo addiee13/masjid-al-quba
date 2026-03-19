@@ -64,9 +64,9 @@ export default function HeroCarousel({ slides }: HeroCarouselProps) {
                   src={urlFor(slide.image).width(1920).height(1080).url()}
                   alt="Hero banner image"
                   fill
+                  sizes="100vw"
                   className="h-full w-full object-cover"
                   priority
-                  quality={90}
                 />
               </div>
 

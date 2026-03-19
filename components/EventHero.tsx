@@ -47,6 +47,7 @@ export default function EventHero({ events }: { events: Event[] }) {
                             src={imageUrl}
                             alt={event.title}
                             fill
+                            sizes="(min-width: 768px) 50vw, 100vw"
                             className="object-cover"
                           />
                         </div>

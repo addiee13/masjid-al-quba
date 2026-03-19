@@ -232,10 +232,16 @@ export default function DonatePageContent() {
                   Call us if you need help completing a donation.
                 </p>
                 <div className="space-y-2 font-body font-semibold text-primary-dark">
-                  <a href="tel:404-933-2943" className="block hover:text-primary-green">
+                  <a
+                    href="tel:404-933-2943"
+                    className="inline-flex min-h-11 items-center rounded-lg px-3 py-2 hover:bg-primary-green/5 hover:text-primary-green"
+                  >
                     404-933-2943
                   </a>
-                  <a href="tel:678-524-9841" className="block hover:text-primary-green">
+                  <a
+                    href="tel:678-524-9841"
+                    className="inline-flex min-h-11 items-center rounded-lg px-3 py-2 hover:bg-primary-green/5 hover:text-primary-green"
+                  >
                     678-524-9841
                   </a>
                 </div>
@@ -260,7 +266,7 @@ export default function DonatePageContent() {
                   Need help?{" "}
                   <Link
                     href="/contact"
-                    className="text-primary-green hover:underline font-medium"
+                    className="inline-flex min-h-11 items-center rounded-lg px-2 py-2 text-primary-green font-medium hover:bg-primary-green/5 hover:underline"
                   >
                     Contact us
                   </Link>{" "}
@@ -277,11 +283,17 @@ export default function DonatePageContent() {
                   For questions or assistance with donations:
                 </p>
                 <div className="flex flex-col sm:flex-row items-center justify-center gap-4 text-primary-dark font-body">
-                  <a href="tel:404-933-2943" className="hover:text-primary-green font-semibold">
+                  <a
+                    href="tel:404-933-2943"
+                    className="inline-flex min-h-11 items-center rounded-lg px-3 py-2 font-semibold hover:bg-primary-green/5 hover:text-primary-green"
+                  >
                     404-933-2943
                   </a>
                   <span className="hidden sm:inline text-muted-foreground">|</span>
-                  <a href="tel:678-524-9841" className="hover:text-primary-green font-semibold">
+                  <a
+                    href="tel:678-524-9841"
+                    className="inline-flex min-h-11 items-center rounded-lg px-3 py-2 font-semibold hover:bg-primary-green/5 hover:text-primary-green"
+                  >
                     678-524-9841
                   </a>
                   <span className="hidden sm:inline text-muted-foreground">|</span>
@@ -289,7 +301,7 @@ export default function DonatePageContent() {
                     href="https://masjidalquba.net"
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="hover:text-primary-green font-semibold"
+                    className="inline-flex min-h-11 items-center rounded-lg px-3 py-2 font-semibold hover:bg-primary-green/5 hover:text-primary-green"
                   >
                     masjidalquba.net
                   </a>
