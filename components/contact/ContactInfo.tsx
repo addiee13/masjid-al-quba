@@ -1,11 +1,12 @@
 "use client";
 
 import { Phone, Mail, MapPin, Clock } from "lucide-react";
+import { siteConfig } from "@/lib/site";
 
 const contactInfo = {
-  address: "1400 Buford Hwy, Sugar Hill, GA 30518",
-  phone: "(404) 933-2943",
-  email: "masjidalquba@gmail.com",
+  address: siteConfig.address,
+  phone: siteConfig.phone,
+  email: siteConfig.email,
   hours: [
     { label: "Monday - Friday", value: "9:00 AM - 5:00 PM" },
     { label: "Saturday - Sunday", value: "10:00 AM - 4:00 PM" },

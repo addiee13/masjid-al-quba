@@ -155,15 +155,15 @@ function DesktopDropdown({ item }: { item: NavItem }) {
       </div>
 
       {isOpen && item.dropdown && (
-        <div className="absolute top-full left-0 min-w-[240px] bg-white rounded-xl shadow-xl shadow-primary-dark/10 py-3 border border-light-sage/50 mt-1 animate-in fade-in slide-in-from-top-2 duration-200">
+        <div className="absolute left-0 top-full z-[90] mt-2 min-w-[248px] rounded-2xl border border-black/6 bg-white py-3 shadow-[0_18px_40px_rgba(17,24,39,0.14)] animate-in fade-in slide-in-from-top-2 duration-200">
           {item.dropdown.map((subItem) => (
             <Link
               key={subItem.href}
               href={subItem.href}
-              className="block px-5 py-3 font-body text-base text-primary-dark hover:bg-gradient-to-r hover:from-bg-beige hover:to-transparent hover:text-primary-green transition-all duration-200 relative group"
+              className="relative mx-2 block rounded-xl px-4 py-3 font-body text-base font-medium text-primary-dark transition-all duration-200 hover:bg-bg-beige/55 hover:text-primary-green focus-visible:bg-bg-beige/65 focus-visible:text-primary-green group"
             >
               <span className="relative z-10">{subItem.label}</span>
-              <span className="absolute left-0 top-1/2 -translate-y-1/2 w-1 h-0 bg-primary-green group-hover:h-6 rounded-r transition-all duration-200" />
+              <span className="absolute left-0 top-1/2 h-0 w-1 -translate-y-1/2 rounded-r bg-primary-green transition-all duration-200 group-hover:h-6 group-focus-visible:h-6" />
             </Link>
           ))}
         </div>
@@ -203,17 +203,17 @@ function DesktopMegaMenu({ item }: { item: NavItem }) {
       </div>
 
       {isOpen && item.categories && (
-        <div className="absolute top-full left-1/2 -translate-x-1/2 w-[520px] bg-white rounded-2xl shadow-2xl shadow-primary-dark/15 border border-light-sage/50 overflow-hidden mt-1 animate-in fade-in slide-in-from-top-2 duration-200">
+        <div className="absolute left-1/2 top-full z-[90] mt-2 w-[520px] -translate-x-1/2 overflow-hidden rounded-[1.6rem] border border-black/6 bg-white shadow-[0_22px_52px_rgba(17,24,39,0.16)] animate-in fade-in slide-in-from-top-2 duration-200">
           <div className="grid grid-cols-5">
             {/* Left Column - Categories */}
-            <div className="col-span-2 bg-gradient-to-b from-bg-beige/50 to-bg-beige/30 border-r border-light-sage/30 py-3">
+            <div className="col-span-2 border-r border-black/6 bg-bg-beige/45 py-3">
               {item.categories.map((category, index) => (
                 <button
                   key={category.name}
                   className={`w-full text-left px-5 py-3.5 font-body text-base transition-all duration-200 ${
                     activeCategory === index
                       ? "bg-primary-green text-white shadow-md shadow-primary-green/30"
-                      : "text-primary-dark hover:bg-white/50 hover:pl-6"
+                      : "text-primary-dark hover:bg-white hover:pl-6 focus-visible:bg-white"
                   }`}
                   onMouseEnter={() => setActiveCategory(index)}
                 >
@@ -226,8 +226,8 @@ function DesktopMegaMenu({ item }: { item: NavItem }) {
             </div>
 
             {/* Right Column - Links */}
-            <div className="col-span-3 py-4 px-5">
-              <h3 className="font-heading text-primary-green font-semibold text-base mb-4 pb-2 border-b border-light-sage/30 flex items-center gap-2">
+            <div className="col-span-3 bg-white py-4 px-5">
+              <h3 className="mb-4 flex items-center gap-2 border-b border-black/8 pb-2 font-heading text-base font-semibold text-primary-green">
                 <span className="w-1.5 h-1.5 rounded-full bg-primary-green" />
                 {item.categories[activeCategory].name}
               </h3>
@@ -236,7 +236,7 @@ function DesktopMegaMenu({ item }: { item: NavItem }) {
                   <Link
                     key={link.href}
                     href={link.href}
-                    className="block py-3 px-3 font-body text-base text-primary-dark hover:text-primary-green hover:bg-bg-beige/50 rounded-lg transition-all duration-200 hover:translate-x-1"
+                    className="block rounded-lg px-3 py-3 font-body text-base font-medium text-primary-dark transition-all duration-200 hover:translate-x-1 hover:bg-bg-beige/55 hover:text-primary-green focus-visible:bg-bg-beige/65 focus-visible:text-primary-green"
                   >
                     {link.label}
                   </Link>
@@ -246,10 +246,10 @@ function DesktopMegaMenu({ item }: { item: NavItem }) {
           </div>
 
           {/* Footer - View All */}
-          <div className="border-t border-light-sage/30 px-5 py-4 bg-gradient-to-r from-bg-beige/30 to-transparent">
+          <div className="border-t border-black/6 bg-bg-beige/18 px-5 py-4">
             <Link
               href={item.href}
-              className="font-body text-base text-primary-green hover:text-primary-dark transition-all duration-200 flex items-center gap-1.5 group"
+              className="group flex items-center gap-1.5 font-body text-base font-semibold text-primary-green transition-all duration-200 hover:text-primary-dark focus-visible:text-primary-dark"
             >
               View All Services
               <ChevronRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
@@ -288,7 +288,7 @@ function DesktopMoreMenu({ items }: { items: NavItem[] }) {
 
       {isOpen && (
         <div
-          className="absolute right-0 top-full mt-1 min-w-[260px] rounded-2xl border border-light-sage/50 bg-white p-2 shadow-2xl shadow-primary-dark/10"
+          className="absolute right-0 top-full z-[90] mt-2 min-w-[260px] rounded-2xl border border-black/6 bg-white p-2 shadow-[0_18px_40px_rgba(17,24,39,0.14)]"
           role="menu"
           aria-label="Secondary navigation"
         >
@@ -306,7 +306,7 @@ function DesktopMoreMenu({ items }: { items: NavItem[] }) {
               <Link
                 key={item.href}
                 href={item.href}
-                className="block rounded-xl px-4 py-3 transition-all duration-200 hover:bg-bg-beige/70"
+                className="block rounded-xl px-4 py-3 transition-all duration-200 hover:bg-bg-beige/55 focus-visible:bg-bg-beige/65"
                 role="menuitem"
               >
                 <span className="font-heading text-base font-semibold text-primary-dark">
@@ -639,15 +639,9 @@ export default function Header() {
 
   return (
     <>
-      <header
-        className={`sticky top-0 z-50 transition-all duration-300 ${
-          hasScrolled
-            ? "bg-white/95 backdrop-blur-md shadow-lg shadow-primary-dark/5"
-            : "bg-bg-beige"
-        }`}
-      >
+      <header className="sticky top-0 z-50 border-b border-black/6 bg-white shadow-sm">
         <nav
-          className="max-w-[90rem] mx-auto px-3 sm:px-6 lg:px-8"
+          className="mx-auto max-w-[90rem] px-3 sm:px-5 lg:px-6"
           aria-label="Primary"
         >
           <div ref={headerRowRef} className="relative h-20 lg:h-24">
@@ -678,7 +672,7 @@ export default function Header() {
               }`}
               aria-hidden={isCompactHeader}
             >
-              <div className="flex items-center justify-center gap-0 h-full rounded-full border border-primary-dark/5 bg-white/55 px-3 backdrop-blur-sm">
+              <div className="flex h-full items-center justify-center gap-0 rounded-full bg-bg-beige/35 px-3">
                 {desktopPrimaryLinks.map((item) => (
                   <DesktopNavItem
                     key={item.label}
@@ -702,7 +696,7 @@ export default function Header() {
               <div className="shrink-0">
                 <Link
                   href="/donate"
-                  className="bg-primary-green text-white font-body font-semibold rounded-full px-5 xl:px-6 py-2.5 text-base xl:text-lg hover:shadow-lg hover:shadow-primary-green/30 hover:-translate-y-0.5 transition-all duration-300 flex items-center gap-2 whitespace-nowrap"
+                  className="flex items-center gap-2 whitespace-nowrap rounded-full bg-gradient-to-r from-[#476F57] via-[#3D5A45] to-[#2F4636] px-5 py-2.5 font-body text-base font-semibold text-white shadow-[0_10px_22px_rgba(47,70,54,0.18)] ring-1 ring-white/20 transition-all duration-300 hover:-translate-y-0.5 hover:shadow-[0_14px_28px_rgba(47,70,54,0.24)] hover:from-[#4C785D] hover:via-[#42614B] hover:to-[#334D3C] xl:px-6 xl:text-lg"
                 >
                   <Heart className="w-5 h-5" />
                   Donate
@@ -719,14 +713,14 @@ export default function Header() {
             >
               <Link
                 href="/donate"
-                className="bg-primary-green text-white font-body font-semibold rounded-full px-3.5 sm:px-5 py-2 text-sm sm:text-base hover:shadow-lg hover:shadow-primary-green/30 transition-all duration-300 flex items-center gap-1.5 whitespace-nowrap shrink-0"
+                className="flex shrink-0 items-center gap-1.5 whitespace-nowrap rounded-full bg-gradient-to-r from-[#476F57] via-[#3D5A45] to-[#2F4636] px-3.5 py-2 font-body text-sm font-semibold text-white shadow-[0_10px_20px_rgba(47,70,54,0.18)] ring-1 ring-white/20 transition-all duration-300 hover:shadow-[0_14px_24px_rgba(47,70,54,0.24)] hover:from-[#4C785D] hover:via-[#42614B] hover:to-[#334D3C] sm:px-5 sm:text-base"
               >
                 <Heart className="w-4 h-4" />
                 Donate
               </Link>
 
               <button
-                className="p-2 text-primary-dark hover:text-primary-green transition-colors"
+                className="rounded-full border border-black/8 bg-white p-2 text-primary-dark transition-colors hover:bg-bg-beige/45 hover:text-primary-green"
                 onClick={() => setIsMobileMenuOpen(true)}
                 aria-label="Open menu"
               >
@@ -739,24 +733,24 @@ export default function Header() {
 
       {isCompactHeader && isMobileMenuOpen && (
         <div
-          className="fixed inset-0 z-[60] bg-black/50"
+          className="fixed inset-0 z-[60] bg-black/40"
           onClick={() => setIsMobileMenuOpen(false)}
         />
       )}
 
       <div
-        className={`fixed top-0 right-0 z-[70] h-full w-[320px] max-w-[85vw] bg-gradient-to-b from-bg-beige to-white shadow-2xl transform transition-transform duration-300 ease-in-out ${
-          isCompactHeader && isMobileMenuOpen ? "translate-x-0" : "translate-x-full"
+        className={`fixed right-0 top-0 z-[70] h-full w-[320px] max-w-[85vw] border-l border-black/6 bg-white shadow-[0_18px_40px_rgba(17,24,39,0.16)] transform transition-transform duration-300 ease-in-out ${
+          isCompactHeader && isMobileMenuOpen ? "translate-x-0" : "translate-x-[110%]"
         }`}
       >
-        <div className="flex items-center justify-between border-b border-light-sage/50 bg-white/50 p-5">
+        <div className="flex items-center justify-between border-b border-black/6 bg-bg-beige/18 p-5">
           <span className="font-heading text-xl font-bold text-primary-dark flex items-center gap-2">
             <span className="w-8 h-8 rounded-full bg-primary-green flex items-center justify-center text-white text-xs">Q</span>
             Menu
           </span>
           <button
             onClick={() => setIsMobileMenuOpen(false)}
-            className="p-2 text-primary-dark hover:text-primary-green hover:bg-bg-beige rounded-full transition-all duration-200"
+            className="rounded-full border border-black/8 bg-white p-2 text-primary-dark transition-all duration-200 hover:bg-bg-beige/45 hover:text-primary-green"
             aria-label="Close menu"
           >
             <X className="w-6 h-6" />

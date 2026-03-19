@@ -45,3 +45,6 @@ masjid1.jpg
 masjid2.jpg
 masjid3.jpg
 /masjid
+
+#playwright-ui-audit
+/audit-results/
