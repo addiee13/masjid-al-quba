@@ -144,6 +144,7 @@ const qrDonationOptions: QrDonationOption[] = [
 export default function DonatePageContent() {
   const [copied, setCopied] = useState(false);
   const [selectedQrId, setSelectedQrId] = useState(qrDonationOptions[0].id);
+  const [featuredOption, ...secondaryOptions] = donationOptions;
 
   const selectedQrOption =
     qrDonationOptions.find((option) => option.id === selectedQrId) ?? qrDonationOptions[0];
@@ -183,14 +184,49 @@ export default function DonatePageContent() {
           </div>
 
           <div className="mb-8 rounded-[2rem] border border-black/5 bg-white/72 p-5 shadow-lg backdrop-blur-sm md:p-6">
-            <div className="grid gap-6 xl:grid-cols-[minmax(0,1.55fr)_minmax(280px,0.45fr)] xl:items-start">
+            <div className="grid gap-6 xl:grid-cols-[minmax(0,1.58fr)_minmax(260px,0.42fr)] xl:items-start">
               <div>
                 <h2 className="font-heading text-2xl font-bold text-primary-dark">
                   Choose a fund.
                 </h2>
 
-                <div className="mt-4 grid auto-rows-fr grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3 2xl:grid-cols-5">
-                  {donationOptions.map((option) => {
+                <a
+                  href={featuredOption.link}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="group mt-4 flex min-h-[15.5rem] flex-col rounded-[1.9rem] border border-primary-green/15 bg-gradient-to-br from-white via-white to-bg-beige/45 p-6 shadow-[0_16px_36px_rgba(24,39,20,0.08)] transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_20px_44px_rgba(24,39,20,0.14)] focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-primary-green/30"
+                >
+                  <div className="flex items-start justify-between gap-4">
+                    <div>
+                      <p className="font-body text-[11px] font-semibold uppercase tracking-[0.2em] text-primary-green">
+                        Featured Fund
+                      </p>
+                      <h3 className="mt-3 font-heading text-[2rem] font-bold leading-tight text-primary-dark">
+                        {featuredOption.title}
+                      </h3>
+                    </div>
+                    <div className="flex h-14 w-14 items-center justify-center rounded-2xl border border-primary-green/10 bg-white shadow-sm">
+                      <featuredOption.icon
+                        className={`h-6 w-6 ${featuredOption.iconColor}`}
+                        strokeWidth={2}
+                      />
+                    </div>
+                  </div>
+
+                  <p className="mt-4 max-w-2xl font-body text-base leading-relaxed text-muted-foreground">
+                    {featuredOption.description}
+                  </p>
+
+                  <div className="mt-auto pt-6">
+                    <div className="flex h-12 w-full items-center justify-center gap-2 rounded-xl bg-primary-green text-white font-body text-base font-semibold shadow-md transition-all duration-300 group-hover:shadow-lg sm:w-[18rem]">
+                      <span>{featuredOption.paymentLabel}</span>
+                      <ExternalLink className="w-4 h-4" strokeWidth={2} />
+                    </div>
+                  </div>
+                </a>
+
+                <div className="mt-4 grid auto-rows-fr grid-cols-1 gap-4 sm:grid-cols-2 2xl:grid-cols-4">
+                  {secondaryOptions.map((option) => {
                     const IconComponent = option.icon;
 
                     return (
@@ -199,21 +235,18 @@ export default function DonatePageContent() {
                         href={option.link}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="group relative flex min-h-[13.5rem] h-full flex-col rounded-[1.6rem] border border-black/5 bg-white/88 p-5 shadow-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-xl focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-primary-green/30"
+                        className="group relative flex min-h-[12.5rem] h-full flex-col rounded-[1.45rem] border border-black/5 bg-white/88 p-5 shadow-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-xl focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-primary-green/30"
                       >
-                        <div className="mb-4 flex items-center justify-between gap-3">
+                        <div className="mb-4 flex items-center gap-3">
                           <div className="flex h-10 w-10 items-center justify-center rounded-2xl border border-black/5 bg-gradient-to-br from-white to-gray-50 transition-transform duration-300 group-hover:scale-105">
                             <IconComponent className={`h-5 w-5 ${option.iconColor}`} strokeWidth={2} />
                           </div>
-                          <span className="rounded-full bg-primary-green/10 px-2.5 py-1 font-body text-[10px] font-semibold uppercase tracking-[0.16em] text-primary-green">
-                            Square
-                          </span>
                         </div>
 
-                        <h3 className="mb-2 font-heading text-[1.15rem] font-bold leading-tight text-primary-dark transition-colors group-hover:text-primary-green">
+                        <h3 className="mb-2 font-heading text-[1.08rem] font-bold leading-tight text-primary-dark transition-colors group-hover:text-primary-green">
                           {option.title}
                         </h3>
-                        <p className="mb-4 font-body text-sm leading-relaxed text-muted-foreground">
+                        <p className="mb-4 font-body text-[13px] leading-relaxed text-muted-foreground">
                           {option.description}
                         </p>
 
@@ -229,12 +262,8 @@ export default function DonatePageContent() {
 
               <div className="rounded-[1.6rem] bg-bg-beige/48 p-4">
                 <h2 className="font-heading text-2xl font-bold text-primary-dark">
-                  Payment methods.
+                  Other ways to give.
                 </h2>
-
-                <div className="mt-4 rounded-2xl bg-white/85 px-4 py-3 text-sm font-semibold text-primary-dark">
-                  We accept Square, Cash App, Minbr, PayPal, and Zelle.
-                </div>
 
                 <div className="mt-4 grid grid-cols-2 gap-3">
                   {qrDonationOptions.map((option) => (
@@ -242,7 +271,7 @@ export default function DonatePageContent() {
                       key={option.id}
                       type="button"
                       onClick={() => handleSelectQr(option.id)}
-                      className={`rounded-2xl border px-4 py-3 text-left transition-all duration-200 ${
+                      className={`rounded-2xl border px-4 py-4 text-left transition-all duration-200 ${
                         selectedQrId === option.id
                           ? "border-primary-green bg-primary-green text-white shadow-[0_14px_28px_rgba(71,111,87,0.18)]"
                           : "border-black/6 bg-white text-primary-dark hover:-translate-y-0.5 hover:border-primary-green/35 hover:bg-bg-beige/35"
@@ -255,7 +284,7 @@ export default function DonatePageContent() {
                       >
                         {option.eyebrow}
                       </p>
-                      <p className="mt-2 font-heading text-lg font-bold">{option.title}</p>
+                      <p className="mt-2 font-heading text-[1.15rem] font-bold">{option.title}</p>
                     </button>
                   ))}
                 </div>

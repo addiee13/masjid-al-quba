@@ -42,15 +42,9 @@ export default async function Home() {
         <div className="relative max-w-7xl mx-auto px-4 py-8 md:py-10 lg:py-12">
           <div className="mb-8 flex flex-col gap-4 lg:flex-row lg:items-end lg:justify-between">
             <div className="max-w-2xl">
-              <span className="inline-flex items-center rounded-full border border-primary-green/15 bg-white/80 px-4 py-2 font-body text-sm font-semibold uppercase tracking-[0.18em] text-primary-green">
-                Plan Your Visit
-              </span>
-              <h1 className="mt-4 font-heading text-3xl font-bold text-primary-dark md:text-4xl lg:text-5xl">
+              <h1 className="font-heading text-3xl font-bold text-primary-dark md:text-4xl lg:text-5xl">
                 Prayer times and community actions come first.
               </h1>
-              <p className="mt-3 font-body text-base leading-relaxed text-muted-foreground md:text-lg">
-                Check the current salah schedule, then jump straight to the community tasks people use most.
-              </p>
             </div>
             <div className="rounded-2xl border border-primary-dark/5 bg-white/75 px-5 py-4 shadow-lg shadow-primary-dark/5 backdrop-blur-sm">
               <p className="font-body text-sm uppercase tracking-[0.18em] text-muted-foreground">
@@ -59,6 +53,30 @@ export default async function Home() {
               <p className="mt-1 font-heading text-xl font-semibold text-primary-dark">
                 Pray, donate, ask, connect
               </p>
+            </div>
+          </div>
+
+          <div className="mb-7 overflow-hidden rounded-3xl border border-amber-300/45 bg-[radial-gradient(circle_at_top_left,_rgba(255,255,255,0.32),_transparent_30%),linear-gradient(135deg,_#fff8dc_0%,_#f7e7a9_54%,_#efd17a_100%)] px-5 py-5 shadow-lg shadow-amber-900/10 md:px-6">
+            <div className="flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
+              <div>
+                <p className="font-body text-xs font-semibold uppercase tracking-[0.2em] text-amber-800/80">
+                  Eid Salah
+                </p>
+                <h2 className="mt-2 font-heading text-2xl font-bold text-amber-950 md:text-3xl">
+                  Join us for Eid Salah
+                </h2>
+                <p className="mt-2 font-body text-sm font-medium text-amber-900/85 md:text-base">
+                  Friday, March 20 at 8:30 AM
+                </p>
+              </div>
+              <div className="rounded-2xl border border-white/60 bg-white/70 px-5 py-4 text-center shadow-sm">
+                <p className="font-body text-[11px] font-semibold uppercase tracking-[0.16em] text-amber-800/75">
+                  Starts At
+                </p>
+                <p className="mt-1 font-heading text-3xl font-bold text-amber-950">
+                  8:30 AM
+                </p>
+              </div>
             </div>
           </div>
 
