@@ -15,10 +15,6 @@ import {
 } from "lucide-react";
 import Link from "next/link";
 import Image from "next/image";
-import cashAppQr from "../../masjid/cashApp.png";
-import minbrQr from "../../masjid/minbr.png";
-import paypalQr from "../../masjid/paypal.png";
-import zelleQr from "../../public/zelle_qr.png";
 
 const ZELLE_ACCOUNT = "masjidalquba@gmail.com";
 
@@ -45,7 +41,7 @@ type QrDonationOption = {
   title: string;
   description: string;
   badge: string;
-  qr: typeof cashAppQr;
+  qr: string;
   actionLabel: string;
   eyebrow: string;
   accountValue?: string;
@@ -106,7 +102,7 @@ const qrDonationOptions: QrDonationOption[] = [
     title: "Cash App",
     description: "Use the Cash App QR code for a direct transfer from your phone.",
     badge: "Cash App",
-    qr: cashAppQr,
+    qr: "/donate-qr/cashapp.png",
     actionLabel: "Scan to Give",
     eyebrow: "Mobile Transfer",
   },
@@ -115,7 +111,7 @@ const qrDonationOptions: QrDonationOption[] = [
     title: "Minbr",
     description: "Scan the Minbr QR code to continue the donation flow in their app.",
     badge: "Minbr",
-    qr: minbrQr,
+    qr: "/donate-qr/minbr.png",
     actionLabel: "Scan to Give",
     eyebrow: "Masjid Giving Platform",
   },
@@ -124,7 +120,7 @@ const qrDonationOptions: QrDonationOption[] = [
     title: "PayPal",
     description: "Use PayPal if you prefer a wallet or a card-backed payment option.",
     badge: "PayPal",
-    qr: paypalQr,
+    qr: "/donate-qr/paypal.png",
     actionLabel: "Scan to Give",
     eyebrow: "Wallet or Card",
   },
@@ -133,7 +129,7 @@ const qrDonationOptions: QrDonationOption[] = [
     title: "Zelle",
     description: "Scan the QR code or copy the account for a direct bank transfer.",
     badge: "Zelle",
-    qr: zelleQr,
+    qr: "/zelle_qr.png",
     actionLabel: "Copy Zelle Account",
     eyebrow: "Bank Transfer",
     accountValue: ZELLE_ACCOUNT,
@@ -148,6 +144,7 @@ export default function DonatePageContent() {
 
   const selectedQrOption =
     qrDonationOptions.find((option) => option.id === selectedQrId) ?? qrDonationOptions[0];
+  const copyValue = selectedQrOption.copyValue;
 
   const handleCopy = async (value: string) => {
     try {
@@ -355,10 +352,10 @@ export default function DonatePageContent() {
                 </div>
 
                 <div className="mt-6 w-full max-w-sm">
-                  {selectedQrOption.copyValue ? (
+                  {copyValue ? (
                     <button
                       type="button"
-                      onClick={() => handleCopy(selectedQrOption.copyValue)}
+                      onClick={() => handleCopy(copyValue)}
                       className="flex h-12 w-full items-center justify-center gap-2 rounded-xl bg-white px-4 font-body text-base font-semibold text-primary-green shadow-sm transition-all duration-300 hover:-translate-y-0.5"
                     >
                       {copied ? (
