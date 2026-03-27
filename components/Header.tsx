@@ -4,7 +4,7 @@ import { useState, useEffect, useCallback, useRef } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { usePathname } from "next/navigation";
-import { Menu, X, ChevronDown, ChevronRight, Heart, ArrowRight } from "lucide-react";
+import { Menu, X, ChevronDown, ChevronRight, Heart } from "lucide-react";
 
 // Types for navigation structure
 type NavLink = {
@@ -127,16 +127,6 @@ const desktopPrimaryLinks = navLinks.filter((item) =>
 const desktopSecondaryLinks = navLinks.filter(
   (item) => !desktopPrimaryLabels.has(item.label)
 );
-
-const EID_ANNOUNCEMENT = {
-  greeting: "Eid Mubarak from Masjid Al-Quba",
-  message: "Join us for Eid Salah",
-  detail: "Friday, March 20",
-  time: "8:30 AM",
-  note: "Please arrive a little early so families can settle in comfortably.",
-  href: "/#prayer-times",
-  cta: "See prayer details",
-} as const;
 
 // Simple dropdown component for desktop
 function DesktopDropdown({ item }: { item: NavItem }) {
@@ -545,56 +535,6 @@ function MobileNavItem({
   return <MobileSimpleDropdown item={item} onClose={onClose} />;
 }
 
-function EidAnnouncementBar({ hidden }: { hidden: boolean }) {
-  return (
-    <div
-      className={`overflow-hidden border-b border-[#D7C48D]/25 bg-[linear-gradient(90deg,#24372B_0%,#314A39_40%,#5B5141_100%)] text-white shadow-[inset_0_-1px_0_rgba(255,255,255,0.04)] transition-all duration-300 ${
-        hidden ? "max-h-0 border-b-0 opacity-0" : "max-h-24 opacity-100"
-      }`}
-      aria-hidden={hidden}
-    >
-      <div className="mx-auto max-w-[90rem] px-3 py-2 sm:px-5 lg:px-6">
-        <div className="flex min-h-11 items-center justify-between gap-3">
-          <div className="min-w-0">
-            <p className="font-body text-[10px] font-semibold uppercase tracking-[0.22em] text-[#E9D8A6] sm:hidden">
-              Eid Mubarak
-            </p>
-            <p className="truncate font-body text-sm font-medium text-white sm:hidden">
-              Eid Salah at {EID_ANNOUNCEMENT.time}
-            </p>
-
-            <div className="hidden items-center gap-3 sm:flex">
-              <span className="font-semibold uppercase tracking-[0.2em] text-[#E9D8A6]">
-                Eid Mubarak
-              </span>
-              <span className="h-px w-8 bg-[#D7C48D]/35" />
-              <span className="font-body text-sm text-white/92">
-                {EID_ANNOUNCEMENT.message}
-              </span>
-              <span className="font-body text-xs uppercase tracking-[0.16em] text-white/62">
-                {EID_ANNOUNCEMENT.detail}
-              </span>
-            </div>
-          </div>
-
-          <Link
-            href={EID_ANNOUNCEMENT.href}
-            className="shrink-0 inline-flex items-center gap-2 rounded-full border border-[#E9D8A6]/30 bg-[linear-gradient(180deg,rgba(255,255,255,0.18),rgba(255,255,255,0.1))] px-3 py-1.5 text-white shadow-[0_10px_24px_rgba(0,0,0,0.18)] transition-colors duration-200 hover:bg-[linear-gradient(180deg,rgba(255,255,255,0.22),rgba(255,255,255,0.14))] sm:px-4"
-          >
-            <span className="font-body text-[10px] font-semibold uppercase tracking-[0.16em] text-[#E9D8A6]">
-              Eid Salah
-            </span>
-            <span className="font-heading text-lg font-semibold leading-none text-white sm:text-xl">
-              {EID_ANNOUNCEMENT.time}
-            </span>
-            <ArrowRight className="h-3.5 w-3.5 text-white/80" />
-          </Link>
-        </div>
-      </div>
-    </div>
-  );
-}
-
 export default function Header() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [hasScrolled, setHasScrolled] = useState(false);
@@ -700,7 +640,6 @@ export default function Header() {
   return (
     <>
       <header className="sticky top-0 z-50 border-b border-black/6 bg-white shadow-sm">
-        <EidAnnouncementBar hidden={hasScrolled} />
         <nav
           className="mx-auto max-w-[90rem] px-3 sm:px-5 lg:px-6"
           aria-label="Primary"

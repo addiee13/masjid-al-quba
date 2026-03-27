@@ -22,7 +22,6 @@ import {
   JummahIcon,
   MaghribIcon,
 } from "./icons/PrayerIcons";
-import { Star } from "lucide-react";
 
 type PrayerIcon = ComponentType<SVGProps<SVGSVGElement>>;
 
@@ -36,10 +35,6 @@ const PRAYERS_CONFIG: Array<{ key: PrayerName; name: string; icon: PrayerIcon }>
 ];
 
 const JUMMAH_TIMES = ["2:00 PM", "3:00 PM"] as const;
-const EID_SALAH = {
-  dateLabel: "Friday, March 20",
-  timeLabel: "8:30 AM",
-} as const;
 const HIJRI_MONTHS = [
   "Muharram",
   "Safar",
@@ -175,36 +170,6 @@ export default function PrayerTimesClient({ schedule }: PrayerTimesClientProps) 
               </div>
             </div>
           )}
-
-          <div className="mb-5 overflow-hidden rounded-2xl border border-amber-300/50 bg-[radial-gradient(circle_at_top_left,_rgba(255,255,255,0.18),_transparent_32%),linear-gradient(135deg,_#fff7d6_0%,_#f7e8a5_55%,_#efd37a_100%)] px-5 py-4 shadow-lg shadow-amber-900/10">
-            <div className="flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
-              <div className="flex items-start gap-3">
-                <div className="flex h-11 w-11 items-center justify-center rounded-xl bg-white/65 text-amber-700 shadow-sm">
-                  <Star className="h-5 w-5 fill-current" />
-                </div>
-                <div>
-                  <p className="font-body text-[11px] font-semibold uppercase tracking-[0.18em] text-amber-800/75">
-                    Eid Announcement
-                  </p>
-                  <h3 className="mt-1 font-heading text-2xl font-bold text-amber-950">
-                    Join us for Eid Salah
-                  </h3>
-                  <p className="mt-1 font-body text-sm font-medium text-amber-900/85">
-                    {EID_SALAH.dateLabel} at {EID_SALAH.timeLabel}
-                  </p>
-                </div>
-              </div>
-
-              <div className="rounded-2xl border border-white/55 bg-white/70 px-4 py-3 text-center shadow-sm">
-                <p className="font-body text-[11px] font-semibold uppercase tracking-[0.16em] text-amber-800/70">
-                  Join Us
-                </p>
-                <p className="mt-1 font-heading text-2xl font-bold text-amber-950">
-                  {EID_SALAH.timeLabel}
-                </p>
-              </div>
-            </div>
-          </div>
 
           <div className="w-full space-y-2.5">
             {prayers.map((prayer) => {
