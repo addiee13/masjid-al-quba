@@ -2,6 +2,10 @@ export const siteConfig = {
   name: "Masjid Al-Quba",
   fullName: "Masjid Al-Quba Islamic Center",
   address: "1400 Buford Hwy, Sugar Hill, GA 30518",
+  coordinates: {
+    latitude: 34.0921067,
+    longitude: -84.0167912,
+  },
   phone: "(404) 933-2943",
   email: "masjidalquba@gmail.com",
   logo: "/masjid_logo.png",

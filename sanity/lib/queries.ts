@@ -3,7 +3,9 @@ import {
   expandEventOccurrences,
   getDefaultEventWindow,
 } from '../../lib/events'
+import { resolvePrayerSchedule } from '../../lib/prayer-schedule'
 import type { EventListItem, EventOccurrence, EventTemplate } from '../../types/events'
+import type { PrayerSchedule } from '../../types/prayer'
 
 export async function getHeroSlides() {
   const query = `*[_type == "heroSlide" && active == true] | order(order asc) {
@@ -184,16 +186,27 @@ export async function getBoardMembers() {
 }
 
 export async function getActivePrayerSchedule() {
-  const query = `*[_type == "prayerSchedule"] | order(_createdAt desc) [0] {
+  const query = `*[_type == "prayerSchedule"] | order(startDate desc, _createdAt desc) {
     _id,
     title,
+    startDate,
+    endDate,
     "fajr": coalesce(fajr, fajrAthan, fajrIqamah),
     "dhuhr": coalesce(dhuhr, dhuhrAthan, dhuhrIqamah),
     "asr": coalesce(asr, asrAthan, asrIqamah),
     "maghrib": coalesce(maghrib, maghribAthan, maghribIqamah),
     "isha": coalesce(isha, ishaAthan, ishaIqamah),
-    "jummah": coalesce(jummah, jummahIqamah, jummahKhutbah)
+    "jummah": coalesce(jummah, jummahIqamah, jummahKhutbah),
+    "jummahTimes": coalesce(jummahTimes, []),
+    latitude,
+    longitude,
+    "maghribSource": coalesce(maghribSource, "manual"),
+    "maghribOffsetMinutes": coalesce(maghribOffsetMinutes, 0)
   }`
-  
-  return await client.withConfig({ useCdn: false }).fetch(query)
+
+  const schedules = await client
+    .withConfig({ useCdn: false })
+    .fetch<PrayerSchedule[]>(query)
+
+  return await resolvePrayerSchedule(schedules)
 }

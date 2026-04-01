@@ -33,8 +33,6 @@ const PRAYERS_CONFIG: Array<{ key: PrayerName; name: string; icon: PrayerIcon }>
   { key: "maghrib", name: "Maghrib", icon: MaghribIcon },
   { key: "isha", name: "Isha", icon: IshaIcon },
 ];
-
-const JUMMAH_TIMES = ["2:00 PM", "3:00 PM"] as const;
 const HIJRI_MONTHS = [
   "Muharram",
   "Safar",
@@ -79,6 +77,17 @@ function getCurrentPrayer(prayers: PrayerRow[], currentTime: Date): PrayerRow | 
 export default function PrayerTimesClient({ schedule }: PrayerTimesClientProps) {
   const [currentTime, setCurrentTime] = useState<Date>(getNowInMasjidTZ());
   const hijriDate = useMemo(() => getHijriDate(), []);
+  const jummahTimes = useMemo(() => {
+    if (!schedule) return [];
+
+    const rawTimes = schedule.jummahTimes?.length
+      ? schedule.jummahTimes
+      : schedule.jummah
+      ? [schedule.jummah]
+      : [];
+
+    return rawTimes.map((time) => formatTime12Hour(parseTimeInMasjidTZ(time)));
+  }, [schedule]);
 
   // Update current time every second
   useEffect(() => {
@@ -242,33 +251,35 @@ export default function PrayerTimesClient({ schedule }: PrayerTimesClientProps) 
               );
             })}
 
-            <div className="mt-3 rounded-2xl border border-primary-dark/10 bg-[linear-gradient(135deg,rgba(255,255,255,0.96),rgba(245,245,243,0.92))] px-4 py-4 shadow-sm shadow-primary-dark/5">
-              <div className="grid gap-4 md:grid-cols-[auto_1fr_auto] md:items-center">
-                <div className="flex h-11 w-11 items-center justify-center rounded-xl bg-primary-green/10 text-primary-green">
-                  <JummahIcon className="h-5 w-5" />
-                </div>
-                <div className="min-w-0">
-                  <div className="flex flex-wrap items-center gap-2">
-                    <span className="font-heading text-lg font-semibold text-primary-dark">
-                      Jummah
-                    </span>
-                    <span className="rounded-full bg-primary-green/10 px-2.5 py-1 font-body text-[11px] font-semibold uppercase tracking-[0.14em] text-primary-green">
-                      Friday
-                    </span>
+            {jummahTimes.length > 0 && (
+              <div className="mt-3 rounded-2xl border border-primary-dark/10 bg-[linear-gradient(135deg,rgba(255,255,255,0.96),rgba(245,245,243,0.92))] px-4 py-4 shadow-sm shadow-primary-dark/5">
+                <div className="grid gap-4 md:grid-cols-[auto_1fr_auto] md:items-center">
+                  <div className="flex h-11 w-11 items-center justify-center rounded-xl bg-primary-green/10 text-primary-green">
+                    <JummahIcon className="h-5 w-5" />
+                  </div>
+                  <div className="min-w-0">
+                    <div className="flex flex-wrap items-center gap-2">
+                      <span className="font-heading text-lg font-semibold text-primary-dark">
+                        Jummah
+                      </span>
+                      <span className="rounded-full bg-primary-green/10 px-2.5 py-1 font-body text-[11px] font-semibold uppercase tracking-[0.14em] text-primary-green">
+                        Friday
+                      </span>
+                    </div>
+                  </div>
+                  <div className="flex flex-wrap gap-2 md:justify-end">
+                    {jummahTimes.map((time) => (
+                      <span
+                        key={time}
+                        className="rounded-full border border-emerald-300/70 bg-emerald-50 px-3.5 py-1.5 text-xs font-semibold text-emerald-800 shadow-sm shadow-emerald-900/5"
+                      >
+                        {time}
+                      </span>
+                    ))}
                   </div>
                 </div>
-                <div className="flex flex-wrap gap-2 md:justify-end">
-                  {JUMMAH_TIMES.map((time) => (
-                    <span
-                      key={time}
-                      className="rounded-full border border-emerald-300/70 bg-emerald-50 px-3.5 py-1.5 text-xs font-semibold text-emerald-800 shadow-sm shadow-emerald-900/5"
-                    >
-                      {time}
-                    </span>
-                  ))}
-                </div>
               </div>
-            </div>
+            )}
           </div>
 
           <div className="mt-5 w-full border-t border-light-sage/30 pt-3">
